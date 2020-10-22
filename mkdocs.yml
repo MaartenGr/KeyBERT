@@ -1,0 +1,42 @@
+site_name: KeyBERT
+extra_css: [style.css]
+repo_url: https://github.com/MaartenGr/keyBERT
+site_url: https://maartengr.github.io/keyBERT/
+site_description: Leveraging BERT to extract important keywords
+site_author: Maarten P. Grootendorst
+use_directory_urls: false
+nav:
+  - Home:
+    - Index: index.md
+  - API:
+      - KeyBERT: api/keybert.md
+plugins:
+  - mkdocstrings:
+      watch:
+        - keybert
+  - search
+copyright: Copyright &copy; 2020 Maintained by <a href="https://github.com/MaartenGr">Maarten</a>.
+theme:
+  custom_dir: images/
+  name: material
+  icon:
+    logo: material/library
+  font:
+    text: Ubuntu
+    code: Ubuntu Mono
+  favicon: icon.png
+  logo: icon.png
+  feature:
+    tabs: true
+  palette:
+    primary: indigo
+    accent: blue
+markdown_extensions:
+  - codehilite
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed
+  - pymdownx.highlight:
+      use_pygments: true
+  - toc:
+      permalink: true

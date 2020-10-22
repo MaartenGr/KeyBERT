@@ -1,0 +1,3 @@
+# `KeyBERT`
+
+::: keybert.model.KeyBERT
