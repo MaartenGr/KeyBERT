@@ -19,7 +19,6 @@ Corresponding medium post can be found [here]().
    2. [Getting Started](#gettingstarted)    
         2.1. [Installation](#installation)    
         2.2. [Basic Usage](#usage)   
-        2.3. [Overview](#overview)    
 <!--te-->
 
 
@@ -56,10 +55,69 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
 add it a reference to this repo. 
 
-**NOTE II**: If you use MMR to select the candidates instead of simple consine similarity,
+**NOTE II**: If you use MMR to select the candidates instead of simple cosine similarity,
 this repo is essentially a simplified implementation of 
 [EmbedRank](https://github.com/swisscom/ai-research-keyphrase-extraction) 
 with BERT-embeddings. 
+
+
+<a name="gettingstarted"/></a>
+## 2. Getting Started
+[Back to ToC](#toc)  
+
+<a name="installation"/></a>
+###  2.1. Installation
+**[PyTorch 1.2.0](https://pytorch.org/get-started/locally/)** or higher is recommended. If the install below gives an
+error, please install pytorch first [here](https://pytorch.org/get-started/locally/). 
+
+Installation can be done using [pypi](https://pypi.org/project/bertopic/):
+
+``pip install keybert``
+
+<a name="usage"/></a>
+###  2.2. Usage
+
+The most minimal example can be seen below for the extraction of keywords:
+```python
+from keybert import KeyBERT
+
+doc = "Supervised learning is the machine learning task of learning a function that " \
+      "maps an input to an output based on example input-output pairs.[1] It infers a " \
+      "function from labeled training data consisting of a set of training examples.[2] " \
+      "In supervised learning, each example is a pair consisting of an input object " \
+      "(typically a vector) and a desired output value (also called the supervisory signal). " \
+      "A supervised learning algorithm analyzes the training data and produces an inferred function, " \
+      "which can be used for mapping new examples. An optimal scenario will allow for the " \
+      "algorithm to correctly determine the class labels for unseen instances. This requires " \
+      "the learning algorithm to generalize from the training data to unseen situations in a " \
+      "'reasonable' way (see inductive bias)."
+      
+model = KeyBERT('distilbert-base-nli-mean-tokens')
+keywords = model.extract_keywords(doc)
+```
+
+You can set `keyphrase_length` to set the length of the resulting keyphras:
+
+```python
+>>> model.extract_keywords(doc, keyphrase_length=1, stop_words=None)
+['learning', 
+ 'training', 
+ 'algorithm', 
+ 'class', 
+ 'mapping']
+```
+
+To extract keyphrases, simply set `keyphrase_length` to 2 or higher depending on the number 
+of words you would like in the resulting keyphrases: 
+
+```python
+>>> model.extract_keywords(doc, keyphrase_length=3, stop_words=None)
+['learning algorithm',
+ 'learning machine',
+ 'machine learning',
+ 'supervised learning',
+ 'learning function']
+``` 
 
 ## References
 Below, you can find several resources that were used for the creation of KeyBERT 
