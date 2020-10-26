@@ -31,7 +31,6 @@ Although that are already many methods available for keyword generation
 [Rake](https://github.com/aneesha/RAKE), 
 [YAKE!](https://github.com/LIAAD/yake), TF-IDF, etc.) 
 I wanted to create a very basic, but powerful method for extracting keywords and keyphrases. 
-
 This is where **KeyBERT** comes in! Which uses BERT-embeddings and simple cosine similarity
 to find the sub-phrases in a document that are the most similar to the document itself.
 
@@ -51,11 +50,7 @@ papers and solutions out there that use BERT-embeddings
 could be used for beginners (**correct me if I'm wrong!**).
 Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.   
     
-**NOTE I**: If you find a paper or github repo that has an easy-to-use implementation
-of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
-add it a reference to this repo. 
-
-**NOTE II**: If you use MMR to select the candidates instead of simple cosine similarity,
+**NOTE**: If you use MMR to select the candidates instead of simple cosine similarity,
 this repo is essentially a simplified implementation of 
 [EmbedRank](https://github.com/swisscom/ai-research-keyphrase-extraction) 
 with BERT-embeddings. 
@@ -72,7 +67,9 @@ error, please install pytorch first [here](https://pytorch.org/get-started/local
 
 Installation can be done using [pypi](https://pypi.org/project/bertopic/):
 
-``pip install keybert``
+```
+pip install keybert
+```
 
 <a name="usage"/></a>
 ###  2.2. Usage
@@ -81,17 +78,18 @@ The most minimal example can be seen below for the extraction of keywords:
 ```python
 from keybert import KeyBERT
 
-doc = "Supervised learning is the machine learning task of learning a function that " \
-      "maps an input to an output based on example input-output pairs.[1] It infers a " \
-      "function from labeled training data consisting of a set of training examples.[2] " \
-      "In supervised learning, each example is a pair consisting of an input object " \
-      "(typically a vector) and a desired output value (also called the supervisory signal). " \
-      "A supervised learning algorithm analyzes the training data and produces an inferred function, " \
-      "which can be used for mapping new examples. An optimal scenario will allow for the " \
-      "algorithm to correctly determine the class labels for unseen instances. This requires " \
-      "the learning algorithm to generalize from the training data to unseen situations in a " \
-      "'reasonable' way (see inductive bias)."
-      
+doc = """
+         Supervised learning is the machine learning task of learning a function that
+         maps an input to an output based on example input-output pairs.[1] It infers a
+         function from labeled training data consisting of a set of training examples.[2]
+         In supervised learning, each example is a pair consisting of an input object
+         (typically a vector) and a desired output value (also called the supervisory signal). 
+         A supervised learning algorithm analyzes the training data and produces an inferred function, 
+         which can be used for mapping new examples. An optimal scenario will allow for the 
+         algorithm to correctly determine the class labels for unseen instances. This requires 
+         the learning algorithm to generalize from the training data to unseen situations in a 
+         'reasonable' way (see inductive bias).
+      """
 model = KeyBERT('distilbert-base-nli-mean-tokens')
 keywords = model.extract_keywords(doc)
 ```
@@ -136,4 +134,7 @@ but most importantly, are amazing resources for creating impressive keyword extr
 The selection of keywords/keyphrases was modelled after:
 * https://github.com/swisscom/ai-research-keyphrase-extraction
 
-**NOTE**: If you find a paper or github repo that is interesting 
+**NOTE**: If you find a paper or github repo that has an easy-to-use implementation
+of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
+add it a reference to this repo. 
+
