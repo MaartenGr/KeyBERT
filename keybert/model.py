@@ -8,6 +8,23 @@ import warnings
 
 
 class KeyBERT:
+    """ A minimal method for keyword extraction with BERT
+
+    The keyword extraction is done by finding the sub-phrases in
+    a document that are the most similar to the document itself.
+
+    First, document embeddings are extracted with BERT to get a
+    document-level representation. Then, word embeddings are extracted
+    for N-gram words/phrases. Finally, we use cosine similarity to find the
+    words/phrases that are the most similar to the document.
+
+    The most similar words could then be identified as the words that
+    best describe the entire document.
+
+    Arguments:
+        model: The name of the model used by sentence-transformer
+               For a full overview see https://www.sbert.net/docs/pretrained_models.html
+    """
     def __init__(self, model: str = 'distilbert-base-nli-mean-tokens'):
         self.model = SentenceTransformer(model)
         self.doc_embeddings = None
@@ -20,10 +37,10 @@ class KeyBERT:
                          min_df: int = 1) -> Union[List[str], List[List[str]]]:
         """ Extract keywords/keyphrases
 
-        NOTE: I would advise you to use
-
-        Single Document:
-
+        NOTE:
+            I would advise you to iterate over single documents as they
+            will need the least amount of memory. Even though this is slower,
+            you are not likely to run into memory errors.
 
         Multiple Documents:
             There is an option to extract keywords for multiple documents
