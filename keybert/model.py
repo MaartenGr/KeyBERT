@@ -8,7 +8,8 @@ import warnings
 
 
 class KeyBERT:
-    """ A minimal method for keyword extraction with BERT
+    """
+    A minimal method for keyword extraction with BERT
 
     The keyword extraction is done by finding the sub-phrases in
     a document that are the most similar to the document itself.
@@ -22,8 +23,9 @@ class KeyBERT:
     best describe the entire document.
 
     Arguments:
-        model: The name of the model used by sentence-transformer
-               For a full overview see https://www.sbert.net/docs/pretrained_models.html
+        model: the name of the model used by sentence-transformer
+               for a full overview see https://www.sbert.net/docs/pretrained_models.html
+
     """
     def __init__(self, model: str = 'distilbert-base-nli-mean-tokens'):
         self.model = SentenceTransformer(model)
@@ -61,7 +63,7 @@ class KeyBERT:
                     if keywords for multiple documents need to be extracted
 
         Returns:
-            keywords: The top n keywords for a document
+            keywords: the top n keywords for a document
 
         """
 
