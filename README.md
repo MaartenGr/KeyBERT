@@ -117,6 +117,15 @@ of words you would like in the resulting keyphrases:
  'learning function']
 ``` 
 
+To diversify the results, we can use Maximal Margin Relevance (MMR) to create
+keywords / keyphrases also based on cosine similarity:
+
+```python
+>>> model.extract_keywords(doc, keyphrase_length=3, stop_words=None, use_mmr=True, diversity=0.7)
+
+``` 
+
+
 ## References
 Below, you can find several resources that were used for the creation of KeyBERT 
 but most importantly, are amazing resources for creating impressive keyword extraction models: 
