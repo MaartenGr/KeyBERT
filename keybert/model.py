@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from tqdm import tqdm
 from typing import List, Union
 import warnings
+from .mmr import mmr
 
 
 class KeyBERT:
@@ -36,7 +37,9 @@ class KeyBERT:
                          keyphrase_length: int = 1,
                          stop_words: Union[str, List[str]] = 'english',
                          top_n: int = 5,
-                         min_df: int = 1) -> Union[List[str], List[List[str]]]:
+                         min_df: int = 1,
+                         use_mmr: bool = False,
+                         diversity: float = 0.5) -> Union[List[str], List[List[str]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -61,6 +64,10 @@ class KeyBERT:
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
                     if keywords for multiple documents need to be extracted
+            use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the
+                     selection of keywords/keyphrases
+            diversity: The diversity of the results between 0 and 1 if use_mmr
+                       is set to True
 
         Returns:
             keywords: the top n keywords for a document
@@ -71,7 +78,9 @@ class KeyBERT:
             return self._extract_keywords_single_doc(docs,
                                                      keyphrase_length,
                                                      stop_words,
-                                                     top_n)
+                                                     top_n,
+                                                     use_mmr,
+                                                     diversity)
         elif isinstance(docs, list):
             warnings.warn("Although extracting keywords for multiple documents is faster "
                           "than iterating over single documents, it requires significant memory "
@@ -86,7 +95,9 @@ class KeyBERT:
                                      doc: str,
                                      keyphrase_length: int = 1,
                                      stop_words: Union[str, List[str]] = 'english',
-                                     top_n: int = 5) -> List[str]:
+                                     top_n: int = 5,
+                                     use_mmr: bool = False,
+                                     diversity: float = 0.5) -> List[str]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
@@ -94,6 +105,8 @@ class KeyBERT:
             keyphrase_length: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
+            use_mmr: Whether to use MMR
+            diversity: The diversity of results between 0 and 1 if use_mmr is True
 
         Returns:
             keywords: The top n keywords for a document
@@ -106,14 +119,17 @@ class KeyBERT:
             words = count.get_feature_names()
 
             # Extract Embeddings
-            doc_embeddings = self.model.encode([doc])
+            doc_embedding = self.model.encode([doc])
             word_embeddings = self.model.encode(words)
 
             # Calculate distances and extract keywords
-            distances = cosine_similarity(doc_embeddings, word_embeddings)
-            keywords = [words[index] for index in distances.argsort()[0][-top_n:]]
+            if use_mmr:
+                keywords = mmr(doc_embedding, word_embeddings, words, top_n, diversity)
+            else:
+                distances = cosine_similarity(doc_embedding, word_embeddings)
+                keywords = [words[index] for index in distances.argsort()[0][-top_n:]][::-1]
 
-            return keywords[::-1]
+            return keywords
         except ValueError:
             return []
 
@@ -124,6 +140,8 @@ class KeyBERT:
                                         top_n: int = 5,
                                         min_df: int = 1):
         """ Extract keywords/keyphrases for a multiple documents
+
+        This currently does not use MMR as
 
         Arguments:
             docs: The document for which to extract keywords/keyphrases
