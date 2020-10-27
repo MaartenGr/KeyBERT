@@ -374,6 +374,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="maxsum.html" title="MaxSum" class="md-nav__link">
+      MaxSum
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -454,9 +466,8 @@ best describe the entire document.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="keybert.model.KeyBERT.extract_keywords"><code class="highlight"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">keyphrase_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></code><a class="headerlink" href="#keybert.model.KeyBERT.extract_keywords" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>keybert\model.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>35
-36
+<h2 id="keybert.model.KeyBERT.extract_keywords"><code class="highlight"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">keyphrase_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></code><a class="headerlink" href="#keybert.model.KeyBERT.extract_keywords" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>keybert\model.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>36
 37
 38
 39
@@ -512,12 +523,18 @@ best describe the entire document.</p>
 89
 90
 91
-92</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+92
+93
+94
+95
+96
+97</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                          <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
                          <span class="n">keyphrase_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                          <span class="n">stop_words</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">,</span>
                          <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
                          <span class="n">min_df</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+                         <span class="n">use_maxsum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                          <span class="n">use_mmr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                          <span class="n">diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot; Extract keywords/keyphrases</span>
@@ -544,6 +561,8 @@ best describe the entire document.</p>
 <span class="sd">            top_n: Return the top n keywords/keyphrases</span>
 <span class="sd">            min_df: Minimum document frequency of a word across all documents</span>
 <span class="sd">                    if keywords for multiple documents need to be extracted</span>
+<span class="sd">            use_maxsum: Whether to use Max Sum Similarity for the selection</span>
+<span class="sd">                        of keywords/keyphrases</span>
 <span class="sd">            use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the</span>
 <span class="sd">                     selection of keywords/keyphrases</span>
 <span class="sd">            diversity: The diversity of the results between 0 and 1 if use_mmr</span>
@@ -559,6 +578,7 @@ best describe the entire document.</p>
                                                      <span class="n">keyphrase_length</span><span class="p">,</span>
                                                      <span class="n">stop_words</span><span class="p">,</span>
                                                      <span class="n">top_n</span><span class="p">,</span>
+                                                     <span class="n">use_maxsum</span><span class="p">,</span>
                                                      <span class="n">use_mmr</span><span class="p">,</span>
                                                      <span class="n">diversity</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -630,6 +650,12 @@ over documents instead if you have limited hardware.
 <td><code>int</code></td>
 <td>Minimum document frequency of a word across all documents if keywords for multiple documents need to be extracted</td>
 <td><code>1</code></td>
+</tr>
+<tr>
+<td><code>use_maxsum</code></td>
+<td><code>bool</code></td>
+<td>Whether to use Max Sum Similarity for the selection of keywords/keyphrases</td>
+<td><code>False</code></td>
 </tr>
 <tr>
 <td><code>use_mmr</code></td>
