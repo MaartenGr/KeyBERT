@@ -29,7 +29,7 @@ theme:
   feature:
     tabs: true
   palette:
-    primary: indigo
+    primary: black
     accent: blue
 markdown_extensions:
   - codehilite
