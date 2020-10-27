@@ -16,14 +16,17 @@ def test_single_doc(keyphrase_length, base_keybert):
         assert len(keyword.split(" ")) == keyphrase_length
 
 
-@pytest.mark.parametrize("keyphrase_length, mmr", [(i+1, truth) for i in range(5) for truth in [True, False]])
-def test_extract_keywords_single_doc(keyphrase_length, mmr, base_keybert):
+@pytest.mark.parametrize("keyphrase_length, mmr, maxsum", [(i+1, truth, not truth)
+                                                           for i in range(4)
+                                                           for truth in [True, False]])
+def test_extract_keywords_single_doc(keyphrase_length, mmr, maxsum, base_keybert):
     """ Test extraction of protected single document method """
     top_n = 5
     keywords = base_keybert._extract_keywords_single_doc(doc_one,
                                                          top_n=top_n,
                                                          keyphrase_length=keyphrase_length,
                                                          use_mmr=mmr,
+                                                         use_maxsum=maxsum,
                                                          diversity=0.5)
     assert isinstance(keywords, list)
     assert isinstance(keywords[0], str)

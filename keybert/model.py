@@ -6,6 +6,7 @@ from tqdm import tqdm
 from typing import List, Union
 import warnings
 from .mmr import mmr
+from .maxsum import max_sum_similarity
 
 
 class KeyBERT:
@@ -38,6 +39,7 @@ class KeyBERT:
                          stop_words: Union[str, List[str]] = 'english',
                          top_n: int = 5,
                          min_df: int = 1,
+                         use_maxsum: bool = False,
                          use_mmr: bool = False,
                          diversity: float = 0.5) -> Union[List[str], List[List[str]]]:
         """ Extract keywords/keyphrases
@@ -64,6 +66,8 @@ class KeyBERT:
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
                     if keywords for multiple documents need to be extracted
+            use_maxsum: Whether to use Max Sum Similarity for the selection
+                        of keywords/keyphrases
             use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the
                      selection of keywords/keyphrases
             diversity: The diversity of the results between 0 and 1 if use_mmr
@@ -79,6 +83,7 @@ class KeyBERT:
                                                      keyphrase_length,
                                                      stop_words,
                                                      top_n,
+                                                     use_maxsum,
                                                      use_mmr,
                                                      diversity)
         elif isinstance(docs, list):
@@ -96,6 +101,7 @@ class KeyBERT:
                                      keyphrase_length: int = 1,
                                      stop_words: Union[str, List[str]] = 'english',
                                      top_n: int = 5,
+                                     use_maxsum: bool = False,
                                      use_mmr: bool = False,
                                      diversity: float = 0.5) -> List[str]:
         """ Extract keywords/keyphrases for a single document
@@ -105,6 +111,7 @@ class KeyBERT:
             keyphrase_length: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
+            use_mmr: Whether to use Max Sum Similarity
             use_mmr: Whether to use MMR
             diversity: The diversity of results between 0 and 1 if use_mmr is True
 
@@ -125,6 +132,8 @@ class KeyBERT:
             # Calculate distances and extract keywords
             if use_mmr:
                 keywords = mmr(doc_embedding, word_embeddings, words, top_n, diversity)
+            elif use_maxsum:
+                keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n)
             else:
                 distances = cosine_similarity(doc_embedding, word_embeddings)
                 keywords = [words[index] for index in distances.argsort()[0][-top_n:]][::-1]
