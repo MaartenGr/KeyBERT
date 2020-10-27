@@ -20,7 +20,7 @@ Corresponding medium post can be found [here]().
         2.1. [Installation](#installation)    
         2.2. [Basic Usage](#usage)     
         2.3. [Max Sum Similarity](#maxsum)  
-        2.4. [Maximal Marginal Relevance](#maximal)  
+        2.4. [Maximal Marginal Relevance](#maximal)
 <!--te-->
 
 
@@ -119,6 +119,11 @@ of words you would like in the resulting keyphrases:
  'learning function']
 ``` 
 
+
+**NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
+I would advise either `'distilbert-base-nli-mean-tokens'` or `'xlm-r-distilroberta-base-paraphrase-v1'` as they
+have shown great performance in semantic similarity and paraphrase identification respectively. 
+
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Similarity
 
@@ -162,7 +167,6 @@ The results with **low diversity**:
  'supervised learning algorithm',
  'algorithm analyzes training']
 ``` 
-
 
 ## References
 Below, you can find several resources that were used for the creation of KeyBERT 
