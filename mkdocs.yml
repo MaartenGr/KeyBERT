@@ -10,6 +10,7 @@ nav:
     - Index: index.md
   - API:
       - KeyBERT: api/keybert.md
+      - MMR: api/mmr.md
 plugins:
   - mkdocstrings:
       watch:
