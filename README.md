@@ -18,7 +18,9 @@ Corresponding medium post can be found [here]().
    1. [About the Project](#about)  
    2. [Getting Started](#gettingstarted)    
         2.1. [Installation](#installation)    
-        2.2. [Basic Usage](#usage)   
+        2.2. [Basic Usage](#usage)     
+        2.3. [Max Sum Similarity](#maxsum)  
+        2.4. [Maximal Marginal Relevance](#maximal)  
 <!--te-->
 
 
@@ -94,7 +96,7 @@ model = KeyBERT('distilbert-base-nli-mean-tokens')
 keywords = model.extract_keywords(doc)
 ```
 
-You can set `keyphrase_length` to set the length of the resulting keyphras:
+You can set `keyphrase_length` to set the length of the resulting keywords/keyphrases:
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_length=1, stop_words=None)
@@ -109,13 +111,33 @@ To extract keyphrases, simply set `keyphrase_length` to 2 or higher depending on
 of words you would like in the resulting keyphrases: 
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words=None)
+>>> model.extract_keywords(doc, keyphrase_length=2, stop_words=None)
 ['learning algorithm',
  'learning machine',
  'machine learning',
  'supervised learning',
  'learning function']
 ``` 
+
+<a name="maxsum"/></a>
+###  2.3. Max Sum Similarity
+
+To diversity the results, we take the 2 x top_n most similar words/phrases to the document.
+Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
+that are the least similar to each other by cosine similarity.
+
+```python
+>>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_maxsum=True)
+['signal supervised learning',
+ 'requires learning algorithm',
+ 'learning function maps',
+ 'algorithm analyzes training',
+ 'learning machine learning']
+``` 
+
+
+<a name="maximal"/></a>
+###  2.4. Maximal Marginal Relevance
 
 To diversify the results, we can use Maximal Margin Relevance (MMR) to create
 keywords / keyphrases which is also based on cosine similarity. The results 
