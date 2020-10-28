@@ -41,7 +41,8 @@ class KeyBERT:
                          min_df: int = 1,
                          use_maxsum: bool = False,
                          use_mmr: bool = False,
-                         diversity: float = 0.5) -> Union[List[str], List[List[str]]]:
+                         diversity: float = 0.5,
+                         nr_candidates: int = 20) -> Union[List[str], List[List[str]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -72,6 +73,8 @@ class KeyBERT:
                      selection of keywords/keyphrases
             diversity: The diversity of the results between 0 and 1 if use_mmr
                        is set to True
+            nr_candidates: The number of candidates to consider if use_maxsum is
+                           set to True
 
         Returns:
             keywords: the top n keywords for a document
@@ -85,7 +88,8 @@ class KeyBERT:
                                                      top_n,
                                                      use_maxsum,
                                                      use_mmr,
-                                                     diversity)
+                                                     diversity,
+                                                     nr_candidates)
         elif isinstance(docs, list):
             warnings.warn("Although extracting keywords for multiple documents is faster "
                           "than iterating over single documents, it requires significant memory "
@@ -103,7 +107,8 @@ class KeyBERT:
                                      top_n: int = 5,
                                      use_maxsum: bool = False,
                                      use_mmr: bool = False,
-                                     diversity: float = 0.5) -> List[str]:
+                                     diversity: float = 0.5,
+                                     nr_candidates: int = 20) -> List[str]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
@@ -114,6 +119,7 @@ class KeyBERT:
             use_mmr: Whether to use Max Sum Similarity
             use_mmr: Whether to use MMR
             diversity: The diversity of results between 0 and 1 if use_mmr is True
+            nr_candidates: The number of candidates to consider if use_maxsum is set to True
 
         Returns:
             keywords: The top n keywords for a document
@@ -133,7 +139,7 @@ class KeyBERT:
             if use_mmr:
                 keywords = mmr(doc_embedding, word_embeddings, words, top_n, diversity)
             elif use_maxsum:
-                keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n)
+                keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n, nr_candidates)
             else:
                 distances = cosine_similarity(doc_embedding, word_embeddings)
                 keywords = [words[index] for index in distances.argsort()[0][-top_n:]][::-1]

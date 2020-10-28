@@ -25,7 +25,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="keybert",
     packages=["keybert"],
-    version="0.1.1",
+    version="0.1.2",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",
