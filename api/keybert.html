@@ -466,69 +466,73 @@ best describe the entire document.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="keybert.model.KeyBERT.extract_keywords"><code class="highlight"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">keyphrase_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span></code><a class="headerlink" href="#keybert.model.KeyBERT.extract_keywords" title="Permanent link">&para;</a></h2>
-<details class="note"><summary>Show source code in <code>keybert\model.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<h2 id="keybert.model.KeyBERT.extract_keywords"><code class="highlight"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">keyphrase_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></code><a class="headerlink" href="#keybert.model.KeyBERT.extract_keywords" title="Permanent link">&para;</a></h2>
+<details class="note"><summary>Show source code in <code>keybert\model.py</code></summary><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>    <span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                          <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
                          <span class="n">keyphrase_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                          <span class="n">stop_words</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">,</span>
@@ -536,7 +540,8 @@ best describe the entire document.</p>
                          <span class="n">min_df</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                          <span class="n">use_maxsum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                          <span class="n">use_mmr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                         <span class="n">diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+                         <span class="n">diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+                         <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot; Extract keywords/keyphrases</span>
 
 <span class="sd">        NOTE:</span>
@@ -567,6 +572,8 @@ best describe the entire document.</p>
 <span class="sd">                     selection of keywords/keyphrases</span>
 <span class="sd">            diversity: The diversity of the results between 0 and 1 if use_mmr</span>
 <span class="sd">                       is set to True</span>
+<span class="sd">            nr_candidates: The number of candidates to consider if use_maxsum is</span>
+<span class="sd">                           set to True</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            keywords: the top n keywords for a document</span>
@@ -580,7 +587,8 @@ best describe the entire document.</p>
                                                      <span class="n">top_n</span><span class="p">,</span>
                                                      <span class="n">use_maxsum</span><span class="p">,</span>
                                                      <span class="n">use_mmr</span><span class="p">,</span>
-                                                     <span class="n">diversity</span><span class="p">)</span>
+                                                     <span class="n">diversity</span><span class="p">,</span>
+                                                     <span class="n">nr_candidates</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Although extracting keywords for multiple documents is faster &quot;</span>
                           <span class="s2">&quot;than iterating over single documents, it requires significant memory &quot;</span>
@@ -668,6 +676,12 @@ over documents instead if you have limited hardware.
 <td><code>float</code></td>
 <td>The diversity of the results between 0 and 1 if use_mmr is set to True</td>
 <td><code>0.5</code></td>
+</tr>
+<tr>
+<td><code>nr_candidates</code></td>
+<td><code>int</code></td>
+<td>The number of candidates to consider if use_maxsum is set to True</td>
+<td><code>20</code></td>
 </tr>
 </tbody>
 </table>
