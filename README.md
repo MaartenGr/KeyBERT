@@ -28,7 +28,7 @@ Corresponding medium post can be found [here]().
 ## 1. About the Project
 [Back to ToC](#toc)  
 
-Although that are already many methods available for keyword generation 
+Although there are already many methods available for keyword generation 
 (e.g., 
 [Rake](https://github.com/aneesha/RAKE), 
 [YAKE!](https://github.com/LIAAD/yake), TF-IDF, etc.) 
@@ -51,12 +51,6 @@ papers and solutions out there that use BERT-embeddings
 ), I could not find a BERT-based solution that did not have to be trained from scratch and
 could be used for beginners (**correct me if I'm wrong!**).
 Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.   
-    
-**NOTE**: If you use MMR to select the candidates instead of simple cosine similarity,
-this repo is essentially a simplified implementation of 
-[EmbedRank](https://github.com/swisscom/ai-research-keyphrase-extraction) 
-with BERT-embeddings. 
-
 
 <a name="gettingstarted"/></a>
 ## 2. Getting Started
@@ -171,7 +165,7 @@ The results with **low diversity**:
 
 ## References
 Below, you can find several resources that were used for the creation of KeyBERT 
-but most importantly, are amazing resources for creating impressive keyword extraction models: 
+but most importantly, these are amazing resources for creating impressive keyword extraction models: 
 
 **Papers**:  
 * Sharma, P., & Li, Y. (2019). [Self-Supervised Contextual Keyword and Keyphrase Retrieval with Self-Labelling.](https://www.preprints.org/manuscript/201908.0073/download/final_file)
