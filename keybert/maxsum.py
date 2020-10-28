@@ -7,7 +7,8 @@ from typing import List
 def max_sum_similarity(doc_embedding: np.ndarray,
                        word_embeddings: np.ndarray,
                        words: List[str],
-                       top_n: int) -> List[str]:
+                       top_n: int,
+                       nr_candidates: int) -> List[str]:
     """ Calculate Max Sum Distance for extraction of keywords
 
     We take the 2 x top_n most similar words/phrases to the document.
@@ -23,17 +24,21 @@ def max_sum_similarity(doc_embedding: np.ndarray,
         word_embeddings: The embeddings of the selected candidate keywords/phrases
         words: The selected candidate keywords/keyphrases
         top_n: The number of keywords/keyhprases to return
+        nr_candidates: The number of candidates to consider
 
     Returns:
          List[str]: The selected keywords/keyphrases
     """
+    if nr_candidates < top_n:
+        raise Exception("Make sure that the number of candidates exceeds the number "
+                        "of keywords to return.")
 
     # Calculate distances and extract keywords
     distances = cosine_similarity(doc_embedding, word_embeddings)
     distances_words = cosine_similarity(word_embeddings, word_embeddings)
 
     # Get 2*top_n words as candidates based on cosine similarity
-    words_idx = list(distances.argsort()[0][-top_n*2:])
+    words_idx = list(distances.argsort()[0][-nr_candidates:])
     words_vals = [words[index] for index in words_idx]
     candidates = distances_words[np.ix_(words_idx, words_idx)]
 

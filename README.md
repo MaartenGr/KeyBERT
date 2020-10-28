@@ -132,11 +132,12 @@ Then, we take all top_n combinations from the 2 x top_n words and extract the co
 that are the least similar to each other by cosine similarity.
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_maxsum=True)
-['signal supervised learning',
+>>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', 
+                           use_maxsum=True, nr_candidates=20, top_n=5)
+['set training examples',
+ 'generalize training data',
  'requires learning algorithm',
- 'learning function maps',
- 'algorithm analyzes training',
+ 'superivsed learning algorithm',
  'learning machine learning']
 ``` 
 
