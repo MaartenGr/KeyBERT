@@ -3,7 +3,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 from tqdm import tqdm
-from typing import List, Union
+from typing import List, Union, Tuple
 import warnings
 from .mmr import mmr
 from .maxsum import max_sum_similarity
@@ -35,14 +35,15 @@ class KeyBERT:
 
     def extract_keywords(self,
                          docs: Union[str, List[str]],
-                         keyphrase_length: int = 1,
+                         keyphrase_ngram_range: Tuple[int, int] = (1, 1),
                          stop_words: Union[str, List[str]] = 'english',
                          top_n: int = 5,
                          min_df: int = 1,
                          use_maxsum: bool = False,
                          use_mmr: bool = False,
                          diversity: float = 0.5,
-                         nr_candidates: int = 20) -> Union[List[str], List[List[str]]]:
+                         nr_candidates: int = 20,
+                         vectorizer: CountVectorizer = None) -> Union[List[str], List[List[str]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -62,7 +63,7 @@ class KeyBERT:
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
-            keyphrase_length: Length, in words, of the extracted keywords/keyphrases
+            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
@@ -75,6 +76,7 @@ class KeyBERT:
                        is set to True
             nr_candidates: The number of candidates to consider if use_maxsum is
                            set to True
+            vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
             keywords: the top n keywords for a document
@@ -83,43 +85,47 @@ class KeyBERT:
 
         if isinstance(docs, str):
             return self._extract_keywords_single_doc(docs,
-                                                     keyphrase_length,
+                                                     keyphrase_ngram_range,
                                                      stop_words,
                                                      top_n,
                                                      use_maxsum,
                                                      use_mmr,
                                                      diversity,
-                                                     nr_candidates)
+                                                     nr_candidates,
+                                                     vectorizer)
         elif isinstance(docs, list):
             warnings.warn("Although extracting keywords for multiple documents is faster "
-                          "than iterating over single documents, it requires significant memory "
+                          "than iterating over single documents, it requires significantly more memory "
                           "to hold all word embeddings. Use this at your own discretion!")
             return self._extract_keywords_multiple_docs(docs,
-                                                        keyphrase_length,
+                                                        keyphrase_ngram_range,
                                                         stop_words,
                                                         top_n,
-                                                        min_df=min_df)
+                                                        min_df,
+                                                        vectorizer)
 
     def _extract_keywords_single_doc(self,
                                      doc: str,
-                                     keyphrase_length: int = 1,
+                                     keyphrase_ngram_range: Tuple[int, int] = (1, 1),
                                      stop_words: Union[str, List[str]] = 'english',
                                      top_n: int = 5,
                                      use_maxsum: bool = False,
                                      use_mmr: bool = False,
                                      diversity: float = 0.5,
-                                     nr_candidates: int = 20) -> List[str]:
+                                     nr_candidates: int = 20,
+                                     vectorizer: CountVectorizer = None) -> List[str]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
             doc: The document for which to extract keywords/keyphrases
-            keyphrase_length: Length, in words, of the extracted keywords/keyphrases
+            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
             use_mmr: Whether to use Max Sum Similarity
             use_mmr: Whether to use MMR
             diversity: The diversity of results between 0 and 1 if use_mmr is True
             nr_candidates: The number of candidates to consider if use_maxsum is set to True
+            vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
             keywords: The top n keywords for a document
@@ -127,8 +133,10 @@ class KeyBERT:
         """
         try:
             # Extract Words
-            n_gram_range = (keyphrase_length, keyphrase_length)
-            count = CountVectorizer(ngram_range=n_gram_range, stop_words=stop_words).fit([doc])
+            if vectorizer:
+                count = vectorizer.fit([doc])
+            else:
+                count = CountVectorizer(ngram_range=keyphrase_ngram_range, stop_words=stop_words).fit([doc])
             words = count.get_feature_names()
 
             # Extract Embeddings
@@ -150,28 +158,32 @@ class KeyBERT:
 
     def _extract_keywords_multiple_docs(self,
                                         docs: List[str],
-                                        keyphrase_length: int = 1,
+                                        keyphrase_ngram_range: Tuple[int, int] = (1, 1),
                                         stop_words: str = 'english',
                                         top_n: int = 5,
-                                        min_df: int = 1):
+                                        min_df: int = 1,
+                                        vectorizer: CountVectorizer = None):
         """ Extract keywords/keyphrases for a multiple documents
 
         This currently does not use MMR as
 
         Arguments:
             docs: The document for which to extract keywords/keyphrases
-            keyphrase_length: Length, in words, of the extracted keywords/keyphrases
+            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
             min_df: The minimum frequency of words
+            vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
             keywords: The top n keywords for a document
 
         """
         # Extract words
-        n_gram_range = (keyphrase_length, keyphrase_length)
-        count = CountVectorizer(ngram_range=n_gram_range, stop_words=stop_words, min_df=min_df).fit(docs)
+        if vectorizer:
+            count = vectorizer.fit(docs)
+        else:
+            count = CountVectorizer(ngram_range=keyphrase_ngram_range, stop_words=stop_words, min_df=min_df).fit(docs)
         words = count.get_feature_names()
         df = count.transform(docs)
 
