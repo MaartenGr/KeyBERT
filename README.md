@@ -93,7 +93,7 @@ keywords = model.extract_keywords(doc)
 You can set `keyphrase_length` to set the length of the resulting keywords/keyphrases:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=1, stop_words=None)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
 ['learning', 
  'training', 
  'algorithm', 
@@ -105,7 +105,7 @@ To extract keyphrases, simply set `keyphrase_length` to 2 or higher depending on
 of words you would like in the resulting keyphrases: 
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=2, stop_words=None)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
 ['learning algorithm',
  'learning machine',
  'machine learning',
@@ -126,7 +126,7 @@ Then, we take all top_n combinations from the 2 x top_n words and extract the co
 that are the least similar to each other by cosine similarity.
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', 
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
                            use_maxsum=True, nr_candidates=20, top_n=5)
 ['set training examples',
  'generalize training data',
@@ -144,7 +144,7 @@ keywords / keyphrases which is also based on cosine similarity. The results
 with **high diversity**:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_mmr=True, diversity=0.7)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.7)
 ['algorithm generalize training',
  'labels unseen instances',
  'new examples optimal',
@@ -155,7 +155,7 @@ with **high diversity**:
 The results with **low diversity**:  
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_mmr=True, diversity=0.2)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.2)
 ['algorithm generalize training',
  'learning machine learning',
  'learning algorithm analyzes',
