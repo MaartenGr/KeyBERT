@@ -163,6 +163,22 @@ The results with **low diversity**:
  'algorithm analyzes training']
 ``` 
 
+
+## Citation
+To cite PolyFuzz in your work, please use the following bibtex reference:
+
+```bibtex
+@misc{grootendorst2020keybert,
+  author       = {Maarten Grootendorst},
+  title        = {KeyBERT: Minimal keyword extraction with BERT.},
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {v0.1.3},
+  doi          = {10.5281/zenodo.4461265},
+  url          = {https://doi.org/10.5281/zenodo.4461265}
+}
+```
+
 ## References
 Below, you can find several resources that were used for the creation of KeyBERT 
 but most importantly, these are amazing resources for creating impressive keyword extraction models: 
