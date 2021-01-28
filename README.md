@@ -90,7 +90,7 @@ model = KeyBERT('distilbert-base-nli-mean-tokens')
 keywords = model.extract_keywords(doc)
 ```
 
-You can set `keyphrase_length` to set the length of the resulting keywords/keyphrases:
+You can set `keyphrase_ngram_range` to set the length of the resulting keywords/keyphrases:
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
@@ -101,7 +101,7 @@ You can set `keyphrase_length` to set the length of the resulting keywords/keyph
  'mapping']
 ```
 
-To extract keyphrases, simply set `keyphrase_length` to 2 or higher depending on the number 
+To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher depending on the number 
 of words you would like in the resulting keyphrases: 
 
 ```python
