@@ -12,9 +12,9 @@ base_packages = [
 ]
 
 docs_packages = [
-    "mkdocs==1.1",
-    "mkdocs-material==4.6.3",
-    "mkdocstrings==0.8.0",
+    "mkdocs>=1.1",
+    "mkdocs-material>=4.6.3",
+    "mkdocstrings>=0.8.0",
 ]
 
 flair_packages = [

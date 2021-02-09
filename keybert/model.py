@@ -36,19 +36,21 @@ class KeyBERT:
     The most similar words could then be identified as the words that
     best describe the entire document.
 
-    Arguments:
-        model: Use a custom embedding model. You can pass in a string related
-               to one of the following models:
-               https://www.sbert.net/docs/pretrained_models.html
-               You can also pass in a SentenceTransformer() model or a Flair
-               DocumentEmbedding model.
-
     """
     def __init__(self,
                  model: Union[str,
                               SentenceTransformer,
                               DocumentEmbeddings,
                               TokenEmbeddings] = 'distilbert-base-nli-mean-tokens'):
+        """ KeyBERT initialization
+
+        Arguments:
+            model: Use a custom embedding model. You can pass in a string related
+                   to one of the following models:
+                   https://www.sbert.net/docs/pretrained_models.html
+                   You can also pass in a SentenceTransformer() model or a Flair
+                   DocumentEmbedding model.
+        """
         self.model = self._select_embedding_model(model)
 
     def extract_keywords(self,

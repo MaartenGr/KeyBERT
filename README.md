@@ -59,13 +59,16 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
 <a name="installation"/></a>
 ###  2.1. Installation
-**[PyTorch 1.2.0](https://pytorch.org/get-started/locally/)** or higher is recommended. If the install below gives an
-error, please install pytorch first [here](https://pytorch.org/get-started/locally/). 
-
-Installation can be done using [pypi](https://pypi.org/project/bertopic/):
+Installation can be done using [pypi](https://pypi.org/project/keybert/):
 
 ```
 pip install keybert
+```
+
+To use Flair embeddings, install KeyBERT as follows:
+
+```
+pip install keybert[flair]
 ```
 
 <a name="usage"/></a>
@@ -174,7 +177,7 @@ a SentenceTransformer, or a Flair DocumentEmbedding model.
 
 **Sentence-Transformers**  
 You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html) 
-and pass it through BERTopic with `model`:
+and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
