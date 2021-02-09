@@ -10,22 +10,24 @@
       
       
       
+        <link rel="canonical" href="https://maartengr.github.io/keyBERT/guides/embeddings.html">
+      
       
         <meta name="author" content="Maarten P. Grootendorst">
       
-      <link rel="shortcut icon" href="/keyBERT/icon.png">
+      <link rel="shortcut icon" href="../icon.png">
       <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
     
     
       
-        <title>KeyBERT</title>
+        <title>Embeddings - KeyBERT</title>
       
     
     
-      <link rel="stylesheet" href="/keyBERT/assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
       
         
-        <link rel="stylesheet" href="/keyBERT/assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
         
           
           
@@ -44,7 +46,7 @@
     
     
     
-      <link rel="stylesheet" href="/keyBERT/style.css">
+      <link rel="stylesheet" href="../style.css">
     
     
       
@@ -66,6 +68,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#embedding-models" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -77,7 +84,7 @@
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://maartengr.github.io/keyBERT/" title="KeyBERT" class="md-header-nav__button md-logo" aria-label="KeyBERT">
       
-  <img src="/keyBERT/icon.png" alt="logo">
+  <img src="../icon.png" alt="logo">
 
     </a>
     <label class="md-header-nav__button md-icon" for="__drawer">
@@ -91,7 +98,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              
+              Embeddings
             
           </span>
         </div>
@@ -163,7 +170,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="https://maartengr.github.io/keyBERT/" title="KeyBERT" class="md-nav__button md-logo" aria-label="KeyBERT">
       
-  <img src="/keyBERT/icon.png" alt="logo">
+  <img src="../icon.png" alt="logo">
 
     </a>
     KeyBERT
@@ -190,7 +197,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/keyBERT/index.html" class="md-nav__link">
+    <a href="../index.html" class="md-nav__link">
       Home
     </a>
   </li>
@@ -200,10 +207,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     <label class="md-nav__link" for="nav-2">
       Guides
       <span class="md-nav__icon md-icon"></span>
@@ -222,7 +231,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/keyBERT/guides/quickstart.html" class="md-nav__link">
+    <a href="quickstart.html" class="md-nav__link">
       Quickstart
     </a>
   </li>
@@ -232,11 +241,65 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="/keyBERT/guides/embeddings.html" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Embeddings
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="embeddings.html" class="md-nav__link md-nav__link--active">
       Embeddings
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-models" class="md-nav__link">
+    Embedding Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Embedding Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sentence-transformers" class="md-nav__link">
+    Sentence-Transformers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flair" class="md-nav__link">
+    Flair
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -271,7 +334,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/keyBERT/api/keybert.html" class="md-nav__link">
+    <a href="../api/keybert.html" class="md-nav__link">
       KeyBERT
     </a>
   </li>
@@ -283,7 +346,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/keyBERT/api/mmr.html" class="md-nav__link">
+    <a href="../api/mmr.html" class="md-nav__link">
       MMR
     </a>
   </li>
@@ -295,7 +358,7 @@
 
 
   <li class="md-nav__item">
-    <a href="/keyBERT/api/maxsum.html" class="md-nav__link">
+    <a href="../api/maxsum.html" class="md-nav__link">
       MaxSum
     </a>
   </li>
@@ -313,12 +376,97 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#embedding-models" class="md-nav__link">
+    Embedding Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Embedding Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sentence-transformers" class="md-nav__link">
+    Sentence-Transformers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flair" class="md-nav__link">
+    Flair
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+                  <a href="https://github.com/MaartenGr/keyBERT/edit/master/docs/guides/embeddings.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Embeddings</h1>
+                
+                <h2 id="embedding-models"><strong>Embedding Models</strong><a class="headerlink" href="#embedding-models" title="Permanent link">&para;</a></h2>
+<p>The parameter <code>model</code> takes in a string pointing to a sentence-transformers model, 
+a SentenceTransformer, or a Flair DocumentEmbedding model. </p>
+<h3 id="sentence-transformers"><strong>Sentence-Transformers</strong><a class="headerlink" href="#sentence-transformers" title="Permanent link">&para;</a></h3>
+<p>You can select any model from <code>sentence-transformers</code> <a href="https://www.sbert.net/docs/pretrained_models.html">here</a> 
+and pass it through KeyBERT with <code>model</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">keybert</span> <span class="kn">import</span> <span class="n">KeyBERT</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">)</span>
+</code></pre></div>
 
+<p>Or select a SentenceTransformer model with your own parameters:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">keybert</span> <span class="kn">import</span> <span class="n">KeyBERT</span>
+<span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">sentence_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;distilbert-base-nli-mean-tokens&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">sentence_model</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="flair"><strong>Flair</strong><a class="headerlink" href="#flair" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/flairNLP/flair">Flair</a> allows you to choose almost any embedding model that 
+is publicly available. Flair can be used as follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">keybert</span> <span class="kn">import</span> <span class="n">KeyBERT</span>
+<span class="kn">from</span> <span class="nn">flair.embeddings</span> <span class="kn">import</span> <span class="n">TransformerDocumentEmbeddings</span>
+
+<span class="n">roberta</span> <span class="o">=</span> <span class="n">TransformerDocumentEmbeddings</span><span class="p">(</span><span class="s1">&#39;roberta-base&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">roberta</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You can select any 🤗 transformers model <a href="https://huggingface.co/models">here</a>.</p>
+                
+              
               
                 
 
@@ -331,6 +479,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="quickstart.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Quickstart
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../api/keybert.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                KeyBERT
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -352,15 +535,15 @@
       
     </div>
     
-      <script src="/keyBERT/assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="/keyBERT/assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
+      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
-          base: "/keyBERT/",
+          base: "..",
           features: [],
           search: Object.assign({
-            worker: "/keyBERT/assets/javascripts/worker/search.4ac00218.min.js"
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
