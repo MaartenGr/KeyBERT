@@ -21,6 +21,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
         2.2. [Basic Usage](#usage)     
         2.3. [Max Sum Similarity](#maxsum)  
         2.4. [Maximal Marginal Relevance](#maximal)
+        2.5. [Embedding Models](#embeddings)
 <!--te-->
 
 
@@ -144,7 +145,8 @@ keywords / keyphrases which is also based on cosine similarity. The results
 with **high diversity**:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.7)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                           use_mmr=True, diversity=0.7)
 [('algorithm generalize training', 0.7727),
  ('labels unseen instances', 0.1649),
  ('new examples optimal', 0.4185),
@@ -155,13 +157,53 @@ with **high diversity**:
 The results with **low diversity**:  
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.2)
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                           use_mmr=True, diversity=0.2)
 [('algorithm generalize training', 0.7727),
  ('supervised learning algorithm', 0.7502),
  ('learning machine learning', 0.7577),
  ('learning algorithm analyzes', 0.7587),
  ('learning algorithm generalize', 0.7514)]
 ``` 
+
+
+<a name="embeddings"/></a>
+###  2.5. Embedding Models
+The parameter `model` takes in a string pointing to a sentence-transformers model, 
+a SentenceTransformer, or a Flair DocumentEmbedding model. 
+
+**Sentence-Transformers**  
+You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html) 
+and pass it through BERTopic with `model`:
+
+```python
+from keybert import KeyBERT
+model = KeyBERT(model='distilbert-base-nli-mean-tokens')
+```
+
+Or select a SentenceTransformer model with your own parameters:
+
+```python
+from keybert import KeyBERT
+from sentence_transformers import SentenceTransformer
+
+sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cpu")
+model = KeyBERT(model=sentence_model)
+```
+
+**Flair**  
+[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that 
+is publicly available. Flair can be used as follows:
+
+```python
+from keybert import KeyBERT
+from flair.embeddings import TransformerDocumentEmbeddings
+
+roberta = TransformerDocumentEmbeddings('roberta-base')
+model = KeyBERT(model=roberta)
+```
+
+You can select any 🤗 transformers model [here](https://huggingface.co/models).
 
 
 ## Citation
