@@ -1,10 +1,13 @@
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
+
 import numpy as np
+from tqdm import tqdm
+from typing import List, Union, Tuple
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-from tqdm import tqdm
-from typing import List, Union, Tuple
-import warnings
+
 from .mmr import mmr
 from .maxsum import max_sum_similarity
 
@@ -43,7 +46,8 @@ class KeyBERT:
                          use_mmr: bool = False,
                          diversity: float = 0.5,
                          nr_candidates: int = 20,
-                         vectorizer: CountVectorizer = None) -> Union[List[str], List[List[str]]]:
+                         vectorizer: CountVectorizer = None) -> Union[List[Tuple[str, float]],
+                                                                      List[List[Tuple[str, float]]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -79,7 +83,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: the top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
 
@@ -113,7 +118,7 @@ class KeyBERT:
                                      use_mmr: bool = False,
                                      diversity: float = 0.5,
                                      nr_candidates: int = 20,
-                                     vectorizer: CountVectorizer = None) -> List[str]:
+                                     vectorizer: CountVectorizer = None) -> List[Tuple[str, float]]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
@@ -128,7 +133,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: The top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
         try:
@@ -150,7 +156,7 @@ class KeyBERT:
                 keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n, nr_candidates)
             else:
                 distances = cosine_similarity(doc_embedding, word_embeddings)
-                keywords = [words[index] for index in distances.argsort()[0][-top_n:]][::-1]
+                keywords = [(words[index], float(distances[0][index])) for index in distances.argsort()[0][-top_n:]][::-1]
 
             return keywords
         except ValueError:
@@ -162,7 +168,7 @@ class KeyBERT:
                                         stop_words: str = 'english',
                                         top_n: int = 5,
                                         min_df: int = 1,
-                                        vectorizer: CountVectorizer = None):
+                                        vectorizer: CountVectorizer = None) -> List[List[Tuple[str, float]]]:
         """ Extract keywords/keyphrases for a multiple documents
 
         This currently does not use MMR as
@@ -176,7 +182,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: The top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
         # Extract words
@@ -199,7 +206,7 @@ class KeyBERT:
             if doc_words:
                 doc_word_embeddings = np.array([word_embeddings[i] for i in df[index].nonzero()[1]])
                 distances = cosine_similarity([doc_embeddings[index]], doc_word_embeddings)[0]
-                doc_keywords = [doc_words[i] for i in distances.argsort()[-top_n:]]
+                doc_keywords = [(doc_words[i], distances[i]) for i in distances.argsort()[-top_n:]]
                 keywords.append(doc_keywords)
             else:
                 keywords.append(["None Found"])

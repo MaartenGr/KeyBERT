@@ -1,13 +1,13 @@
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from typing import List
+from typing import List, Tuple
 
 
 def mmr(doc_embedding: np.ndarray,
         word_embeddings: np.ndarray,
         words: List[str],
         top_n: int = 5,
-        diversity: float = 0.8) -> List[str]:
+        diversity: float = 0.8) -> List[Tuple[str, float]]:
     """ Calculate Maximal Marginal Relevance (MMR)
     between candidate keywords and the document.
 
@@ -27,7 +27,7 @@ def mmr(doc_embedding: np.ndarray,
                    and 1 being most diverse.
 
     Returns:
-         List[str]: The selected keywords/keyphrases
+         List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
 
     """
 
@@ -53,4 +53,5 @@ def mmr(doc_embedding: np.ndarray,
         keywords_idx.append(mmr_idx)
         candidates_idx.remove(mmr_idx)
 
-    return [words[idx] for idx in keywords_idx]
+    return [(words[idx], float(word_doc_similarity.reshape(1, -1)[0][idx])) for idx in keywords_idx]
+
