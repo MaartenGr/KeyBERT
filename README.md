@@ -20,7 +20,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
         2.1. [Installation](#installation)    
         2.2. [Basic Usage](#usage)     
         2.3. [Max Sum Similarity](#maxsum)  
-        2.4. [Maximal Marginal Relevance](#maximal)
+        2.4. [Maximal Marginal Relevance](#maximal)  
         2.5. [Embedding Models](#embeddings)
 <!--te-->
 
