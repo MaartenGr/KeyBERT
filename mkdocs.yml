@@ -6,8 +6,10 @@ site_description: Leveraging BERT to extract important keywords
 site_author: Maarten P. Grootendorst
 use_directory_urls: false
 nav:
-  - Home:
-    - Index: index.md
+  - Home: index.md
+  - Guides:
+      - Quickstart: guides/quickstart.md
+      - Embeddings: guides/embeddings.md
   - API:
       - KeyBERT: api/keybert.md
       - MMR: api/mmr.md
@@ -17,7 +19,7 @@ plugins:
       watch:
         - keybert
   - search
-copyright: Copyright &copy; 2020 Maintained by <a href="https://github.com/MaartenGr">Maarten</a>.
+copyright: Copyright &copy; 2021 Maintained by <a href="https://github.com/MaartenGr">Maarten</a>.
 theme:
   custom_dir: images/
   name: material

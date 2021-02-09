@@ -1,12 +1,24 @@
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
+
 import numpy as np
+from tqdm import tqdm
+from typing import List, Union, Tuple
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-from tqdm import tqdm
-from typing import List, Union, Tuple
-import warnings
+
 from .mmr import mmr
 from .maxsum import max_sum_similarity
+
+# Flair
+try:
+    from flair.embeddings import DocumentEmbeddings, TokenEmbeddings, DocumentPoolEmbeddings
+    from flair.data import Sentence
+    _HAS_FLAIR = True
+except ModuleNotFoundError as e:
+    DocumentEmbeddings, TokenEmbeddings, DocumentPoolEmbeddings = None, None, None
+    _HAS_FLAIR = False
 
 
 class KeyBERT:
@@ -24,14 +36,22 @@ class KeyBERT:
     The most similar words could then be identified as the words that
     best describe the entire document.
 
-    Arguments:
-        model: the name of the model used by sentence-transformer
-               for a full overview see https://www.sbert.net/docs/pretrained_models.html
-
     """
-    def __init__(self, model: str = 'distilbert-base-nli-mean-tokens'):
-        self.model = SentenceTransformer(model)
-        self.doc_embeddings = None
+    def __init__(self,
+                 model: Union[str,
+                              SentenceTransformer,
+                              DocumentEmbeddings,
+                              TokenEmbeddings] = 'distilbert-base-nli-mean-tokens'):
+        """ KeyBERT initialization
+
+        Arguments:
+            model: Use a custom embedding model. You can pass in a string related
+                   to one of the following models:
+                   https://www.sbert.net/docs/pretrained_models.html
+                   You can also pass in a SentenceTransformer() model or a Flair
+                   DocumentEmbedding model.
+        """
+        self.model = self._select_embedding_model(model)
 
     def extract_keywords(self,
                          docs: Union[str, List[str]],
@@ -43,7 +63,8 @@ class KeyBERT:
                          use_mmr: bool = False,
                          diversity: float = 0.5,
                          nr_candidates: int = 20,
-                         vectorizer: CountVectorizer = None) -> Union[List[str], List[List[str]]]:
+                         vectorizer: CountVectorizer = None) -> Union[List[Tuple[str, float]],
+                                                                      List[List[Tuple[str, float]]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -79,7 +100,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: the top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
 
@@ -113,7 +135,7 @@ class KeyBERT:
                                      use_mmr: bool = False,
                                      diversity: float = 0.5,
                                      nr_candidates: int = 20,
-                                     vectorizer: CountVectorizer = None) -> List[str]:
+                                     vectorizer: CountVectorizer = None) -> List[Tuple[str, float]]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
@@ -128,7 +150,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: The top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
         try:
@@ -140,8 +163,10 @@ class KeyBERT:
             words = count.get_feature_names()
 
             # Extract Embeddings
-            doc_embedding = self.model.encode([doc])
-            word_embeddings = self.model.encode(words)
+            doc_embedding = self._extract_embeddings([doc])
+            word_embeddings = self._extract_embeddings(words)
+            # doc_embedding = self.model.encode([doc])
+            # word_embeddings = self.model.encode(words)
 
             # Calculate distances and extract keywords
             if use_mmr:
@@ -150,7 +175,8 @@ class KeyBERT:
                 keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n, nr_candidates)
             else:
                 distances = cosine_similarity(doc_embedding, word_embeddings)
-                keywords = [words[index] for index in distances.argsort()[0][-top_n:]][::-1]
+                keywords = [(words[index], round(float(distances[0][index]), 4))
+                            for index in distances.argsort()[0][-top_n:]][::-1]
 
             return keywords
         except ValueError:
@@ -162,7 +188,7 @@ class KeyBERT:
                                         stop_words: str = 'english',
                                         top_n: int = 5,
                                         min_df: int = 1,
-                                        vectorizer: CountVectorizer = None):
+                                        vectorizer: CountVectorizer = None) -> List[List[Tuple[str, float]]]:
         """ Extract keywords/keyphrases for a multiple documents
 
         This currently does not use MMR as
@@ -176,7 +202,8 @@ class KeyBERT:
             vectorizer: Pass in your own CountVectorizer from scikit-learn
 
         Returns:
-            keywords: The top n keywords for a document
+            keywords: the top n keywords for a document with their respective distances
+                      to the input document
 
         """
         # Extract words
@@ -188,8 +215,10 @@ class KeyBERT:
         df = count.transform(docs)
 
         # Extract embeddings
-        word_embeddings = self.model.encode(words, show_progress_bar=True)
-        doc_embeddings = self.model.encode(docs, show_progress_bar=True)
+        word_embeddings = self._extract_embeddings(words)
+        doc_embeddings = self._extract_embeddings(docs)
+        # word_embeddings = self.model.encode(words, show_progress_bar=True)
+        # doc_embeddings = self.model.encode(docs, show_progress_bar=True)
 
         # Extract keywords
         keywords = []
@@ -199,9 +228,88 @@ class KeyBERT:
             if doc_words:
                 doc_word_embeddings = np.array([word_embeddings[i] for i in df[index].nonzero()[1]])
                 distances = cosine_similarity([doc_embeddings[index]], doc_word_embeddings)[0]
-                doc_keywords = [doc_words[i] for i in distances.argsort()[-top_n:]]
+                doc_keywords = [(doc_words[i], round(float(distances[i]), 4)) for i in distances.argsort()[-top_n:]]
                 keywords.append(doc_keywords)
             else:
                 keywords.append(["None Found"])
 
         return keywords
+
+    def _extract_embeddings(self, documents: Union[List[str], str]) -> np.ndarray:
+        """ Extract sentence/document embeddings through pre-trained embeddings
+
+        For an overview of pre-trained models: https://www.sbert.net/docs/pretrained_models.html
+
+        Arguments:
+            documents: Dataframe with documents and their corresponding IDs
+
+        Returns:
+            embeddings: The extracted embeddings using the sentence transformer
+                        module. Typically uses pre-trained huggingface models.
+        """
+        if isinstance(documents, str):
+            documents = [documents]
+
+        # Infer embeddings with SentenceTransformer
+        if isinstance(self.model, SentenceTransformer):
+            embeddings = self.model.encode(documents)
+
+        # Infer embeddings with Flair
+        elif isinstance(self.model, DocumentEmbeddings):
+            embeddings = []
+            for index, document in enumerate(documents):
+                try:
+                    sentence = Sentence(document) if document else Sentence("an empty document")
+                    self.model.embed(sentence)
+                except RuntimeError:
+                    sentence = Sentence("an empty document")
+                    self.model.embed(sentence)
+                embedding = sentence.embedding.detach().cpu().numpy()
+                embeddings.append(embedding)
+            embeddings = np.asarray(embeddings)
+
+        else:
+            raise ValueError("An incorrect embedding model type was selected.")
+
+        return embeddings
+
+    def _select_embedding_model(self, model: Union[str,
+                                                   SentenceTransformer,
+                                                   DocumentEmbeddings,
+                                                   TokenEmbeddings]) -> Union[SentenceTransformer,
+                                                                              DocumentEmbeddings]:
+        """ Select an embedding model based on language or a specific sentence transformer models.
+        When selecting a language, we choose distilbert-base-nli-stsb-mean-tokens for English and
+        xlm-r-bert-base-nli-stsb-mean-tokens for all other languages as it support 100+ languages.
+
+        Arguments:
+            model: Use a custom embedding model. You can pass in a string related
+                   to one of the following models:
+                   https://www.sbert.net/docs/pretrained_models.html
+                   You can also pass in a SentenceTransformer() model or a Flair
+                   DocumentEmbedding model.
+
+        Returns:
+            model: Either a Sentence-Transformer or Flair model
+        """
+
+        # Sentence Transformer embeddings
+        if isinstance(model, SentenceTransformer):
+            return model
+
+        # Flair word embeddings
+        elif _HAS_FLAIR and isinstance(model, TokenEmbeddings):
+            return DocumentPoolEmbeddings([model])
+
+        # Flair document embeddings + disable fine tune to prevent CUDA OOM
+        # https://github.com/flairNLP/flair/issues/1719
+        elif _HAS_FLAIR and isinstance(model, DocumentEmbeddings):
+            if "fine_tune" in model.__dict__:
+                model.fine_tune = False
+            return model
+
+        # Select embedding model based on specific sentence transformer model
+        elif isinstance(model, str):
+            return SentenceTransformer(model)
+
+        return SentenceTransformer("xlm-r-bert-base-nli-stsb-mean-tokens")

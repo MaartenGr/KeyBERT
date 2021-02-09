@@ -17,10 +17,12 @@ def test_single_doc(keyphrase_length, vectorizer, base_keybert):
                                              top_n=top_n,
                                              vectorizer=vectorizer)
     assert isinstance(keywords, list)
-    assert isinstance(keywords[0], str)
+    assert isinstance(keywords[0], tuple)
+    assert isinstance(keywords[0][0], str)
+    assert isinstance(keywords[0][1], float)
     assert len(keywords) == top_n
     for keyword in keywords:
-        assert len(keyword.split(" ")) <= keyphrase_length[1]
+        assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
 @pytest.mark.parametrize("keyphrase_length, mmr, maxsum", [((1, i+1), truth, not truth)
@@ -38,10 +40,11 @@ def test_extract_keywords_single_doc(keyphrase_length, mmr, maxsum, vectorizer, 
                                                          diversity=0.5,
                                                          vectorizer=vectorizer)
     assert isinstance(keywords, list)
-    assert isinstance(keywords[0], str)
+    assert isinstance(keywords[0][0], str)
+    assert isinstance(keywords[0][1], float)
     assert len(keywords) == top_n
     for keyword in keywords:
-        assert len(keyword.split(" ")) <= keyphrase_length[1]
+        assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
 @pytest.mark.parametrize("keyphrase_length", [(1, i+1) for i in range(5)])
@@ -59,7 +62,7 @@ def test_extract_keywords_multiple_docs(keyphrase_length, base_keybert):
         assert len(keywords) == top_n
 
         for keyword in keywords:
-            assert len(keyword.split(" ")) <= keyphrase_length[1]
+            assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
 def test_error(base_keybert):

@@ -7,7 +7,6 @@ create keywords and keyphrases that are most similar to a document.
 
 ## About the Project
   
-
 Although that are already many methods available for keyword generation 
 (e.g., 
 [Rake](https://github.com/aneesha/RAKE), 
@@ -38,13 +37,16 @@ this repo is essentially a simplified implementation of
 with BERT-embeddings. 
 
 ## Installation
-**[PyTorch 1.2.0](https://pytorch.org/get-started/locally/)** or higher is recommended. If the install below gives an
-error, please install pytorch first [here](https://pytorch.org/get-started/locally/). 
-
-Installation can be done using [pypi](https://pypi.org/project/bertopic/):
+Installation can be done using [pypi](https://pypi.org/project/keybert/):
 
 ```
 pip install keybert
+```
+
+To use Flair embeddings, install KeyBERT as follows:
+
+```
+pip install keybert[flair]
 ```
 
 ## Usage
@@ -66,75 +68,27 @@ doc = """
          'reasonable' way (see inductive bias).
       """
 model = KeyBERT('distilbert-base-nli-mean-tokens')
-keywords = model.extract_keywords(doc)
 ```
 
 You can set `keyphrase_length` to set the length of the resulting keyphras:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=1, stop_words=None)
-['learning', 
- 'training', 
- 'algorithm', 
- 'class', 
- 'mapping']
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1))
+[('learning', 0.4604),
+ ('algorithm', 0.4556),
+ ('training', 0.4487),
+ ('class', 0.4086),
+ ('mapping', 0.3700)]
 ```
 
-To extract keyphrases, simply set `keyphrase_length` to 2 or higher depending on the number 
+To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher depending on the number 
 of words you would like in the resulting keyphrases: 
 
 ```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words=None)
-['learning algorithm',
- 'learning machine',
- 'machine learning',
- 'supervised learning',
- 'learning function']
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2))
+[('learning algorithm', 0.6978),
+ ('machine learning', 0.6305),
+ ('supervised learning', 0.5985),
+ ('algorithm analyzes', 0.5860),
+ ('learning function', 0.5850)]
 ``` 
-
-To diversify the results, we can use Maximal Margin Relevance (MMR) to create
-keywords / keyphrases which is also based on cosine similarity. The results 
-with **high diversity**:
-
-```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_mmr=True, diversity=0.7)
-['algorithm generalize training',
- 'labels unseen instances',
- 'new examples optimal',
- 'determine class labels',
- 'supervised learning algorithm']
-``` 
-
-The results with **low diversity**:  
-
-```python
->>> model.extract_keywords(doc, keyphrase_length=3, stop_words='english', use_mmr=True, diversity=0.2)
-['algorithm generalize training',
- 'learning machine learning',
- 'learning algorithm analyzes',
- 'supervised learning algorithm',
- 'algorithm analyzes training']
-``` 
-
-
-## References
-Below, you can find several resources that were used for the creation of KeyBERT 
-but most importantly, are amazing resources for creating impressive keyword extraction models: 
-
-**Papers**:    
-* Sharma, P., & Li, Y. (2019). [Self-Supervised Contextual Keyword and Keyphrase Retrieval with Self-Labelling.](https://www.preprints.org/manuscript/201908.0073/download/final_file)
-
-**Github Repos**:  
-* https://github.com/thunlp/BERT-KPE  
-* https://github.com/ibatra/BERT-Keyword-Extractor  
-* https://github.com/pranav-ust/BERT-keyphrase-extraction  
-* https://github.com/swisscom/ai-research-keyphrase-extraction  
-
-**MMR**:  
-The selection of keywords/keyphrases was modelled after:  
-* https://github.com/swisscom/ai-research-keyphrase-extraction  
-
-**NOTE**: If you find a paper or github repo that has an easy-to-use implementation
-of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
-add it a reference to this repo. 
-

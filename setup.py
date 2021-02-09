@@ -12,10 +12,16 @@ base_packages = [
 ]
 
 docs_packages = [
-    "mkdocs==1.1",
-    "mkdocs-material==4.6.3",
-    "mkdocstrings==0.8.0",
+    "mkdocs>=1.1",
+    "mkdocs-material>=4.6.3",
+    "mkdocstrings>=0.8.0",
 ]
+
+flair_packages = [
+    "flair==0.7"
+]
+
+extra_package = flair_packages
 
 dev_packages = docs_packages + test_packages
 
@@ -25,7 +31,7 @@ with open("README.md", "r") as fh:
 setuptools.setup(
     name="keybert",
     packages=["keybert"],
-    version="0.1.3",
+    version="0.2.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",
@@ -53,6 +59,8 @@ setuptools.setup(
         "test": test_packages,
         "docs": docs_packages,
         "dev": dev_packages,
+        "flair": flair_packages,
+        "all": extra_package
     },
     python_requires='>=3.6',
 )

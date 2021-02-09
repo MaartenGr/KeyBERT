@@ -20,7 +20,8 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
         2.1. [Installation](#installation)    
         2.2. [Basic Usage](#usage)     
         2.3. [Max Sum Similarity](#maxsum)  
-        2.4. [Maximal Marginal Relevance](#maximal)
+        2.4. [Maximal Marginal Relevance](#maximal)  
+        2.5. [Embedding Models](#embeddings)
 <!--te-->
 
 
@@ -58,13 +59,16 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
 <a name="installation"/></a>
 ###  2.1. Installation
-**[PyTorch 1.2.0](https://pytorch.org/get-started/locally/)** or higher is recommended. If the install below gives an
-error, please install pytorch first [here](https://pytorch.org/get-started/locally/). 
-
-Installation can be done using [pypi](https://pypi.org/project/bertopic/):
+Installation can be done using [pypi](https://pypi.org/project/keybert/):
 
 ```
 pip install keybert
+```
+
+To use Flair embeddings, install KeyBERT as follows:
+
+```
+pip install keybert[flair]
 ```
 
 <a name="usage"/></a>
@@ -94,11 +98,11 @@ You can set `keyphrase_ngram_range` to set the length of the resulting keywords/
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
-['learning', 
- 'training', 
- 'algorithm', 
- 'class', 
- 'mapping']
+[('learning', 0.4604),
+ ('algorithm', 0.4556),
+ ('training', 0.4487),
+ ('class', 0.4086),
+ ('mapping', 0.3700)]
 ```
 
 To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher depending on the number 
@@ -106,11 +110,11 @@ of words you would like in the resulting keyphrases:
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
-['learning algorithm',
- 'learning machine',
- 'machine learning',
- 'supervised learning',
- 'learning function']
+[('learning algorithm', 0.6978),
+ ('machine learning', 0.6305),
+ ('supervised learning', 0.5985),
+ ('algorithm analyzes', 0.5860),
+ ('learning function', 0.5850)]
 ``` 
 
 
@@ -128,11 +132,11 @@ that are the least similar to each other by cosine similarity.
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
                            use_maxsum=True, nr_candidates=20, top_n=5)
-['set training examples',
- 'generalize training data',
- 'requires learning algorithm',
- 'superivsed learning algorithm',
- 'learning machine learning']
+[('set training examples', 0.7504),
+ ('generalize training data', 0.7727),
+ ('requires learning algorithm', 0.5050),
+ ('supervised learning algorithm', 0.3779),
+ ('learning machine learning', 0.2891)]
 ``` 
 
 
@@ -144,24 +148,65 @@ keywords / keyphrases which is also based on cosine similarity. The results
 with **high diversity**:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.7)
-['algorithm generalize training',
- 'labels unseen instances',
- 'new examples optimal',
- 'determine class labels',
- 'supervised learning algorithm']
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                           use_mmr=True, diversity=0.7)
+[('algorithm generalize training', 0.7727),
+ ('labels unseen instances', 0.1649),
+ ('new examples optimal', 0.4185),
+ ('determine class labels', 0.4774),
+ ('supervised learning algorithm', 0.7502)]
 ``` 
 
 The results with **low diversity**:  
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.2)
-['algorithm generalize training',
- 'learning machine learning',
- 'learning algorithm analyzes',
- 'supervised learning algorithm',
- 'algorithm analyzes training']
+>>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                           use_mmr=True, diversity=0.2)
+[('algorithm generalize training', 0.7727),
+ ('supervised learning algorithm', 0.7502),
+ ('learning machine learning', 0.7577),
+ ('learning algorithm analyzes', 0.7587),
+ ('learning algorithm generalize', 0.7514)]
 ``` 
+
+
+<a name="embeddings"/></a>
+###  2.5. Embedding Models
+The parameter `model` takes in a string pointing to a sentence-transformers model, 
+a SentenceTransformer, or a Flair DocumentEmbedding model. 
+
+**Sentence-Transformers**  
+You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html) 
+and pass it through KeyBERT with `model`:
+
+```python
+from keybert import KeyBERT
+model = KeyBERT(model='distilbert-base-nli-mean-tokens')
+```
+
+Or select a SentenceTransformer model with your own parameters:
+
+```python
+from keybert import KeyBERT
+from sentence_transformers import SentenceTransformer
+
+sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cpu")
+model = KeyBERT(model=sentence_model)
+```
+
+**Flair**  
+[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that 
+is publicly available. Flair can be used as follows:
+
+```python
+from keybert import KeyBERT
+from flair.embeddings import TransformerDocumentEmbeddings
+
+roberta = TransformerDocumentEmbeddings('roberta-base')
+model = KeyBERT(model=roberta)
+```
+
+You can select any 🤗 transformers model [here](https://huggingface.co/models).
 
 
 ## Citation
