@@ -17,6 +17,12 @@ docs_packages = [
     "mkdocstrings==0.8.0",
 ]
 
+flair_packages = [
+    "flair==0.7"
+]
+
+extra_package = flair_packages
+
 dev_packages = docs_packages + test_packages
 
 with open("README.md", "r") as fh:
@@ -53,6 +59,8 @@ setuptools.setup(
         "test": test_packages,
         "docs": docs_packages,
         "dev": dev_packages,
+        "flair": flair_packages,
+        "all": extra_package
     },
     python_requires='>=3.6',
 )
