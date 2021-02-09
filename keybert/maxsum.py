@@ -51,4 +51,4 @@ def max_sum_similarity(doc_embedding: np.ndarray,
             candidate = combination
             min_sim = sim
 
-    return [(words_vals[idx], float(distances[0][idx])) for idx in candidate]
+    return [(words_vals[idx], round(float(distances[0][idx]), 4)) for idx in candidate]

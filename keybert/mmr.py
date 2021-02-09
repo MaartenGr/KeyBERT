@@ -53,5 +53,5 @@ def mmr(doc_embedding: np.ndarray,
         keywords_idx.append(mmr_idx)
         candidates_idx.remove(mmr_idx)
 
-    return [(words[idx], float(word_doc_similarity.reshape(1, -1)[0][idx])) for idx in keywords_idx]
+    return [(words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4)) for idx in keywords_idx]
 

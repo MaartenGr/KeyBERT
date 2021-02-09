@@ -94,11 +94,11 @@ You can set `keyphrase_ngram_range` to set the length of the resulting keywords/
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
-['learning', 
- 'training', 
- 'algorithm', 
- 'class', 
- 'mapping']
+[('learning', 0.4604),
+ ('algorithm', 0.4556),
+ ('training', 0.4487),
+ ('class', 0.4086),
+ ('mapping', 0.3700)]
 ```
 
 To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher depending on the number 
@@ -106,11 +106,11 @@ of words you would like in the resulting keyphrases:
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
-['learning algorithm',
- 'learning machine',
- 'machine learning',
- 'supervised learning',
- 'learning function']
+[('learning algorithm', 0.6978),
+ ('machine learning', 0.6305),
+ ('supervised learning', 0.5985),
+ ('algorithm analyzes', 0.5860),
+ ('learning function', 0.5850)]
 ``` 
 
 
@@ -128,11 +128,11 @@ that are the least similar to each other by cosine similarity.
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
                            use_maxsum=True, nr_candidates=20, top_n=5)
-['set training examples',
- 'generalize training data',
- 'requires learning algorithm',
- 'superivsed learning algorithm',
- 'learning machine learning']
+[('set training examples', 0.7504),
+ ('generalize training data', 0.7727),
+ ('requires learning algorithm', 0.5050),
+ ('supervised learning algorithm', 0.3779),
+ ('learning machine learning', 0.2891)]
 ``` 
 
 
@@ -145,22 +145,22 @@ with **high diversity**:
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.7)
-['algorithm generalize training',
- 'labels unseen instances',
- 'new examples optimal',
- 'determine class labels',
- 'supervised learning algorithm']
+[('algorithm generalize training', 0.7727),
+ ('labels unseen instances', 0.1649),
+ ('new examples optimal', 0.4185),
+ ('determine class labels', 0.4774),
+ ('supervised learning algorithm', 0.7502)]
 ``` 
 
 The results with **low diversity**:  
 
 ```python
 >>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', use_mmr=True, diversity=0.2)
-['algorithm generalize training',
- 'learning machine learning',
- 'learning algorithm analyzes',
- 'supervised learning algorithm',
- 'algorithm analyzes training']
+[('algorithm generalize training', 0.7727),
+ ('supervised learning algorithm', 0.7502),
+ ('learning machine learning', 0.7577),
+ ('learning algorithm analyzes', 0.7587),
+ ('learning algorithm generalize', 0.7514)]
 ``` 
 
 
