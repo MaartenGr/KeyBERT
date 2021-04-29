@@ -143,7 +143,7 @@ class KeyBERT:
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
-            use_mmr: Whether to use Max Sum Similarity
+            use_maxsum: Whether to use Max Sum Similarity
             use_mmr: Whether to use MMR
             diversity: The diversity of results between 0 and 1 if use_mmr is True
             nr_candidates: The number of candidates to consider if use_maxsum is set to True
