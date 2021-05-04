@@ -49,6 +49,7 @@ class KeyBERT:
 
     def extract_keywords(self,
                          docs: Union[str, List[str]],
+                         candidates: List[str] = None,
                          keyphrase_ngram_range: Tuple[int, int] = (1, 1),
                          stop_words: Union[str, List[str]] = 'english',
                          top_n: int = 5,
@@ -78,6 +79,7 @@ class KeyBERT:
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
+            candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
@@ -100,15 +102,16 @@ class KeyBERT:
         """
 
         if isinstance(docs, str):
-            return self._extract_keywords_single_doc(docs,
-                                                     keyphrase_ngram_range,
-                                                     stop_words,
-                                                     top_n,
-                                                     use_maxsum,
-                                                     use_mmr,
-                                                     diversity,
-                                                     nr_candidates,
-                                                     vectorizer)
+            return self._extract_keywords_single_doc(doc=docs,
+                                                     candidates=candidates,
+                                                     keyphrase_ngram_range=keyphrase_ngram_range,
+                                                     stop_words=stop_words,
+                                                     top_n=top_n,
+                                                     use_maxsum=use_maxsum,
+                                                     use_mmr=use_mmr,
+                                                     diversity=diversity,
+                                                     nr_candidates=nr_candidates,
+                                                     vectorizer=vectorizer)
         elif isinstance(docs, list):
             warnings.warn("Although extracting keywords for multiple documents is faster "
                           "than iterating over single documents, it requires significantly more memory "
@@ -122,6 +125,7 @@ class KeyBERT:
 
     def _extract_keywords_single_doc(self,
                                      doc: str,
+                                     candidates: List[str] = None,
                                      keyphrase_ngram_range: Tuple[int, int] = (1, 1),
                                      stop_words: Union[str, List[str]] = 'english',
                                      top_n: int = 5,
@@ -134,6 +138,7 @@ class KeyBERT:
 
         Arguments:
             doc: The document for which to extract keywords/keyphrases
+            candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
             stop_words: Stopwords to remove from the document
             top_n: Return the top n keywords/keyphrases
@@ -150,24 +155,25 @@ class KeyBERT:
         """
         try:
             # Extract Words
-            if vectorizer:
-                count = vectorizer.fit([doc])
-            else:
-                count = CountVectorizer(ngram_range=keyphrase_ngram_range, stop_words=stop_words).fit([doc])
-            words = count.get_feature_names()
+            if candidates is None:
+                if vectorizer:
+                    count = vectorizer.fit([doc])
+                else:
+                    count = CountVectorizer(ngram_range=keyphrase_ngram_range, stop_words=stop_words).fit([doc])
+                candidates = count.get_feature_names()
 
             # Extract Embeddings
             doc_embedding = self.model.embed([doc])
-            word_embeddings = self.model.embed(words)
+            candidate_embeddings = self.model.embed(candidates)
 
             # Calculate distances and extract keywords
             if use_mmr:
-                keywords = mmr(doc_embedding, word_embeddings, words, top_n, diversity)
+                keywords = mmr(doc_embedding, candidate_embeddings, candidates, top_n, diversity)
             elif use_maxsum:
-                keywords = max_sum_similarity(doc_embedding, word_embeddings, words, top_n, nr_candidates)
+                keywords = max_sum_similarity(doc_embedding, candidate_embeddings, candidates, top_n, nr_candidates)
             else:
-                distances = cosine_similarity(doc_embedding, word_embeddings)
-                keywords = [(words[index], round(float(distances[0][index]), 4))
+                distances = cosine_similarity(doc_embedding, candidate_embeddings)
+                keywords = [(candidates[index], round(float(distances[0][index]), 4))
                             for index in distances.argsort()[0][-top_n:]][::-1]
 
             return keywords
@@ -224,4 +230,3 @@ class KeyBERT:
                 keywords.append(["None Found"])
 
         return keywords
-
