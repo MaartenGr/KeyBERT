@@ -4,7 +4,7 @@ from typing import Union, List
 from flair.data import Sentence
 from flair.embeddings import DocumentEmbeddings, TokenEmbeddings, DocumentPoolEmbeddings
 
-from bertopic.backend import BaseEmbedder
+from keybert.backend import BaseEmbedder
 
 
 class FlairBackend(BaseEmbedder):
