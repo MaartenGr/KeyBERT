@@ -20,7 +20,7 @@ class SpacyBackend(BaseEmbedder):
 
     ```python
     import spacy
-    from bertopic.backend import SpacyBackend
+    from keybert.backend import SpacyBackend
 
     nlp = spacy.load("en_core_web_md", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
     spacy_model = SpacyBackend(nlp)
@@ -31,7 +31,7 @@ class SpacyBackend(BaseEmbedder):
     ```python
     import spacy
     from thinc.api import set_gpu_allocator, require_gpu
-    from bertopic.backend import SpacyBackend
+    from keybert.backend import SpacyBackend
 
     nlp = spacy.load("en_core_web_trf", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
     set_gpu_allocator("pytorch")
@@ -43,7 +43,7 @@ class SpacyBackend(BaseEmbedder):
 
     ```python
     import spacy
-    from bertopic.backend import SpacyBackend
+    from keybert.backend import SpacyBackend
 
     spacy.prefer_gpu()
     nlp = spacy.load("en_core_web_trf", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])

@@ -17,7 +17,7 @@ class GensimBackend(BaseEmbedder):
     Usage:
 
     ```python
-    from bertopic.backend import GensimBackend
+    from keybert.backend import GensimBackend
     import gensim.downloader as api
 
     ft = api.load('fasttext-wiki-news-subwords-300')

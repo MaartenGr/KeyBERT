@@ -65,10 +65,19 @@ Installation can be done using [pypi](https://pypi.org/project/keybert/):
 pip install keybert
 ```
 
-To use Flair embeddings, install KeyBERT as follows:
+You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
 
 ```
 pip install keybert[flair]
+pip install keybert[gensim]
+pip install keybert[spacy]
+pip install keybert[use]
+```
+
+To install all backends:
+
+```
+pip install keybert[all]
 ```
 
 <a name="usage"/></a>

@@ -15,12 +15,12 @@ class SentenceTransformerBackend(BaseEmbedder):
     To create a model, you can load in a string pointing to a
     sentence-transformers model:
     ```python
-    from bertopic.backend import SentenceTransformerBackend
+    from keybert.backend import SentenceTransformerBackend
     sentence_model = SentenceTransformerBackend("distilbert-base-nli-stsb-mean-tokens")
     ```
     or  you can instantiate a model yourself:
     ```python
-    from bertopic.backend import SentenceTransformerBackend
+    from keybert.backend import SentenceTransformerBackend
     from sentence_transformers import SentenceTransformer
     embedding_model = SentenceTransformer("distilbert-base-nli-stsb-mean-tokens")
     sentence_model = SentenceTransformerBackend(embedding_model)

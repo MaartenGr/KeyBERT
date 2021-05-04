@@ -7,6 +7,7 @@ from typing import List, Union, Tuple
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
+# KeyBERT
 from keybert.mmr import mmr
 from keybert.maxsum import max_sum_similarity
 from keybert.backend._utils import select_backend
@@ -33,11 +34,16 @@ class KeyBERT:
         """ KeyBERT initialization
 
         Arguments:
-            model: Use a custom embedding model. You can pass in a string related
-                   to one of the following models:
-                   https://www.sbert.net/docs/pretrained_models.html
-                   You can also pass in a SentenceTransformer() model or a Flair
-                   DocumentEmbedding model.
+            model: Use a custom embedding model.
+                   The following backends are currently supported
+                      * SentenceTransformers
+                      * Flair
+                      * Spacy
+                      * Gensim
+                      * USE (TF-Hub)
+                    You can also pass in a string that points to one of the following
+                    sentence-transformers models:
+                      * https://www.sbert.net/docs/pretrained_models.html
         """
         self.model = select_backend(model)
 

@@ -9,7 +9,7 @@ class USEBackend(BaseEmbedder):
     """ Universal Sentence Encoder
 
     USE encodes text into high-dimensional vectors that
-    are used for semantic similarity in BERTopic.
+    are used for semantic similarity in KeyBERT.
 
     Arguments:
         embedding_model: An USE embedding model
@@ -18,7 +18,7 @@ class USEBackend(BaseEmbedder):
 
     ```python
     import tensorflow_hub
-    from bertopic.backend import USEBackend
+    from keybert.backend import USEBackend
 
     embedding_model = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
     use_embedder = USEBackend(embedding_model)

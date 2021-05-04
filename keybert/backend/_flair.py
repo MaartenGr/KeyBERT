@@ -15,11 +15,13 @@ class FlairBackend(BaseEmbedder):
         embedding_model: A Flair embedding model
     Usage:
     ```python
-    from bertopic.backend import FlairBackend
+    from keybert.backend import FlairBackend
     from flair.embeddings import WordEmbeddings, DocumentPoolEmbeddings
+
     # Create a Flair Embedding model
     glove_embedding = WordEmbeddings('crawl')
     document_glove_embeddings = DocumentPoolEmbeddings([glove_embedding])
+
     # Pass the Flair model to create a new backend
     flair_embedder = FlairBackend(document_glove_embeddings)
     ```
