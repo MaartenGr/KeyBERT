@@ -9,7 +9,7 @@ nav:
   - Home: index.md
   - Guides:
       - Quickstart: guides/quickstart.md
-      - Embeddings: guides/embeddings.md
+      - Embedding Models: guides/embeddings.md
   - API:
       - KeyBERT: api/keybert.md
       - MMR: api/mmr.md
@@ -36,11 +36,7 @@ theme:
     primary: black
     accent: blue
 markdown_extensions:
-  - codehilite
-  - pymdownx.inlinehilite
-  - pymdownx.details
-  - pymdownx.tabbed
   - pymdownx.highlight:
-      use_pygments: true
+  - pymdownx.superfences:
   - toc:
       permalink: true
