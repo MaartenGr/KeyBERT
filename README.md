@@ -125,7 +125,7 @@ have shown great performance in semantic similarity and paraphrase identificatio
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Similarity
 
-To diversity the results, we take the 2 x top_n most similar words/phrases to the document.
+To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
 that are the least similar to each other by cosine similarity.
 
