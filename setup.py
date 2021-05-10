@@ -40,7 +40,7 @@ extra_packages = flair_packages + spacy_packages + use_packages + gensim_package
 
 dev_packages = docs_packages + test_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(

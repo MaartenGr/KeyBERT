@@ -151,7 +151,6 @@ class KeyBERT:
         Returns:
             keywords: the top n keywords for a document with their respective distances
                       to the input document
-
         """
         try:
             # Extract Words
@@ -189,7 +188,8 @@ class KeyBERT:
                                         vectorizer: CountVectorizer = None) -> List[List[Tuple[str, float]]]:
         """ Extract keywords/keyphrases for a multiple documents
 
-        This currently does not use MMR as
+        This currently does not use MMR and Max Sum Similarity as it cannot
+        process these methods in bulk.
 
         Arguments:
             docs: The document for which to extract keywords/keyphrases
@@ -202,7 +202,6 @@ class KeyBERT:
         Returns:
             keywords: the top n keywords for a document with their respective distances
                       to the input document
-
         """
         # Extract words
         if vectorizer:

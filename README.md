@@ -135,7 +135,7 @@ have shown great performance in semantic similarity and paraphrase identificatio
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Similarity
 
-To diversity the results, we take the 2 x top_n most similar words/phrases to the document.
+To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
 that are the least similar to each other by cosine similarity.
 
@@ -255,10 +255,10 @@ but most importantly, these are amazing resources for creating impressive keywor
 * https://github.com/swisscom/ai-research-keyphrase-extraction
 
 **MMR**:  
-The selection of keywords/keyphrases was modelled after:
+The selection of keywords/keyphrases was modeled after:
 * https://github.com/swisscom/ai-research-keyphrase-extraction
 
 **NOTE**: If you find a paper or github repo that has an easy-to-use implementation
 of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
-add it a reference to this repo. 
+add a reference to this repo. 
 
