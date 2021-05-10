@@ -2,6 +2,7 @@
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/keyBERT)](https://pypi.org/project/keybert/)
 [![Build](https://img.shields.io/github/workflow/status/MaartenGr/keyBERT/Code%20Checks/master)](https://pypi.org/project/keybert/)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1OxpgwKqSzODtO3vS7Xe1nEmZMCAIMckX?usp=sharing)
 
 <img src="images/logo.png" width="35%" height="35%" align="right" />
 
@@ -65,10 +66,19 @@ Installation can be done using [pypi](https://pypi.org/project/keybert/):
 pip install keybert
 ```
 
-To use Flair embeddings, install KeyBERT as follows:
+You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
 
 ```
 pip install keybert[flair]
+pip install keybert[gensim]
+pip install keybert[spacy]
+pip install keybert[use]
+```
+
+To install all backends:
+
+```
+pip install keybert[all]
 ```
 
 <a name="usage"/></a>
@@ -90,14 +100,14 @@ doc = """
          the learning algorithm to generalize from the training data to unseen situations in a 
          'reasonable' way (see inductive bias).
       """
-model = KeyBERT('distilbert-base-nli-mean-tokens')
-keywords = model.extract_keywords(doc)
+kw_model = KeyBERT('distilbert-base-nli-mean-tokens')
+keywords = kw_model.extract_keywords(doc)
 ```
 
 You can set `keyphrase_ngram_range` to set the length of the resulting keywords/keyphrases:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
 [('learning', 0.4604),
  ('algorithm', 0.4556),
  ('training', 0.4487),
@@ -109,7 +119,7 @@ To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher de
 of words you would like in the resulting keyphrases: 
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
 [('learning algorithm', 0.6978),
  ('machine learning', 0.6305),
  ('supervised learning', 0.5985),
@@ -125,13 +135,13 @@ have shown great performance in semantic similarity and paraphrase identificatio
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Similarity
 
-To diversity the results, we take the 2 x top_n most similar words/phrases to the document.
+To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
 that are the least similar to each other by cosine similarity.
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                           use_maxsum=True, nr_candidates=20, top_n=5)
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                              use_maxsum=True, nr_candidates=20, top_n=5)
 [('set training examples', 0.7504),
  ('generalize training data', 0.7727),
  ('requires learning algorithm', 0.5050),
@@ -148,8 +158,8 @@ keywords / keyphrases which is also based on cosine similarity. The results
 with **high diversity**:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                           use_mmr=True, diversity=0.7)
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                              use_mmr=True, diversity=0.7)
 [('algorithm generalize training', 0.7727),
  ('labels unseen instances', 0.1649),
  ('new examples optimal', 0.4185),
@@ -160,8 +170,8 @@ with **high diversity**:
 The results with **low diversity**:  
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                           use_mmr=True, diversity=0.2)
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
+                              use_mmr=True, diversity=0.2)
 [('algorithm generalize training', 0.7727),
  ('supervised learning algorithm', 0.7502),
  ('learning machine learning', 0.7577),
@@ -172,8 +182,15 @@ The results with **low diversity**:
 
 <a name="embeddings"/></a>
 ###  2.5. Embedding Models
-The parameter `model` takes in a string pointing to a sentence-transformers model, 
-a SentenceTransformer, or a Flair DocumentEmbedding model. 
+KeyBERT supports many embedding models that can be used to embed the documents and words:
+
+* Sentence-Transformers
+* Flair
+* Spacy
+* Gensim
+* USE
+
+Click [here](https://maartengr.github.io/KeyBERT/guides/embeddings.html) for a full overview of all supported embedding models.
 
 **Sentence-Transformers**  
 You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html) 
@@ -181,7 +198,7 @@ and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
-model = KeyBERT(model='distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT(model='distilbert-base-nli-mean-tokens')
 ```
 
 Or select a SentenceTransformer model with your own parameters:
@@ -191,7 +208,7 @@ from keybert import KeyBERT
 from sentence_transformers import SentenceTransformer
 
 sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cpu")
-model = KeyBERT(model=sentence_model)
+kw_model = KeyBERT(model=sentence_model)
 ```
 
 **Flair**  
@@ -203,7 +220,7 @@ from keybert import KeyBERT
 from flair.embeddings import TransformerDocumentEmbeddings
 
 roberta = TransformerDocumentEmbeddings('roberta-base')
-model = KeyBERT(model=roberta)
+kw_model = KeyBERT(model=roberta)
 ```
 
 You can select any 🤗 transformers model [here](https://huggingface.co/models).
@@ -218,7 +235,7 @@ To cite PolyFuzz in your work, please use the following bibtex reference:
   title        = {KeyBERT: Minimal keyword extraction with BERT.},
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {v0.1.3},
+  version      = {v0.3.0},
   doi          = {10.5281/zenodo.4461265},
   url          = {https://doi.org/10.5281/zenodo.4461265}
 }
@@ -238,10 +255,10 @@ but most importantly, these are amazing resources for creating impressive keywor
 * https://github.com/swisscom/ai-research-keyphrase-extraction
 
 **MMR**:  
-The selection of keywords/keyphrases was modelled after:
+The selection of keywords/keyphrases was modeled after:
 * https://github.com/swisscom/ai-research-keyphrase-extraction
 
 **NOTE**: If you find a paper or github repo that has an easy-to-use implementation
 of BERT-embeddings for keyword/keyphrase extraction, let me know! I'll make sure to
-add it a reference to this repo. 
+add a reference to this repo. 
 

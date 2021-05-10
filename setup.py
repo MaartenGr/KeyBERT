@@ -1,4 +1,4 @@
-import setuptools
+from setuptools import setup, find_packages
 
 test_packages = [
     "pytest>=5.4.3",
@@ -18,20 +18,35 @@ docs_packages = [
 ]
 
 flair_packages = [
+    "torch>=1.4.0,<1.7.1",
     "flair==0.7"
 ]
 
-extra_package = flair_packages
+spacy_packages = [
+    "spacy>=3.0.1"
+]
+
+use_packages = [
+    "tensorflow",
+    "tensorflow_hub",
+    "tensorflow_text"
+]
+
+gensim_packages = [
+    "gensim>=3.6.0"
+]
+
+extra_packages = flair_packages + spacy_packages + use_packages + gensim_packages
 
 dev_packages = docs_packages + test_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="keybert",
-    packages=["keybert"],
-    version="0.2.0",
+    packages=find_packages(exclude=["notebooks", "docs"]),
+    version="0.3.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",
@@ -60,7 +75,7 @@ setuptools.setup(
         "docs": docs_packages,
         "dev": dev_packages,
         "flair": flair_packages,
-        "all": extra_package
+        "all": extra_packages
     },
     python_requires='>=3.6',
 )
