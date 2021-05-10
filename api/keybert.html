@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://maartengr.github.io/keyBERT/api/keybert.html">
-      
-      
         <meta name="author" content="Maarten P. Grootendorst">
       
-      <link rel="shortcut icon" href="../icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.7">
+      
+        <link rel="canonical" href="https://maartengr.github.io/keyBERT/api/keybert.html">
+      
+      <link rel="icon" href="../icon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.19753c6b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.9299cb39.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.196e0c26.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
         
           
           
@@ -39,12 +39,14 @@
     
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700%7CUbuntu+Mono&display=fallback">
-        <style>body,input{font-family:"Ubuntu",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Ubuntu";--md-code-font-family:"Ubuntu Mono"}</style>
       
     
     
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../style.css">
     
@@ -61,8 +63,10 @@
     
     
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="black" data-md-color-accent="blue">
-      
   
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -78,28 +82,37 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://maartengr.github.io/keyBERT/" title="KeyBERT" class="md-header-nav__button md-logo" aria-label="KeyBERT">
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="KeyBERT" class="md-header__button md-logo" aria-label="KeyBERT" data-md-component="logo">
       
   <img src="../icon.png" alt="logo">
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis md-ellipsis">
-          KeyBERT
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            KeyBERT
+          </span>
         </div>
-      
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KeyBERT
+            
+          </span>
+        </div>
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
@@ -108,11 +121,11 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
       </button>
     </form>
     <div class="md-search__output">
@@ -129,12 +142,12 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/MaartenGr/keyBERT/" title="Go to repository" class="md-source">
+<a href="https://github.com/MaartenGr/keyBERT/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -154,14 +167,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://maartengr.github.io/keyBERT/" title="KeyBERT" class="md-nav__button md-logo" aria-label="KeyBERT">
+    <a href=".." title="KeyBERT" class="md-nav__button md-logo" aria-label="KeyBERT" data-md-component="logo">
       
   <img src="../icon.png" alt="logo">
 
@@ -171,10 +186,10 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/MaartenGr/keyBERT/" title="Go to repository" class="md-source">
+<a href="https://github.com/MaartenGr/keyBERT/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -188,61 +203,69 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../index.html" class="md-nav__link">
-      Home
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item md-nav__item--nested">
+  
+  
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
-    <label class="md-nav__link" for="nav-2">
-      Guides
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Guides" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
         Guides
+        <span class="md-nav__icon md-icon"></span>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/quickstart.html" class="md-nav__link">
+        Quickstart
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/embeddings.html" class="md-nav__link">
+        Embedding Models
+      </a>
+    </li>
+  
+
           
-
-
-  <li class="md-nav__item">
-    <a href="../guides/quickstart.html" class="md-nav__link">
-      Quickstart
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../guides/embeddings.html" class="md-nav__link">
-      Embeddings
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
@@ -250,47 +273,50 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
-    <label class="md-nav__link" for="nav-3">
-      API
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="API" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      <label class="md-nav__link" for="__nav_3">
         API
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        KeyBERT
         <span class="md-nav__icon md-icon"></span>
       </label>
+      <nav class="md-nav" aria-label="API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
     
-    <a href="keybert.html" class="md-nav__link md-nav__link--active">
-      KeyBERT
-    </a>
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          KeyBERT
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="keybert.html" class="md-nav__link md-nav__link--active">
+        KeyBERT
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -301,7 +327,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#keybert.model.KeyBERT" class="md-nav__link">
@@ -327,37 +353,54 @@
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mmr.html" class="md-nav__link">
+        MMR
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="maxsum.html" class="md-nav__link">
+        MaxSum
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
-  </li>
+      
+      
+      
 
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="mmr.html" class="md-nav__link">
-      MMR
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="maxsum.html" class="md-nav__link">
-      MaxSum
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.html" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -367,7 +410,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -381,7 +425,7 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
   <a href="#keybert.model.KeyBERT" class="md-nav__link">
@@ -412,7 +456,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -422,11 +466,14 @@
                 
                 
                 <h1 id="keybert"><code>KeyBERT</code><a class="headerlink" href="#keybert" title="Permanent link">&para;</a></h1>
-<div class="doc doc-object doc-class">
-<h2 class="hidden-toc" href="#keybert.model.KeyBERT" id="keybert.model.KeyBERT" style="visibility: hidden; position: absolute;">
-        <a class="headerlink" href="#keybert.model.KeyBERT" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents first">
-<p>A minimal method for keyword extraction with BERT</p>
+
+
+  <div class="doc doc-object doc-class">
+
+<a id="keybert.model.KeyBERT"></a>
+    <div class="doc doc-contents first">
+
+      <p>A minimal method for keyword extraction with BERT</p>
 <p>The keyword extraction is done by finding the sub-phrases in
 a document that are the most similar to the document itself.</p>
 <p>First, document embeddings are extracted with BERT to get a
@@ -435,78 +482,105 @@ for N-gram words/phrases. Finally, we use cosine similarity to find the
 words/phrases that are the most similar to the document.</p>
 <p>The most similar words could then be identified as the words that
 best describe the entire document.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="keybert.model.KeyBERT.__init__">
 
-        <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">'distilbert-base-nli-mean-tokens'</span><span class="p">)</span>        </code>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="keybert.model.KeyBERT.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#keybert.model.KeyBERT.__init__" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>KeyBERT initialization</p>
+<a href="#keybert.model.KeyBERT.__init__" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>KeyBERT initialization</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>model</code></td>
-<td><code>Union[str, sentence_transformers.SentenceTransformer.SentenceTransformer, flair.embeddings.document.DocumentEmbeddings, flair.embeddings.token.TokenEmbeddings]</code></td>
-<td>
-<p>Use a custom embedding model. You can pass in a string related
-   to one of the following models:
-   https://www.sbert.net/docs/pretrained_models.html
-   You can also pass in a SentenceTransformer() model or a Flair
-   DocumentEmbedding model.</p>
-</td>
-<td><code>'distilbert-base-nli-mean-tokens'</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>model</code></td>
+        <td><code></code></td>
+        <td><p>Use a custom embedding model.
+   The following backends are currently supported
+      * SentenceTransformers
+      * Flair
+      * Spacy
+      * Gensim
+      * USE (TF-Hub)
+    You can also pass in a string that points to one of the following
+    sentence-transformers models:
+      * https://www.sbert.net/docs/pretrained_models.html</p></td>
+        <td><code>&#39;distilbert-base-nli-mean-tokens&#39;</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>keybert\model.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-             <span class="n">model</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span>
-                          <span class="n">SentenceTransformer</span><span class="p">,</span>
-                          <span class="n">DocumentEmbeddings</span><span class="p">,</span>
-                          <span class="n">TokenEmbeddings</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'distilbert-base-nli-mean-tokens'</span><span class="p">):</span>
-    <span class="sd">""" KeyBERT initialization</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+             <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; KeyBERT initialization</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        model: Use a custom embedding model. You can pass in a string related</span>
-<span class="sd">               to one of the following models:</span>
-<span class="sd">               https://www.sbert.net/docs/pretrained_models.html</span>
-<span class="sd">               You can also pass in a SentenceTransformer() model or a Flair</span>
-<span class="sd">               DocumentEmbedding model.</span>
-<span class="sd">    """</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_embedding_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h2 class="doc doc-heading" id="keybert.model.KeyBERT.extract_keywords">
+<span class="sd">        model: Use a custom embedding model.</span>
+<span class="sd">               The following backends are currently supported</span>
+<span class="sd">                  * SentenceTransformers</span>
+<span class="sd">                  * Flair</span>
+<span class="sd">                  * Spacy</span>
+<span class="sd">                  * Gensim</span>
+<span class="sd">                  * USE (TF-Hub)</span>
+<span class="sd">                You can also pass in a string that points to one of the following</span>
+<span class="sd">                sentence-transformers models:</span>
+<span class="sd">                  * https://www.sbert.net/docs/pretrained_models.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">select_backend</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
 
-        <code class="highlight language-python">
-extract_keywords<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">'english'</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>        </code>
+  </div>
 
 
-      <a class="headerlink" href="#keybert.model.KeyBERT.extract_keywords" title="Permanent link">&para;</a></h2>
-<div class="doc doc-contents ">
-<p>Extract keywords/keyphrases</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h2 id="keybert.model.KeyBERT.extract_keywords" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+<a href="#keybert.model.KeyBERT.extract_keywords" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Extract keywords/keyphrases</p>
 <p>!!! note
     I would advise you to iterate over single documents as they
     will need the least amount of memory. Even though this is slower,
@@ -514,137 +588,120 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
 <p>Multiple Documents:
     There is an option to extract keywords for multiple documents
     that is faster than extraction for multiple single documents.</p>
-<div class="codehilite">
-<pre><span></span><code><span class="n">However</span><span class="p">...</span><span class="n">this</span> <span class="k">method</span> <span class="n">assumes</span> <span class="n">that</span> <span class="n">you</span> <span class="n">can</span> <span class="n">keep</span> <span class="n">the</span> <span class="n">word</span> <span class="n">embeddings</span>
-<span class="k">for</span> <span class="k">all</span> <span class="n">words</span> <span class="k">in</span> <span class="n">the</span> <span class="n">vocabulary</span> <span class="k">in</span> <span class="n">memory</span> <span class="n">which</span> <span class="n">might</span> <span class="n">be</span> <span class="n">troublesome</span><span class="p">.</span>
+<div class="highlight"><pre><span></span><code>However...this method assumes that you can keep the word embeddings
+for all words in the vocabulary in memory which might be troublesome.
 
-<span class="n">I</span> <span class="n">would</span> <span class="n">advise</span> <span class="n">against</span> <span class="k">using</span> <span class="n">this</span> <span class="k">option</span> <span class="k">and</span> <span class="n">simply</span> <span class="n">iterating</span>
-<span class="n">over</span> <span class="n">documents</span> <span class="k">instead</span> <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">limited</span> <span class="n">hardware</span><span class="p">.</span>
-</code></pre>
-</div>
+I would advise against using this option and simply iterating
+over documents instead if you have limited hardware.
+</code></pre></div>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>docs</code></td>
-<td><code>Union[str, List[str]]</code></td>
-<td>
-<p>The document(s) for which to extract keywords/keyphrases</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>keyphrase_ngram_range</code></td>
-<td><code>Tuple[int, int]</code></td>
-<td>
-<p>Length, in words, of the extracted keywords/keyphrases</p>
-</td>
-<td><code>(1, 1)</code></td>
-</tr>
-<tr>
-<td><code>stop_words</code></td>
-<td><code>Union[str, List[str]]</code></td>
-<td>
-<p>Stopwords to remove from the document</p>
-</td>
-<td><code>'english'</code></td>
-</tr>
-<tr>
-<td><code>top_n</code></td>
-<td><code>int</code></td>
-<td>
-<p>Return the top n keywords/keyphrases</p>
-</td>
-<td><code>5</code></td>
-</tr>
-<tr>
-<td><code>min_df</code></td>
-<td><code>int</code></td>
-<td>
-<p>Minimum document frequency of a word across all documents
-    if keywords for multiple documents need to be extracted</p>
-</td>
-<td><code>1</code></td>
-</tr>
-<tr>
-<td><code>use_maxsum</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to use Max Sum Similarity for the selection
-        of keywords/keyphrases</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>use_mmr</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to use Maximal Marginal Relevance (MMR) for the
-     selection of keywords/keyphrases</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>diversity</code></td>
-<td><code>float</code></td>
-<td>
-<p>The diversity of the results between 0 and 1 if use_mmr
-       is set to True</p>
-</td>
-<td><code>0.5</code></td>
-</tr>
-<tr>
-<td><code>nr_candidates</code></td>
-<td><code>int</code></td>
-<td>
-<p>The number of candidates to consider if use_maxsum is
-           set to True</p>
-</td>
-<td><code>20</code></td>
-</tr>
-<tr>
-<td><code>vectorizer</code></td>
-<td><code>CountVectorizer</code></td>
-<td>
-<p>Pass in your own CountVectorizer from scikit-learn</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>docs</code></td>
+        <td><code>Union[str, List[str]]</code></td>
+        <td><p>The document(s) for which to extract keywords/keyphrases</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>candidates</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>Candidate keywords/keyphrases to use instead of extracting them from the document(s)</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>keyphrase_ngram_range</code></td>
+        <td><code>Tuple[int, int]</code></td>
+        <td><p>Length, in words, of the extracted keywords/keyphrases</p></td>
+        <td><code>(1, 1)</code></td>
+      </tr>
+      <tr>
+        <td><code>stop_words</code></td>
+        <td><code>Union[str, List[str]]</code></td>
+        <td><p>Stopwords to remove from the document</p></td>
+        <td><code>&#39;english&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>top_n</code></td>
+        <td><code>int</code></td>
+        <td><p>Return the top n keywords/keyphrases</p></td>
+        <td><code>5</code></td>
+      </tr>
+      <tr>
+        <td><code>min_df</code></td>
+        <td><code>int</code></td>
+        <td><p>Minimum document frequency of a word across all documents
+    if keywords for multiple documents need to be extracted</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
+        <td><code>use_maxsum</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to use Max Sum Similarity for the selection
+        of keywords/keyphrases</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>use_mmr</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to use Maximal Marginal Relevance (MMR) for the
+     selection of keywords/keyphrases</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>diversity</code></td>
+        <td><code>float</code></td>
+        <td><p>The diversity of the results between 0 and 1 if use_mmr
+       is set to True</p></td>
+        <td><code>0.5</code></td>
+      </tr>
+      <tr>
+        <td><code>nr_candidates</code></td>
+        <td><code>int</code></td>
+        <td><p>The number of candidates to consider if use_maxsum is
+           set to True</p></td>
+        <td><code>20</code></td>
+      </tr>
+      <tr>
+        <td><code>vectorizer</code></td>
+        <td><code>CountVectorizer</code></td>
+        <td><p>Pass in your own CountVectorizer from scikit-learn</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]</code></td>
-<td>
-<p>keywords: the top n keywords for a document with their respective distances
-          to the input document</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]</code></td>
+      <td><p>keywords: the top n keywords for a document with their respective distances
+          to the input document</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>keybert\model.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+                     <span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">keyphrase_ngram_range</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                     <span class="n">stop_words</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">'english'</span><span class="p">,</span>
+                     <span class="n">stop_words</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;english&#39;</span><span class="p">,</span>
                      <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
                      <span class="n">min_df</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
                      <span class="n">use_maxsum</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -653,7 +710,7 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
                      <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
                      <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
                                                                   <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
-    <span class="sd">""" Extract keywords/keyphrases</span>
+    <span class="sd">&quot;&quot;&quot; Extract keywords/keyphrases</span>
 
 <span class="sd">    NOTE:</span>
 <span class="sd">        I would advise you to iterate over single documents as they</span>
@@ -672,6 +729,7 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        docs: The document(s) for which to extract keywords/keyphrases</span>
+<span class="sd">        candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)</span>
 <span class="sd">        keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases</span>
 <span class="sd">        stop_words: Stopwords to remove from the document</span>
 <span class="sd">        top_n: Return the top n keywords/keyphrases</span>
@@ -691,36 +749,44 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
 <span class="sd">        keywords: the top n keywords for a document with their respective distances</span>
 <span class="sd">                  to the input document</span>
 
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_keywords_single_doc</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span>
-                                                 <span class="n">keyphrase_ngram_range</span><span class="p">,</span>
-                                                 <span class="n">stop_words</span><span class="p">,</span>
-                                                 <span class="n">top_n</span><span class="p">,</span>
-                                                 <span class="n">use_maxsum</span><span class="p">,</span>
-                                                 <span class="n">use_mmr</span><span class="p">,</span>
-                                                 <span class="n">diversity</span><span class="p">,</span>
-                                                 <span class="n">nr_candidates</span><span class="p">,</span>
-                                                 <span class="n">vectorizer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_keywords_single_doc</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">docs</span><span class="p">,</span>
+                                                 <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span>
+                                                 <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="n">keyphrase_ngram_range</span><span class="p">,</span>
+                                                 <span class="n">stop_words</span><span class="o">=</span><span class="n">stop_words</span><span class="p">,</span>
+                                                 <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">,</span>
+                                                 <span class="n">use_maxsum</span><span class="o">=</span><span class="n">use_maxsum</span><span class="p">,</span>
+                                                 <span class="n">use_mmr</span><span class="o">=</span><span class="n">use_mmr</span><span class="p">,</span>
+                                                 <span class="n">diversity</span><span class="o">=</span><span class="n">diversity</span><span class="p">,</span>
+                                                 <span class="n">nr_candidates</span><span class="o">=</span><span class="n">nr_candidates</span><span class="p">,</span>
+                                                 <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">)</span>
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Although extracting keywords for multiple documents is faster "</span>
-                      <span class="s2">"than iterating over single documents, it requires significantly more memory "</span>
-                      <span class="s2">"to hold all word embeddings. Use this at your own discretion!"</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Although extracting keywords for multiple documents is faster &quot;</span>
+                      <span class="s2">&quot;than iterating over single documents, it requires significantly more memory &quot;</span>
+                      <span class="s2">&quot;to hold all word embeddings. Use this at your own discretion!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_keywords_multiple_docs</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span>
                                                     <span class="n">keyphrase_ngram_range</span><span class="p">,</span>
                                                     <span class="n">stop_words</span><span class="p">,</span>
                                                     <span class="n">top_n</span><span class="p">,</span>
                                                     <span class="n">min_df</span><span class="p">,</span>
                                                     <span class="n">vectorizer</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               
@@ -731,45 +797,44 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
             </article>
           </div>
         </div>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
-        
-          <a href="../guides/embeddings.html" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../guides/embeddings.html" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Embedding Models
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Embeddings
-              </div>
+          </div>
+        </a>
+      
+      
+        <a href="mmr.html" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              MMR
             </div>
-          </a>
-        
-        
-          <a href="mmr.html" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                MMR
-              </div>
-            </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -783,6 +848,7 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
+        
       </div>
       
     </div>
@@ -790,19 +856,13 @@ extract_keywords<span class="p">(</span><span class="bp">self</span><span class=
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
-      <script src="../assets/javascripts/vendor.0ac82a11.min.js"></script>
-      <script src="../assets/javascripts/bundle.f81dfb4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "..",
-          features: [],
-          search: Object.assign({
-            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../assets/javascripts/bundle.7353b375.min.js"></script>
       
     
   </body>
