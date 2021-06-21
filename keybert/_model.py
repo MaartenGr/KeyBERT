@@ -8,8 +8,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # KeyBERT
-from keybert.mmr import mmr
-from keybert.maxsum import max_sum_similarity
+from keybert._mmr import mmr
+from keybert._maxsum import max_sum_similarity
+from keybert._highlight import highlight_document
 from keybert.backend._utils import select_backend
 
 
@@ -58,8 +59,9 @@ class KeyBERT:
                          use_mmr: bool = False,
                          diversity: float = 0.5,
                          nr_candidates: int = 20,
-                         vectorizer: CountVectorizer = None) -> Union[List[Tuple[str, float]],
-                                                                      List[List[Tuple[str, float]]]]:
+                         vectorizer: CountVectorizer = None,
+                         highlight: bool = False) -> Union[List[Tuple[str, float]],
+                                                           List[List[Tuple[str, float]]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -94,6 +96,9 @@ class KeyBERT:
             nr_candidates: The number of candidates to consider if use_maxsum is
                            set to True
             vectorizer: Pass in your own CountVectorizer from scikit-learn
+            highlight: Whether to print the document and highlight
+                       its keywords/keyphrases. NOTE: This does not work if
+                       multiple documents are passed.
 
         Returns:
             keywords: the top n keywords for a document with their respective distances
@@ -102,16 +107,21 @@ class KeyBERT:
         """
 
         if isinstance(docs, str):
-            return self._extract_keywords_single_doc(doc=docs,
-                                                     candidates=candidates,
-                                                     keyphrase_ngram_range=keyphrase_ngram_range,
-                                                     stop_words=stop_words,
-                                                     top_n=top_n,
-                                                     use_maxsum=use_maxsum,
-                                                     use_mmr=use_mmr,
-                                                     diversity=diversity,
-                                                     nr_candidates=nr_candidates,
-                                                     vectorizer=vectorizer)
+            keywords = self._extract_keywords_single_doc(doc=docs,
+                                                         candidates=candidates,
+                                                         keyphrase_ngram_range=keyphrase_ngram_range,
+                                                         stop_words=stop_words,
+                                                         top_n=top_n,
+                                                         use_maxsum=use_maxsum,
+                                                         use_mmr=use_mmr,
+                                                         diversity=diversity,
+                                                         nr_candidates=nr_candidates,
+                                                         vectorizer=vectorizer)
+            if highlight:
+                highlight_document(docs, keywords)
+
+            return keywords
+
         elif isinstance(docs, list):
             warnings.warn("Although extracting keywords for multiple documents is faster "
                           "than iterating over single documents, it requires significantly more memory "
