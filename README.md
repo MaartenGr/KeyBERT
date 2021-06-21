@@ -90,8 +90,8 @@ from keybert import KeyBERT
 
 doc = """
          Supervised learning is the machine learning task of learning a function that
-         maps an input to an output based on example input-output pairs.[1] It infers a
-         function from labeled training data consisting of a set of training examples.[2]
+         maps an input to an output based on example input-output pairs. It infers a
+         function from labeled training data consisting of a set of training examples.
          In supervised learning, each example is a pair consisting of an input object
          (typically a vector) and a desired output value (also called the supervisory signal). 
          A supervised learning algorithm analyzes the training data and produces an inferred function, 
@@ -100,7 +100,7 @@ doc = """
          the learning algorithm to generalize from the training data to unseen situations in a 
          'reasonable' way (see inductive bias).
       """
-kw_model = KeyBERT('distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT()
 keywords = kw_model.extract_keywords(doc)
 ```
 
@@ -198,7 +198,7 @@ and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
-kw_model = KeyBERT(model='distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT(model='paraphrase-MiniLM-L6-v2')
 ```
 
 Or select a SentenceTransformer model with your own parameters:
@@ -207,7 +207,7 @@ Or select a SentenceTransformer model with your own parameters:
 from keybert import KeyBERT
 from sentence_transformers import SentenceTransformer
 
-sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cpu")
+sentence_model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 

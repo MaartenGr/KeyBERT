@@ -4,8 +4,9 @@ from ._sentencetransformers import SentenceTransformerBackend
 
 def select_backend(embedding_model) -> BaseEmbedder:
     """ Select an embedding model based on language or a specific sentence transformer models.
-    When selecting a language, we choose distilbert-base-nli-stsb-mean-tokens for English and
-    xlm-r-bert-base-nli-stsb-mean-tokens for all other languages as it support 100+ languages.
+    When selecting a language, we choose `paraphrase-MiniLM-L6-v2` for English and
+    `paraphrase-multilingual-MiniLM-L12-v2` for all other languages as it support 100+ languages.
+
     Returns:
         model: Either a Sentence-Transformer or Flair model
     """
@@ -41,4 +42,4 @@ def select_backend(embedding_model) -> BaseEmbedder:
     if isinstance(embedding_model, str):
         return SentenceTransformerBackend(embedding_model)
 
-    return SentenceTransformerBackend("xlm-r-bert-base-nli-stsb-mean-tokens")
+    return SentenceTransformerBackend("paraphrase-multilingual-MiniLM-L12-v2")

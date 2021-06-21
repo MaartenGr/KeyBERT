@@ -8,7 +8,7 @@ and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
-kw_model = KeyBERT(model="xlm-r-bert-base-nli-stsb-mean-tokens")
+kw_model = KeyBERT(model="paraphrase-MiniLM-L6-v2")
 ```
 
 Or select a SentenceTransformer model with your own parameters:
@@ -16,7 +16,7 @@ Or select a SentenceTransformer model with your own parameters:
 ```python
 from sentence_transformers import SentenceTransformer
 
-sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cuda")
+sentence_model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
@@ -129,7 +129,7 @@ class CustomEmbedder(BaseEmbedder):
         return embeddings 
 
 # Create custom backend
-distilbert = SentenceTransformer("distilbert-base-nli-stsb-mean-tokens")
+distilbert = SentenceTransformer("paraphrase-MiniLM-L6-v2")
 custom_embedder = CustomEmbedder(embedding_model=distilbert)
 
 # Pass custom backend to keybert
