@@ -1,6 +1,7 @@
 import re
 from rich.console import Console
 from rich.highlighter import RegexHighlighter
+from typing import Tuple, List
 
 
 class NullHighlighter(RegexHighlighter):
@@ -10,7 +11,19 @@ class NullHighlighter(RegexHighlighter):
     highlights = [r""]
 
 
-def highlight_document(doc, keywords):
+def highlight_document(doc: str,
+                       keywords: List[Tuple[str, float]]):
+    """ Highlight keywords in a document
+
+    Arguments:
+        doc: The document for which to extract keywords/keyphrases
+        keywords: the top n keywords for a document with their respective distances
+                  to the input document
+
+    Returns:
+        highlighted_text: The document with additional tags to highlight keywords
+                          according to the rich package
+    """
     keywords_only = [keyword for keyword, _ in keywords]
     max_len = max([len(token.split(" ")) for token in keywords_only])
 
@@ -23,7 +36,18 @@ def highlight_document(doc, keywords):
     console.print(highlighted_text)
 
 
-def _highlight_one_gram(doc, keywords):
+def _highlight_one_gram(doc: str,
+                        keywords: List[str]) -> str:
+    """ Highlight 1-gram keywords in a document
+
+    Arguments:
+        doc: The document for which to extract keywords/keyphrases
+        keywords: the top n keywords for a document
+
+    Returns:
+        highlighted_text: The document with additional tags to highlight keywords
+                          according to the rich package
+    """
     tokens = re.sub(r' +', ' ', doc.replace("\n", " ")).split(" ")
 
     highlighted_text = " ".join([f"[black on #FFFF00]{token}[/]"
@@ -33,7 +57,18 @@ def _highlight_one_gram(doc, keywords):
     return highlighted_text
 
 
-def _highlight_n_gram(doc, keywords):
+def _highlight_n_gram(doc: str,
+                      keywords: List[str]) -> str:
+    """ Highlight n-gram keywords in a document
+
+    Arguments:
+        doc: The document for which to extract keywords/keyphrases
+        keywords: the top n keywords for a document
+
+    Returns:
+        highlighted_text: The document with additional tags to highlight keywords
+                          according to the rich package
+    """
     max_len = max([len(token.split(" ")) for token in keywords])
     tokens = re.sub(r' +', ' ', doc.replace("\n", " ")).strip().split(" ")
     n_gram_tokens = [[" ".join(tokens[i: i + max_len][0: j + 1]) for j in range(max_len)] for i, _ in enumerate(tokens)]
@@ -57,5 +92,5 @@ def _highlight_n_gram(doc, keywords):
 
         else:
             skip = skip - 1
-
-    return " ".join(highlighted_text)
+    highlighted_text = " ".join(highlighted_text)
+    return highlighted_text
