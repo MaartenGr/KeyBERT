@@ -6,7 +6,7 @@ test_packages = [
 ]
 
 base_packages = [
-    "sentence-transformers>=1.2.0",
+    "sentence-transformers>=0.4.1",
     "scikit-learn>=0.22.2",
     "numpy>=1.20.0",
     "rich>=10.4.0"
