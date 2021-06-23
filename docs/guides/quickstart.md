@@ -65,9 +65,15 @@ of words you would like in the resulting keyphrases:
  ('learning function', 0.5850)]
 ``` 
 
+We can highlight the keywords in the document by simply setting `hightlight`:
+
+```python
+keywords = kw_model.extract_keywords(doc, highlight=True)
+``` 
+  
 **NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
-I would advise either `'paraphrase-MiniLM-L6-v2'` or `'paraphrase-multilingual-MiniLM-L12-v2'` as they
-have shown great performance in semantic similarity and paraphrase identification respectively. 
+I would advise either `"paraphrase-MiniLM-L6-v2"` for English documents or `"paraphrase-multilingual-MiniLM-L12-v2"` 
+for multi-lingual documents or any other language.  
 
 ###  Max Sum Similarity
 
