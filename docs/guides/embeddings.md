@@ -60,7 +60,7 @@ import spacy
 
 nlp = spacy.load("en_core_web_md", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
 
-kw_model = KeyBERT(model=document_glove_embeddings)nlp
+kw_model = KeyBERT(model=nlp)
 ```
 
 Using spacy-transformer models:
