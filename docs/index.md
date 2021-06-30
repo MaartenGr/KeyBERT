@@ -7,7 +7,7 @@ create keywords and keyphrases that are most similar to a document.
 
 ## About the Project
   
-Although that are already many methods available for keyword generation 
+Although there are already many methods available for keyword generation 
 (e.g., 
 [Rake](https://github.com/aneesha/RAKE), 
 [YAKE!](https://github.com/LIAAD/yake), TF-IDF, etc.) 
@@ -30,11 +30,6 @@ papers and solutions out there that use BERT-embeddings
 ), I could not find a BERT-based solution that did not have to be trained from scratch and
 could be used for beginners (**correct me if I'm wrong!**).
 Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.   
-    
-**NOTE**: If you use MMR to select the candidates instead of simple cosine similarity,
-this repo is essentially a simplified implementation of 
-[EmbedRank](https://github.com/swisscom/ai-research-keyphrase-extraction) 
-with BERT-embeddings. 
 
 ## Installation
 Installation can be done using [pypi](https://pypi.org/project/keybert/):
@@ -43,13 +38,24 @@ Installation can be done using [pypi](https://pypi.org/project/keybert/):
 pip install keybert
 ```
 
-To use Flair embeddings, install KeyBERT as follows:
+You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
 
 ```
 pip install keybert[flair]
+pip install keybert[gensim]
+pip install keybert[spacy]
+pip install keybert[use]
 ```
 
+To install all backends:
+
+```
+pip install keybert[all]
+```
+
+
 ## Usage
+
 
 The most minimal example can be seen below for the extraction of keywords:
 ```python
@@ -57,8 +63,8 @@ from keybert import KeyBERT
 
 doc = """
          Supervised learning is the machine learning task of learning a function that
-         maps an input to an output based on example input-output pairs.[1] It infers a
-         function from labeled training data consisting of a set of training examples.[2]
+         maps an input to an output based on example input-output pairs. It infers a
+         function from labeled training data consisting of a set of training examples.
          In supervised learning, each example is a pair consisting of an input object
          (typically a vector) and a desired output value (also called the supervisory signal). 
          A supervised learning algorithm analyzes the training data and produces an inferred function, 
@@ -67,13 +73,14 @@ doc = """
          the learning algorithm to generalize from the training data to unseen situations in a 
          'reasonable' way (see inductive bias).
       """
-model = KeyBERT('distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT()
+keywords = kw_model.extract_keywords(doc)
 ```
 
-You can set `keyphrase_length` to set the length of the resulting keyphras:
+You can set `keyphrase_ngram_range` to set the length of the resulting keywords/keyphrases:
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 1))
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
 [('learning', 0.4604),
  ('algorithm', 0.4556),
  ('training', 0.4487),
@@ -85,7 +92,7 @@ To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher de
 of words you would like in the resulting keyphrases: 
 
 ```python
->>> model.extract_keywords(doc, keyphrase_ngram_range=(1, 2))
+>>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
 [('learning algorithm', 0.6978),
  ('machine learning', 0.6305),
  ('supervised learning', 0.5985),

@@ -90,8 +90,8 @@ from keybert import KeyBERT
 
 doc = """
          Supervised learning is the machine learning task of learning a function that
-         maps an input to an output based on example input-output pairs.[1] It infers a
-         function from labeled training data consisting of a set of training examples.[2]
+         maps an input to an output based on example input-output pairs. It infers a
+         function from labeled training data consisting of a set of training examples.
          In supervised learning, each example is a pair consisting of an input object
          (typically a vector) and a desired output value (also called the supervisory signal). 
          A supervised learning algorithm analyzes the training data and produces an inferred function, 
@@ -100,7 +100,7 @@ doc = """
          the learning algorithm to generalize from the training data to unseen situations in a 
          'reasonable' way (see inductive bias).
       """
-kw_model = KeyBERT('distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT()
 keywords = kw_model.extract_keywords(doc)
 ```
 
@@ -127,10 +127,17 @@ of words you would like in the resulting keyphrases:
  ('learning function', 0.5850)]
 ``` 
 
+We can highlight the keywords in the document by simply setting `hightlight`:
 
+```python
+keywords = kw_model.extract_keywords(doc, highlight=True)
+```
+<img src="images/highlight.png" width="75%" height="75%" />
+  
+  
 **NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
-I would advise either `'distilbert-base-nli-mean-tokens'` or `'xlm-r-distilroberta-base-paraphrase-v1'` as they
-have shown great performance in semantic similarity and paraphrase identification respectively. 
+I would advise either `"paraphrase-MiniLM-L6-v2"` for English documents or `"paraphrase-multilingual-MiniLM-L12-v2"` 
+for multi-lingual documents or any other language.  
 
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Similarity
@@ -198,7 +205,7 @@ and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
-kw_model = KeyBERT(model='distilbert-base-nli-mean-tokens')
+kw_model = KeyBERT(model='paraphrase-MiniLM-L6-v2')
 ```
 
 Or select a SentenceTransformer model with your own parameters:
@@ -207,7 +214,7 @@ Or select a SentenceTransformer model with your own parameters:
 from keybert import KeyBERT
 from sentence_transformers import SentenceTransformer
 
-sentence_model = SentenceTransformer("distilbert-base-nli-mean-tokens", device="cpu")
+sentence_model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 

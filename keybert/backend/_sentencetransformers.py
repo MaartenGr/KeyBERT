@@ -16,13 +16,13 @@ class SentenceTransformerBackend(BaseEmbedder):
     sentence-transformers model:
     ```python
     from keybert.backend import SentenceTransformerBackend
-    sentence_model = SentenceTransformerBackend("distilbert-base-nli-stsb-mean-tokens")
+    sentence_model = SentenceTransformerBackend("paraphrase-MiniLM-L6-v2")
     ```
     or  you can instantiate a model yourself:
     ```python
     from keybert.backend import SentenceTransformerBackend
     from sentence_transformers import SentenceTransformer
-    embedding_model = SentenceTransformer("distilbert-base-nli-stsb-mean-tokens")
+    embedding_model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
     sentence_model = SentenceTransformerBackend(embedding_model)
     ```
     """
@@ -36,7 +36,7 @@ class SentenceTransformerBackend(BaseEmbedder):
         else:
             raise ValueError("Please select a correct SentenceTransformers model: \n"
                              "`from sentence_transformers import SentenceTransformer` \n"
-                             "`model = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')`")
+                             "`model = SentenceTransformer('paraphrase-MiniLM-L6-v2')`")
 
     def embed(self,
               documents: List[str],

@@ -1,3 +1,17 @@
+## **Version 0.4.0**
+*Release date:  23 June, 2021*  
+
+**Highlights**:
+
+* Highlight a document's keywords with:
+    * ```keywords = kw_model.extract_keywords(doc, highlight=True)```
+* Use `paraphrase-MiniLM-L6-v2` as the default embedder which gives great results!
+
+**Miscellaneous**:
+
+* Update Flair dependencies
+* Added FAQ
+
 ## **Version 0.3.0**
 *Release date:  10 May, 2021*  
 

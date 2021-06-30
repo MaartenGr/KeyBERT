@@ -9,6 +9,7 @@ base_packages = [
     "sentence-transformers>=0.3.8",
     "scikit-learn>=0.22.2",
     "numpy>=1.18.5",
+    "rich>=10.4.0"
 ]
 
 docs_packages = [
@@ -18,6 +19,7 @@ docs_packages = [
 ]
 
 flair_packages = [
+    "transformers==3.5.1",
     "torch>=1.4.0,<1.7.1",
     "flair==0.7"
 ]
@@ -46,7 +48,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 setup(
     name="keybert",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.3.0",
+    version="0.4.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",
