@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/index.html">
       
       <link rel="icon" href="icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.9299cb39.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6f955dcd.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
@@ -212,6 +212,7 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+      
         
       
       
@@ -226,6 +227,7 @@
       
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -394,6 +396,21 @@
   
   
     <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="changelog.html" class="md-nav__link">
         Changelog
       </a>
@@ -414,6 +431,7 @@
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -468,7 +486,7 @@
 <p>KeyBERT is a minimal and easy-to-use keyword extraction technique that leverages BERT embeddings to
 create keywords and keyphrases that are most similar to a document. </p>
 <h2 id="about-the-project">About the Project<a class="headerlink" href="#about-the-project" title="Permanent link">&para;</a></h2>
-<p>Although that are already many methods available for keyword generation 
+<p>Although there are already many methods available for keyword generation 
 (e.g., 
 <a href="https://github.com/aneesha/RAKE">Rake</a>, 
 <a href="https://github.com/LIAAD/yake">YAKE!</a>, TF-IDF, etc.) 
@@ -489,16 +507,18 @@ papers and solutions out there that use BERT-embeddings
 ), I could not find a BERT-based solution that did not have to be trained from scratch and
 could be used for beginners (<strong>correct me if I'm wrong!</strong>).
 Thus, the goal was a <code>pip install keybert</code> and at most 3 lines of code in usage.   </p>
-<p><strong>NOTE</strong>: If you use MMR to select the candidates instead of simple cosine similarity,
-this repo is essentially a simplified implementation of 
-<a href="https://github.com/swisscom/ai-research-keyphrase-extraction">EmbedRank</a> 
-with BERT-embeddings. </p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>Installation can be done using <a href="https://pypi.org/project/keybert/">pypi</a>:</p>
 <div class="highlight"><pre><span></span><code>pip install keybert
 </code></pre></div>
-<p>To use Flair embeddings, install KeyBERT as follows:</p>
+<p>You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:</p>
 <div class="highlight"><pre><span></span><code>pip install keybert[flair]
+pip install keybert[gensim]
+pip install keybert[spacy]
+pip install keybert[use]
+</code></pre></div>
+<p>To install all backends:</p>
+<div class="highlight"><pre><span></span><code>pip install keybert[all]
 </code></pre></div>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <p>The most minimal example can be seen below for the extraction of keywords:
@@ -506,8 +526,8 @@ with BERT-embeddings. </p>
 
 <span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">         Supervised learning is the machine learning task of learning a function that</span>
-<span class="s2">         maps an input to an output based on example input-output pairs.[1] It infers a</span>
-<span class="s2">         function from labeled training data consisting of a set of training examples.[2]</span>
+<span class="s2">         maps an input to an output based on example input-output pairs. It infers a</span>
+<span class="s2">         function from labeled training data consisting of a set of training examples.</span>
 <span class="s2">         In supervised learning, each example is a pair consisting of an input object</span>
 <span class="s2">         (typically a vector) and a desired output value (also called the supervisory signal). </span>
 <span class="s2">         A supervised learning algorithm analyzes the training data and produces an inferred function, </span>
@@ -516,10 +536,11 @@ with BERT-embeddings. </p>
 <span class="s2">         the learning algorithm to generalize from the training data to unseen situations in a </span>
 <span class="s2">         &#39;reasonable&#39; way (see inductive bias).</span>
 <span class="s2">      &quot;&quot;&quot;</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">)</span>
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">()</span>
+<span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </code></pre></div></p>
-<p>You can set <code>keyphrase_length</code> to set the length of the resulting keyphras:</p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<p>You can set <code>keyphrase_ngram_range</code> to set the length of the resulting keywords/keyphrases:</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="p">[(</span><span class="s1">&#39;learning&#39;</span><span class="p">,</span> <span class="mf">0.4604</span><span class="p">),</span>
  <span class="p">(</span><span class="s1">&#39;algorithm&#39;</span><span class="p">,</span> <span class="mf">0.4556</span><span class="p">),</span>
  <span class="p">(</span><span class="s1">&#39;training&#39;</span><span class="p">,</span> <span class="mf">0.4487</span><span class="p">),</span>
@@ -528,7 +549,7 @@ with BERT-embeddings. </p>
 </code></pre></div>
 <p>To extract keyphrases, simply set <code>keyphrase_ngram_range</code> to (1, 2) or higher depending on the number 
 of words you would like in the resulting keyphrases: </p>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="p">[(</span><span class="s1">&#39;learning algorithm&#39;</span><span class="p">,</span> <span class="mf">0.6978</span><span class="p">),</span>
  <span class="p">(</span><span class="s1">&#39;machine learning&#39;</span><span class="p">,</span> <span class="mf">0.6305</span><span class="p">),</span>
  <span class="p">(</span><span class="s1">&#39;supervised learning&#39;</span><span class="p">,</span> <span class="mf">0.5985</span><span class="p">),</span>
@@ -596,7 +617,7 @@ of words you would like in the resulting keyphrases: </p>
     <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.7353b375.min.js"></script>
+      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
       
     
   </body>

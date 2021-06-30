@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/changelog.html">
       
       <link rel="icon" href="icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.9299cb39.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6f955dcd.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
@@ -73,7 +73,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#version-030" class="md-skip">
+        <a href="#version-040" class="md-skip">
           Skip to content
         </a>
       
@@ -340,12 +340,28 @@
 
   
   
+  
+    <li class="md-nav__item">
+      <a href="faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
     
   
   
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
@@ -362,11 +378,19 @@
   
   
   
+  
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-040" class="md-nav__link">
+    Version 0.4.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#version-030" class="md-nav__link">
@@ -420,11 +444,19 @@
   
   
   
+  
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-040" class="md-nav__link">
+    Version 0.4.0
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#version-030" class="md-nav__link">
@@ -473,7 +505,22 @@
                 
                   <h1>Changelog</h1>
                 
-                <h2 id="version-030"><strong>Version 0.3.0</strong><a class="headerlink" href="#version-030" title="Permanent link">&para;</a></h2>
+                <h2 id="version-040"><strong>Version 0.4.0</strong><a class="headerlink" href="#version-040" title="Permanent link">&para;</a></h2>
+<p><em>Release date:  23 June, 2021</em>  </p>
+<p><strong>Highlights</strong>:</p>
+<ul>
+<li>Highlight a document's keywords with:<ul>
+<li><code>keywords = kw_model.extract_keywords(doc, highlight=True)</code></li>
+</ul>
+</li>
+<li>Use <code>paraphrase-MiniLM-L6-v2</code> as the default embedder which gives great results!</li>
+</ul>
+<p><strong>Miscellaneous</strong>:</p>
+<ul>
+<li>Update Flair dependencies</li>
+<li>Added FAQ</li>
+</ul>
+<h2 id="version-030"><strong>Version 0.3.0</strong><a class="headerlink" href="#version-030" title="Permanent link">&para;</a></h2>
 <p><em>Release date:  10 May, 2021</em>  </p>
 <p>The two main features are <strong>candidate keywords</strong> 
 and several <strong>backends</strong> to use instead of Flair and SentenceTransformers!</p>
@@ -529,7 +576,7 @@ There is also an option to use Maximal Marginal Relevance to select the candidat
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="api/maxsum.html" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="faq.html" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -538,7 +585,7 @@ There is also an option to use Maximal Marginal Relevance to select the candidat
               <span class="md-footer__direction">
                 Previous
               </span>
-              MaxSum
+              FAQ
             </div>
           </div>
         </a>
@@ -572,7 +619,7 @@ There is also an option to use Maximal Marginal Relevance to select the candidat
     <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.7353b375.min.js"></script>
+      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
       
     
   </body>

@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/api/keybert.html">
       
       <link rel="icon" href="../icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.9299cb39.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f955dcd.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -304,6 +304,7 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+      
         
       
       
@@ -320,6 +321,7 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
     
   
   
@@ -330,21 +332,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT" class="md-nav__link">
-    keybert.model.KeyBERT
+  <a href="#keybert._model.KeyBERT" class="md-nav__link">
+    keybert._model.KeyBERT
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT.__init__" class="md-nav__link">
+  <a href="#keybert._model.KeyBERT.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT.extract_keywords" class="md-nav__link">
+  <a href="#keybert._model.KeyBERT.extract_keywords" class="md-nav__link">
     extract_keywords()
   </a>
   
@@ -396,6 +398,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changelog.html" class="md-nav__link">
         Changelog
       </a>
@@ -418,6 +435,7 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
     
   
   
@@ -428,21 +446,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT" class="md-nav__link">
-    keybert.model.KeyBERT
+  <a href="#keybert._model.KeyBERT" class="md-nav__link">
+    keybert._model.KeyBERT
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT.__init__" class="md-nav__link">
+  <a href="#keybert._model.KeyBERT.__init__" class="md-nav__link">
     __init__()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#keybert.model.KeyBERT.extract_keywords" class="md-nav__link">
+  <a href="#keybert._model.KeyBERT.extract_keywords" class="md-nav__link">
     extract_keywords()
   </a>
   
@@ -470,7 +488,7 @@
 
   <div class="doc doc-object doc-class">
 
-<a id="keybert.model.KeyBERT"></a>
+<a id="keybert._model.KeyBERT"></a>
     <div class="doc doc-contents first">
 
       <p>A minimal method for keyword extraction with BERT</p>
@@ -500,14 +518,14 @@ best describe the entire document.</p>
 
 
 
-<h2 id="keybert.model.KeyBERT.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">)</span></code>
+<h2 id="keybert._model.KeyBERT.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;paraphrase-MiniLM-L6-v2&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-<a href="#keybert.model.KeyBERT.__init__" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#keybert._model.KeyBERT.__init__" class="headerlink" title="Permanent link">&para;</a></h2>
 
     <div class="doc doc-contents ">
 
@@ -537,14 +555,14 @@ best describe the entire document.</p>
     You can also pass in a string that points to one of the following
     sentence-transformers models:
       * https://www.sbert.net/docs/pretrained_models.html</p></td>
-        <td><code>&#39;distilbert-base-nli-mean-tokens&#39;</code></td>
+        <td><code>&#39;paraphrase-MiniLM-L6-v2&#39;</code></td>
       </tr>
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>keybert\model.py</code></summary>
+          <summary>Source code in <code>keybert\_model.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-             <span class="n">model</span><span class="o">=</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">):</span>
+             <span class="n">model</span><span class="o">=</span><span class="s2">&quot;paraphrase-MiniLM-L6-v2&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; KeyBERT initialization</span>
 
 <span class="sd">    Arguments:</span>
@@ -572,28 +590,24 @@ best describe the entire document.</p>
 
 
 
-<h2 id="keybert.model.KeyBERT.extract_keywords" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h2 id="keybert._model.KeyBERT.extract_keywords" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 
-<a href="#keybert.model.KeyBERT.extract_keywords" class="headerlink" title="Permanent link">&para;</a></h2>
+<a href="#keybert._model.KeyBERT.extract_keywords" class="headerlink" title="Permanent link">&para;</a></h2>
 
     <div class="doc doc-contents ">
 
       <p>Extract keywords/keyphrases</p>
-<p>!!! note
-    I would advise you to iterate over single documents as they
-    will need the least amount of memory. Even though this is slower,
-    you are not likely to run into memory errors.</p>
-<p>Multiple Documents:
-    There is an option to extract keywords for multiple documents
-    that is faster than extraction for multiple single documents.</p>
-<div class="highlight"><pre><span></span><code>However...this method assumes that you can keep the word embeddings
-for all words in the vocabulary in memory which might be troublesome.
-
-I would advise against using this option and simply iterating
-over documents instead if you have limited hardware.
-</code></pre></div>
+<p>I would advise you to iterate over single documents as they
+will need the least amount of memory. Even though this is slower,
+you are not likely to run into memory errors.</p>
+<p>There is an option to extract keywords for multiple documents
+that is faster than extraction for multiple single documents.</p>
+<p>However...this method assumes that you can keep the word embeddings
+for all words in the vocabulary in memory which might be troublesome.</p>
+<p>I would advise against using this option and simply iterating
+over documents instead if you have limited hardware.</p>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -677,6 +691,14 @@ over documents instead if you have limited hardware.
         <td><p>Pass in your own CountVectorizer from scikit-learn</p></td>
         <td><code>None</code></td>
       </tr>
+      <tr>
+        <td><code>highlight</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to print the document and highlight
+       its keywords/keyphrases. NOTE: This does not work if
+       multiple documents are passed.</p></td>
+        <td><code>False</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -696,7 +718,7 @@ over documents instead if you have limited hardware.
   </tbody>
 </table>
         <details class="quote">
-          <summary>Source code in <code>keybert\model.py</code></summary>
+          <summary>Source code in <code>keybert\_model.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
                      <span class="n">candidates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -708,24 +730,23 @@ over documents instead if you have limited hardware.
                      <span class="n">use_mmr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                      <span class="n">diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
                      <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-                     <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
-                                                                  <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
+                     <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+                                                       <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
     <span class="sd">&quot;&quot;&quot; Extract keywords/keyphrases</span>
 
-<span class="sd">    NOTE:</span>
-<span class="sd">        I would advise you to iterate over single documents as they</span>
-<span class="sd">        will need the least amount of memory. Even though this is slower,</span>
-<span class="sd">        you are not likely to run into memory errors.</span>
+<span class="sd">    I would advise you to iterate over single documents as they</span>
+<span class="sd">    will need the least amount of memory. Even though this is slower,</span>
+<span class="sd">    you are not likely to run into memory errors.</span>
 
-<span class="sd">    Multiple Documents:</span>
-<span class="sd">        There is an option to extract keywords for multiple documents</span>
-<span class="sd">        that is faster than extraction for multiple single documents.</span>
+<span class="sd">    There is an option to extract keywords for multiple documents</span>
+<span class="sd">    that is faster than extraction for multiple single documents.</span>
 
-<span class="sd">        However...this method assumes that you can keep the word embeddings</span>
-<span class="sd">        for all words in the vocabulary in memory which might be troublesome.</span>
+<span class="sd">    However...this method assumes that you can keep the word embeddings</span>
+<span class="sd">    for all words in the vocabulary in memory which might be troublesome.</span>
 
-<span class="sd">        I would advise against using this option and simply iterating</span>
-<span class="sd">        over documents instead if you have limited hardware.</span>
+<span class="sd">    I would advise against using this option and simply iterating</span>
+<span class="sd">    over documents instead if you have limited hardware.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        docs: The document(s) for which to extract keywords/keyphrases</span>
@@ -744,6 +765,9 @@ over documents instead if you have limited hardware.
 <span class="sd">        nr_candidates: The number of candidates to consider if use_maxsum is</span>
 <span class="sd">                       set to True</span>
 <span class="sd">        vectorizer: Pass in your own CountVectorizer from scikit-learn</span>
+<span class="sd">        highlight: Whether to print the document and highlight</span>
+<span class="sd">                   its keywords/keyphrases. NOTE: This does not work if</span>
+<span class="sd">                   multiple documents are passed.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        keywords: the top n keywords for a document with their respective distances</span>
@@ -752,16 +776,21 @@ over documents instead if you have limited hardware.
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_keywords_single_doc</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">docs</span><span class="p">,</span>
-                                                 <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span>
-                                                 <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="n">keyphrase_ngram_range</span><span class="p">,</span>
-                                                 <span class="n">stop_words</span><span class="o">=</span><span class="n">stop_words</span><span class="p">,</span>
-                                                 <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">,</span>
-                                                 <span class="n">use_maxsum</span><span class="o">=</span><span class="n">use_maxsum</span><span class="p">,</span>
-                                                 <span class="n">use_mmr</span><span class="o">=</span><span class="n">use_mmr</span><span class="p">,</span>
-                                                 <span class="n">diversity</span><span class="o">=</span><span class="n">diversity</span><span class="p">,</span>
-                                                 <span class="n">nr_candidates</span><span class="o">=</span><span class="n">nr_candidates</span><span class="p">,</span>
-                                                 <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">)</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_keywords_single_doc</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="n">docs</span><span class="p">,</span>
+                                                     <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span>
+                                                     <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="n">keyphrase_ngram_range</span><span class="p">,</span>
+                                                     <span class="n">stop_words</span><span class="o">=</span><span class="n">stop_words</span><span class="p">,</span>
+                                                     <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">,</span>
+                                                     <span class="n">use_maxsum</span><span class="o">=</span><span class="n">use_maxsum</span><span class="p">,</span>
+                                                     <span class="n">use_mmr</span><span class="o">=</span><span class="n">use_mmr</span><span class="p">,</span>
+                                                     <span class="n">diversity</span><span class="o">=</span><span class="n">diversity</span><span class="p">,</span>
+                                                     <span class="n">nr_candidates</span><span class="o">=</span><span class="n">nr_candidates</span><span class="p">,</span>
+                                                     <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">highlight</span><span class="p">:</span>
+            <span class="n">highlight_document</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">keywords</span>
+
     <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Although extracting keywords for multiple documents is faster &quot;</span>
                       <span class="s2">&quot;than iterating over single documents, it requires significantly more memory &quot;</span>
@@ -862,7 +891,7 @@ over documents instead if you have limited hardware.
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.7353b375.min.js"></script>
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
       
     
   </body>

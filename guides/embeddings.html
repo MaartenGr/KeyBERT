@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/guides/embeddings.html">
       
       <link rel="icon" href="../icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.9299cb39.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f955dcd.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -262,6 +262,7 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+      
         
       
       
@@ -276,6 +277,7 @@
       
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -417,6 +419,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changelog.html" class="md-nav__link">
         Changelog
       </a>
@@ -437,6 +454,7 @@
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -514,12 +532,12 @@ Having the option to choose embedding models allow you to leverage pre-trained e
 <p>You can select any model from sentence-transformers <a href="https://www.sbert.net/docs/pretrained_models.html">here</a> 
 and pass it through KeyBERT with <code>model</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">keybert</span> <span class="kn">import</span> <span class="n">KeyBERT</span>
-<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;xlm-r-bert-base-nli-stsb-mean-tokens&quot;</span><span class="p">)</span>
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;paraphrase-MiniLM-L6-v2&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Or select a SentenceTransformer model with your own parameters:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
 
-<span class="n">sentence_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;distilbert-base-nli-mean-tokens&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="n">sentence_model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-MiniLM-L6-v2&quot;</span><span class="p">)</span>
 <span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">sentence_model</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="flair"><strong>Flair</strong><a class="headerlink" href="#flair" title="Permanent link">&para;</a></h3>
@@ -551,7 +569,7 @@ is publicly available. Flair can be used as follows:</p>
 
 <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;en_core_web_md&quot;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;tagger&#39;</span><span class="p">,</span> <span class="s1">&#39;parser&#39;</span><span class="p">,</span> <span class="s1">&#39;ner&#39;</span><span class="p">,</span> <span class="s1">&#39;attribute_ruler&#39;</span><span class="p">,</span> <span class="s1">&#39;lemmatizer&#39;</span><span class="p">])</span>
 
-<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">document_glove_embeddings</span><span class="p">)</span><span class="n">nlp</span>
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">nlp</span><span class="p">)</span>
 </code></pre></div>
 <p>Using spacy-transformer models:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">spacy</span>
@@ -604,7 +622,7 @@ create your own backend. Below, you will find an example of creating a SentenceT
         <span class="k">return</span> <span class="n">embeddings</span> 
 
 <span class="c1"># Create custom backend</span>
-<span class="n">distilbert</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;distilbert-base-nli-stsb-mean-tokens&quot;</span><span class="p">)</span>
+<span class="n">distilbert</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-MiniLM-L6-v2&quot;</span><span class="p">)</span>
 <span class="n">custom_embedder</span> <span class="o">=</span> <span class="n">CustomEmbedder</span><span class="p">(</span><span class="n">embedding_model</span><span class="o">=</span><span class="n">distilbert</span><span class="p">)</span>
 
 <span class="c1"># Pass custom backend to keybert</span>
@@ -685,7 +703,7 @@ create your own backend. Below, you will find an example of creating a SentenceT
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.7353b375.min.js"></script>
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
       
     
   </body>

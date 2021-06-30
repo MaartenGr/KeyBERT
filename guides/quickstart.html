@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/guides/quickstart.html">
       
       <link rel="icon" href="../icon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.1">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.9299cb39.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f955dcd.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -251,6 +251,7 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+      
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Quickstart
           <span class="md-nav__icon md-icon"></span>
@@ -262,6 +263,7 @@
       
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -412,6 +414,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../faq.html" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../changelog.html" class="md-nav__link">
         Changelog
       </a>
@@ -432,6 +449,7 @@
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
   
@@ -530,7 +548,7 @@ pip install keybert[use]
 <span class="s2">         the learning algorithm to generalize from the training data to unseen situations in a </span>
 <span class="s2">         &#39;reasonable&#39; way (see inductive bias).</span>
 <span class="s2">      &quot;&quot;&quot;</span>
-<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">(</span><span class="s1">&#39;distilbert-base-nli-mean-tokens&#39;</span><span class="p">)</span>
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">()</span>
 <span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 </code></pre></div></p>
 <p>You can set <code>keyphrase_ngram_range</code> to set the length of the resulting keywords/keyphrases:</p>
@@ -550,9 +568,12 @@ of words you would like in the resulting keyphrases: </p>
  <span class="p">(</span><span class="s1">&#39;algorithm analyzes&#39;</span><span class="p">,</span> <span class="mf">0.5860</span><span class="p">),</span>
  <span class="p">(</span><span class="s1">&#39;learning function&#39;</span><span class="p">,</span> <span class="mf">0.5850</span><span class="p">)]</span>
 </code></pre></div>
+<p>We can highlight the keywords in the document by simply setting <code>hightlight</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
 <p><strong>NOTE</strong>: For a full overview of all possible transformer models see <a href="https://www.sbert.net/docs/pretrained_models.html">sentence-transformer</a>.
-I would advise either <code>'distilbert-base-nli-mean-tokens'</code> or <code>'xlm-r-distilroberta-base-paraphrase-v1'</code> as they
-have shown great performance in semantic similarity and paraphrase identification respectively. </p>
+I would advise either <code>"paraphrase-MiniLM-L6-v2"</code> for English documents or <code>"paraphrase-multilingual-MiniLM-L12-v2"</code> 
+for multi-lingual documents or any other language.  </p>
 <h3 id="max-sum-similarity">Max Sum Similarity<a class="headerlink" href="#max-sum-similarity" title="Permanent link">&para;</a></h3>
 <p>To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
@@ -688,7 +709,7 @@ with <strong>high diversity</strong>:</p>
     <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.7353b375.min.js"></script>
+      <script src="../assets/javascripts/bundle.4ea5477f.min.js"></script>
       
     
   </body>
