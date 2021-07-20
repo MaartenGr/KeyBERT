@@ -234,7 +234,7 @@ You can select any 🤗 transformers model [here](https://huggingface.co/models)
 
 
 ## Citation
-To cite PolyFuzz in your work, please use the following bibtex reference:
+To cite KeyBERT in your work, please use the following bibtex reference:
 
 ```bibtex
 @misc{grootendorst2020keybert,
