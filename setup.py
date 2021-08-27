@@ -76,8 +76,7 @@ setup(
         "test": test_packages,
         "docs": docs_packages,
         "dev": dev_packages,
-        "flair": flair_packages,
-        "all": extra_packages
+        "flair": flair_packages
     },
     python_requires='>=3.6',
 )

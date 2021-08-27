@@ -75,12 +75,6 @@ pip install keybert[spacy]
 pip install keybert[use]
 ```
 
-To install all backends:
-
-```
-pip install keybert[all]
-```
-
 <a name="usage"/></a>
 ###  2.2. Usage
 

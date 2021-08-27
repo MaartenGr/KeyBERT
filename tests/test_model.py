@@ -68,6 +68,22 @@ def test_extract_keywords_multiple_docs(keyphrase_length):
             assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
+def test_guided():
+    """ Test whether the keywords are correctly extracted """
+    top_n = 5
+    seed_keywords = ["time", "night", "day", "moment"]
+    keywords = model.extract_keywords(doc_one,
+                                      min_df=1,
+                                      top_n=top_n,
+                                      seed_keywords=seed_keywords)
+
+    assert isinstance(keywords, list)
+    assert isinstance(keywords[0], tuple)
+    assert isinstance(keywords[0][0], str)
+    assert isinstance(keywords[0][1], float)
+    assert len(keywords) == top_n
+
+
 def test_error():
     """ Empty doc should raise a ValueError """
     with pytest.raises(AttributeError):
