@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from keybert import KeyBERT
 
 doc_one, doc_two = get_test_data()
-model = KeyBERT(model='paraphrase-MiniLM-L6-v2')
+model = KeyBERT(model='all-MiniLM-L6-v2')
 
 
 @pytest.mark.parametrize("keyphrase_length", [(1, i+1) for i in range(5)])

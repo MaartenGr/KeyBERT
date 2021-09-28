@@ -1,7 +1,7 @@
 ## **Which embedding model works best for which language?**
 Unfortunately, there is not a definitive list of the best models for each language, this highly depends 
 on your data, the model, and your specific use-case. However, the default model in KeyBERT 
-(`"paraphrase-MiniLM-L6-v2"`) works great for **English** documents. In contrast, for **multi-lingual** 
+(`"all-MiniLM-L6-v2"`) works great for **English** documents. In contrast, for **multi-lingual** 
 documents or any other language, `"paraphrase-multilingual-MiniLM-L12-v2""` has shown great performance.  
 
 If you want to use a model that provides a higher quality, but takes more compute time, then I would advise using `paraphrase-mpnet-base-v2` and `paraphrase-multilingual-mpnet-base-v2` instead.

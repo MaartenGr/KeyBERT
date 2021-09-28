@@ -4,7 +4,7 @@ from ._sentencetransformers import SentenceTransformerBackend
 
 def select_backend(embedding_model) -> BaseEmbedder:
     """ Select an embedding model based on language or a specific sentence transformer models.
-    When selecting a language, we choose `paraphrase-MiniLM-L6-v2` for English and
+    When selecting a language, we choose `all-MiniLM-L6-v2` for English and
     `paraphrase-multilingual-MiniLM-L12-v2` for all other languages as it support 100+ languages.
 
     Returns:
