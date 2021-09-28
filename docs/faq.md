@@ -17,4 +17,27 @@ topic modeling to HTML-code to extract topics of code, then it becomes important
 
 ## **Can I use the GPU to speed up the model?**
 Yes! Since KeyBERT uses embeddings as its backend, a GPU is actually prefered when using this package. 
-Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower. 
+Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower.
+
+## **How can I use KeyBERT with Chinese documents?**  
+You need to make sure you use a Tokenizer in KeyBERT that supports tokenization of Chinese. I suggest installing [`jieba`](https://github.com/fxsjy/jieba) for this:
+
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+import jieba
+
+def tokenize_zh(text):
+    words = jieba.lcut(text)
+    return words
+
+vectorizer = CountVectorizer(tokenizer=tokenize_zh)
+```
+
+Then, simply pass the vectorizer to your KeyBERT instance:
+
+```python
+from keybert import KeyBERT
+
+kw_model = KeyBERT()
+keywords = kw_model.extract_keywords(doc, vectorizer=vectorizer)
+``` 
