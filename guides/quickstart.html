@@ -309,6 +309,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#guided-keybert" class="md-nav__link">
+    Guided KeyBERT
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -495,6 +502,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#guided-keybert" class="md-nav__link">
+    Guided KeyBERT
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -572,7 +586,7 @@ of words you would like in the resulting keyphrases: </p>
 <div class="highlight"><pre><span></span><code><span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>NOTE</strong>: For a full overview of all possible transformer models see <a href="https://www.sbert.net/docs/pretrained_models.html">sentence-transformer</a>.
-I would advise either <code>"paraphrase-MiniLM-L6-v2"</code> for English documents or <code>"paraphrase-multilingual-MiniLM-L12-v2"</code> 
+I would advise either <code>"all-MiniLM-L6-v2"</code> for English documents or <code>"paraphrase-multilingual-MiniLM-L12-v2"</code> 
 for multi-lingual documents or any other language.  </p>
 <h3 id="max-sum-similarity">Max Sum Similarity<a class="headerlink" href="#max-sum-similarity" title="Permanent link">&para;</a></h3>
 <p>To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
@@ -633,6 +647,26 @@ with <strong>high diversity</strong>:</p>
 <span class="c1"># KeyBERT init</span>
 <span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">()</span>
 <span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">candidates</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="guided-keybert">Guided KeyBERT<a class="headerlink" href="#guided-keybert" title="Permanent link">&para;</a></h3>
+<p>Guided KeyBERT is similar to Guided Topic Modeling in that it tries to steer the training towards a set of seeded terms. When applying KeyBERT it automatically extracts the most related keywords to a specific document. However, there are times when stakeholders and users are looking for specific types of keywords. For example, when publishing an article on your website through contentful, you typically already know the global keywords related to the article. However, there might be a specific topic in the article that you would like to be extracted through the keywords. To achieve this, we simply give KeyBERT a set of related seeded keywords (it can also be a single one!) and search for keywords that are similar to both the document and the seeded keywords. </p>
+<p>Using this feature is as simple as defining a list of seeded keywords and passing them to KeyBERT:</p>
+<div class="highlight"><pre><span></span><code><span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">         Supervised learning is the machine learning task of learning a function that</span>
+<span class="s2">         maps an input to an output based on example input-output pairs.[1] It infers a</span>
+<span class="s2">         function from labeled training data consisting of a set of training examples.[2]</span>
+<span class="s2">         In supervised learning, each example is a pair consisting of an input object</span>
+<span class="s2">         (typically a vector) and a desired output value (also called the supervisory signal). </span>
+<span class="s2">         A supervised learning algorithm analyzes the training data and produces an inferred function, </span>
+<span class="s2">         which can be used for mapping new examples. An optimal scenario will allow for the </span>
+<span class="s2">         algorithm to correctly determine the class labels for unseen instances. This requires </span>
+<span class="s2">         the learning algorithm to generalize from the training data to unseen situations in a </span>
+<span class="s2">         &#39;reasonable&#39; way (see inductive bias).</span>
+<span class="s2">      &quot;&quot;&quot;</span>
+
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">()</span>
+<span class="n">seed_keywords</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;information&quot;</span><span class="p">]</span>
+<span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">seed_keywords</span><span class="o">=</span><span class="n">seed_keywords</span><span class="p">)</span>
 </code></pre></div>
                 
               

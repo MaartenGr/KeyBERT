@@ -519,7 +519,7 @@ best describe the entire document.</p>
 
 
 <h2 id="keybert._model.KeyBERT.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;paraphrase-MiniLM-L6-v2&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -555,14 +555,14 @@ best describe the entire document.</p>
     You can also pass in a string that points to one of the following
     sentence-transformers models:
       * https://www.sbert.net/docs/pretrained_models.html</p></td>
-        <td><code>&#39;paraphrase-MiniLM-L6-v2&#39;</code></td>
+        <td><code>&#39;all-MiniLM-L6-v2&#39;</code></td>
       </tr>
   </tbody>
 </table>
         <details class="quote">
           <summary>Source code in <code>keybert\_model.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-             <span class="n">model</span><span class="o">=</span><span class="s2">&quot;paraphrase-MiniLM-L6-v2&quot;</span><span class="p">):</span>
+             <span class="n">model</span><span class="o">=</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; KeyBERT initialization</span>
 
 <span class="sd">    Arguments:</span>
@@ -591,7 +591,7 @@ best describe the entire document.</p>
 
 
 <h2 id="keybert._model.KeyBERT.extract_keywords" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed_keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
 <a href="#keybert._model.KeyBERT.extract_keywords" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -599,15 +599,19 @@ best describe the entire document.</p>
     <div class="doc doc-contents ">
 
       <p>Extract keywords/keyphrases</p>
-<p>I would advise you to iterate over single documents as they
-will need the least amount of memory. Even though this is slower,
-you are not likely to run into memory errors.</p>
-<p>There is an option to extract keywords for multiple documents
-that is faster than extraction for multiple single documents.</p>
-<p>However...this method assumes that you can keep the word embeddings
-for all words in the vocabulary in memory which might be troublesome.</p>
-<p>I would advise against using this option and simply iterating
-over documents instead if you have limited hardware.</p>
+<p>!!! note
+    I would advise you to iterate over single documents as they
+    will need the least amount of memory. Even though this is slower,
+    you are not likely to run into memory errors.</p>
+<p>Multiple Documents:
+    There is an option to extract keywords for multiple documents
+    that is faster than extraction for multiple single documents.</p>
+<div class="highlight"><pre><span></span><code>However...this method assumes that you can keep the word embeddings
+for all words in the vocabulary in memory which might be troublesome.
+
+I would advise against using this option and simply iterating
+over documents instead if you have limited hardware.
+</code></pre></div>
 
 <p><strong>Parameters:</strong></p>
 <table>
@@ -699,6 +703,13 @@ over documents instead if you have limited hardware.</p>
        multiple documents are passed.</p></td>
         <td><code>False</code></td>
       </tr>
+      <tr>
+        <td><code>seed_keywords</code></td>
+        <td><code>List[str]</code></td>
+        <td><p>Seed keywords that may guide the extraction of keywords by
+           steering the similarities towards the seeded keywords</p></td>
+        <td><code>None</code></td>
+      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -731,22 +742,25 @@ over documents instead if you have limited hardware.</p>
                      <span class="n">diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
                      <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
                      <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                     <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
-                                                       <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
+                     <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                     <span class="n">seed_keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+                                                                <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
     <span class="sd">&quot;&quot;&quot; Extract keywords/keyphrases</span>
 
-<span class="sd">    I would advise you to iterate over single documents as they</span>
-<span class="sd">    will need the least amount of memory. Even though this is slower,</span>
-<span class="sd">    you are not likely to run into memory errors.</span>
+<span class="sd">    NOTE:</span>
+<span class="sd">        I would advise you to iterate over single documents as they</span>
+<span class="sd">        will need the least amount of memory. Even though this is slower,</span>
+<span class="sd">        you are not likely to run into memory errors.</span>
 
-<span class="sd">    There is an option to extract keywords for multiple documents</span>
-<span class="sd">    that is faster than extraction for multiple single documents.</span>
+<span class="sd">    Multiple Documents:</span>
+<span class="sd">        There is an option to extract keywords for multiple documents</span>
+<span class="sd">        that is faster than extraction for multiple single documents.</span>
 
-<span class="sd">    However...this method assumes that you can keep the word embeddings</span>
-<span class="sd">    for all words in the vocabulary in memory which might be troublesome.</span>
+<span class="sd">        However...this method assumes that you can keep the word embeddings</span>
+<span class="sd">        for all words in the vocabulary in memory which might be troublesome.</span>
 
-<span class="sd">    I would advise against using this option and simply iterating</span>
-<span class="sd">    over documents instead if you have limited hardware.</span>
+<span class="sd">        I would advise against using this option and simply iterating</span>
+<span class="sd">        over documents instead if you have limited hardware.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        docs: The document(s) for which to extract keywords/keyphrases</span>
@@ -768,6 +782,8 @@ over documents instead if you have limited hardware.</p>
 <span class="sd">        highlight: Whether to print the document and highlight</span>
 <span class="sd">                   its keywords/keyphrases. NOTE: This does not work if</span>
 <span class="sd">                   multiple documents are passed.</span>
+<span class="sd">        seed_keywords: Seed keywords that may guide the extraction of keywords by</span>
+<span class="sd">                       steering the similarities towards the seeded keywords</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        keywords: the top n keywords for a document with their respective distances</span>
@@ -785,7 +801,8 @@ over documents instead if you have limited hardware.</p>
                                                      <span class="n">use_mmr</span><span class="o">=</span><span class="n">use_mmr</span><span class="p">,</span>
                                                      <span class="n">diversity</span><span class="o">=</span><span class="n">diversity</span><span class="p">,</span>
                                                      <span class="n">nr_candidates</span><span class="o">=</span><span class="n">nr_candidates</span><span class="p">,</span>
-                                                     <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">)</span>
+                                                     <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">,</span>
+                                                     <span class="n">seed_keywords</span><span class="o">=</span><span class="n">seed_keywords</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">highlight</span><span class="p">:</span>
             <span class="n">highlight_document</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">)</span>
 

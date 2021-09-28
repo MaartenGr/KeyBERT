@@ -391,6 +391,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-can-i-use-keybert-with-chinese-documents" class="md-nav__link">
+    How can I use KeyBERT with Chinese documents?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -458,6 +465,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#how-can-i-use-keybert-with-chinese-documents" class="md-nav__link">
+    How can I use KeyBERT with Chinese documents?
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -480,7 +494,7 @@
                 <h2 id="which-embedding-model-works-best-for-which-language"><strong>Which embedding model works best for which language?</strong><a class="headerlink" href="#which-embedding-model-works-best-for-which-language" title="Permanent link">&para;</a></h2>
 <p>Unfortunately, there is not a definitive list of the best models for each language, this highly depends 
 on your data, the model, and your specific use-case. However, the default model in KeyBERT 
-(<code>"paraphrase-MiniLM-L6-v2"</code>) works great for <strong>English</strong> documents. In contrast, for <strong>multi-lingual</strong> 
+(<code>"all-MiniLM-L6-v2"</code>) works great for <strong>English</strong> documents. In contrast, for <strong>multi-lingual</strong> 
 documents or any other language, <code>"paraphrase-multilingual-MiniLM-L12-v2""</code> has shown great performance.  </p>
 <p>If you want to use a model that provides a higher quality, but takes more compute time, then I would advise using <code>paraphrase-mpnet-base-v2</code> and <code>paraphrase-multilingual-mpnet-base-v2</code> instead.</p>
 <h2 id="should-i-preprocess-the-data"><strong>Should I preprocess the data?</strong><a class="headerlink" href="#should-i-preprocess-the-data" title="Permanent link">&para;</a></h2>
@@ -491,7 +505,24 @@ typically do not contribute to the meaning of a document and should therefore be
 topic modeling to HTML-code to extract topics of code, then it becomes important. </p>
 <h2 id="can-i-use-the-gpu-to-speed-up-the-model"><strong>Can I use the GPU to speed up the model?</strong><a class="headerlink" href="#can-i-use-the-gpu-to-speed-up-the-model" title="Permanent link">&para;</a></h2>
 <p>Yes! Since KeyBERT uses embeddings as its backend, a GPU is actually prefered when using this package. 
-Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower. </p>
+Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower.</p>
+<h2 id="how-can-i-use-keybert-with-chinese-documents"><strong>How can I use KeyBERT with Chinese documents?</strong><a class="headerlink" href="#how-can-i-use-keybert-with-chinese-documents" title="Permanent link">&para;</a></h2>
+<p>You need to make sure you use a Tokenizer in KeyBERT that supports tokenization of Chinese. I suggest installing <a href="https://github.com/fxsjy/jieba"><code>jieba</code></a> for this:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">import</span> <span class="nn">jieba</span>
+
+<span class="k">def</span> <span class="nf">tokenize_zh</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">jieba</span><span class="o">.</span><span class="n">lcut</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">words</span>
+
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize_zh</span><span class="p">)</span>
+</code></pre></div>
+<p>Then, simply pass the vectorizer to your KeyBERT instance:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">keybert</span> <span class="kn">import</span> <span class="n">KeyBERT</span>
+
+<span class="n">kw_model</span> <span class="o">=</span> <span class="n">KeyBERT</span><span class="p">()</span>
+<span class="n">keywords</span> <span class="o">=</span> <span class="n">kw_model</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="n">vectorizer</span><span class="p">)</span>
+</code></pre></div>
                 
               
               
