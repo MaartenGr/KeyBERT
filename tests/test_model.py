@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from keybert import KeyBERT
 
 doc_one, doc_two = get_test_data()
-model = KeyBERT(model='paraphrase-MiniLM-L6-v2')
+model = KeyBERT(model='all-MiniLM-L6-v2')
 
 
 @pytest.mark.parametrize("keyphrase_length", [(1, i+1) for i in range(5)])
@@ -66,6 +66,22 @@ def test_extract_keywords_multiple_docs(keyphrase_length):
 
         for keyword in keywords:
             assert len(keyword[0].split(" ")) <= keyphrase_length[1]
+
+
+def test_guided():
+    """ Test whether the keywords are correctly extracted """
+    top_n = 5
+    seed_keywords = ["time", "night", "day", "moment"]
+    keywords = model.extract_keywords(doc_one,
+                                      min_df=1,
+                                      top_n=top_n,
+                                      seed_keywords=seed_keywords)
+
+    assert isinstance(keywords, list)
+    assert isinstance(keywords[0], tuple)
+    assert isinstance(keywords[0][0], str)
+    assert isinstance(keywords[0][1], float)
+    assert len(keywords) == top_n
 
 
 def test_error():

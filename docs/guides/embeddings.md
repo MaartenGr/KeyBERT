@@ -8,7 +8,7 @@ and pass it through KeyBERT with `model`:
 
 ```python
 from keybert import KeyBERT
-kw_model = KeyBERT(model="paraphrase-MiniLM-L6-v2")
+kw_model = KeyBERT(model="all-MiniLM-L6-v2")
 ```
 
 Or select a SentenceTransformer model with your own parameters:
@@ -16,7 +16,7 @@ Or select a SentenceTransformer model with your own parameters:
 ```python
 from sentence_transformers import SentenceTransformer
 
-sentence_model = SentenceTransformer("paraphrase-MiniLM-L6-v2")
+sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 

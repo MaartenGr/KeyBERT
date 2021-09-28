@@ -31,7 +31,7 @@ class KeyBERT:
 
     """
     def __init__(self,
-                 model="paraphrase-MiniLM-L6-v2"):
+                 model="all-MiniLM-L6-v2"):
         """ KeyBERT initialization
 
         Arguments:
@@ -60,8 +60,9 @@ class KeyBERT:
                          diversity: float = 0.5,
                          nr_candidates: int = 20,
                          vectorizer: CountVectorizer = None,
-                         highlight: bool = False) -> Union[List[Tuple[str, float]],
-                                                           List[List[Tuple[str, float]]]]:
+                         highlight: bool = False,
+                         seed_keywords: List[str] = None) -> Union[List[Tuple[str, float]],
+                                                                    List[List[Tuple[str, float]]]]:
         """ Extract keywords/keyphrases
 
         NOTE:
@@ -99,6 +100,8 @@ class KeyBERT:
             highlight: Whether to print the document and highlight
                        its keywords/keyphrases. NOTE: This does not work if
                        multiple documents are passed.
+            seed_keywords: Seed keywords that may guide the extraction of keywords by
+                           steering the similarities towards the seeded keywords
 
         Returns:
             keywords: the top n keywords for a document with their respective distances
@@ -116,7 +119,8 @@ class KeyBERT:
                                                          use_mmr=use_mmr,
                                                          diversity=diversity,
                                                          nr_candidates=nr_candidates,
-                                                         vectorizer=vectorizer)
+                                                         vectorizer=vectorizer,
+                                                         seed_keywords=seed_keywords)
             if highlight:
                 highlight_document(docs, keywords)
 
@@ -143,7 +147,8 @@ class KeyBERT:
                                      use_mmr: bool = False,
                                      diversity: float = 0.5,
                                      nr_candidates: int = 20,
-                                     vectorizer: CountVectorizer = None) -> List[Tuple[str, float]]:
+                                     vectorizer: CountVectorizer = None,
+                                     seed_keywords: List[str] = None) -> List[Tuple[str, float]]:
         """ Extract keywords/keyphrases for a single document
 
         Arguments:
@@ -157,6 +162,8 @@ class KeyBERT:
             diversity: The diversity of results between 0 and 1 if use_mmr is True
             nr_candidates: The number of candidates to consider if use_maxsum is set to True
             vectorizer: Pass in your own CountVectorizer from scikit-learn
+            seed_keywords: Seed keywords that may guide the extraction of keywords by
+                           steering the similarities towards the seeded keywords
 
         Returns:
             keywords: the top n keywords for a document with their respective distances
@@ -174,6 +181,11 @@ class KeyBERT:
             # Extract Embeddings
             doc_embedding = self.model.embed([doc])
             candidate_embeddings = self.model.embed(candidates)
+
+            # Guided KeyBERT with seed keywords
+            if seed_keywords is not None:
+                seed_embeddings = self.model.embed([" ".join(seed_keywords)])
+                doc_embedding = np.average([doc_embedding, seed_embeddings], axis=0, weights=[3, 1])
 
             # Calculate distances and extract keywords
             if use_mmr:
