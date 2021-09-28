@@ -48,7 +48,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 setup(
     name="keybert",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.4.0",
+    version="0.5.0",
     author="Maarten Grootendorst",
     author_email="maartengrootendorst@gmail.com",
     description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",

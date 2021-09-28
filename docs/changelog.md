@@ -1,3 +1,17 @@
+## **Version 0.5.0**
+*Release date:  28 September, 2021*  
+
+**Highlights**:
+
+* Added Guided KeyBERT
+    * kw_model.extract_keywords(doc, seed_keywords=seed_keywords)
+    * Thanks to [@zolekode](https://github.com/zolekode) for the inspiration!
+* Use the newest all-* models from SBERT
+
+**Miscellaneous**:
+
+* Added instructions in the FAQ to extract keywords from Chinese documents
+
 ## **Version 0.4.0**
 *Release date:  23 June, 2021*  
 
