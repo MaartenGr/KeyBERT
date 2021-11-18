@@ -14,7 +14,7 @@ def clean_text(astr):
 
 def highlight_document(doc, keywords):
     highlighted_text = clean_text(doc)
-    for kwd in keywords:
+    for kwd,_ in keywords:
       kwd = clean_text(kwd)
       highlighted_text=highlighted_text.replace(kwd,f'[black on #FFFF00]{kwd}[/]')
     console = Console(highlighter=NullHighlighter())
