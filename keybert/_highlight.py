@@ -10,12 +10,12 @@ class NullHighlighter(RegexHighlighter):
 def clean_text(astr):
     clean_str = astr.translate(str.maketrans('', '', string.punctuation))
     clean_str = ' '.join(clean_str.split()).lower()
-    return clean_str
+    return ' ' + clean_str + ' '
 
 def highlight_document(doc, keywords):
     highlighted_text = clean_text(doc)
     for kwd,_ in keywords:
       kwd = clean_text(kwd)
-      highlighted_text=highlighted_text.replace(kwd,f'[black on #FFFF00]{kwd}[/]')
+      highlighted_text=highlighted_text.replace(kwd,f' [black on #FFFF00]{kwd.strip()}[/] ')
     console = Console(highlighter=NullHighlighter())
-    console.print(highlighted_text)
+    console.print(highlighted_text.strip())
