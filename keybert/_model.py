@@ -1,6 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
-
+import sys
+from os.path import dirname, realpath
 import numpy as np
 from tqdm import tqdm
 from typing import List, Union, Tuple
@@ -8,7 +9,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # KeyBERT
-from keybert._mmr import mmr
+sys.path.append(dirname(realpath(__file__)))
+from _mmr import mmr_fast
 from keybert._maxsum import max_sum_similarity
 from keybert._highlight import highlight_document
 from keybert.backend._utils import select_backend
@@ -108,7 +110,6 @@ class KeyBERT:
                       to the input document
 
         """
-
         if isinstance(docs, str):
             keywords = self._extract_keywords_single_doc(doc=docs,
                                                          candidates=candidates,
@@ -189,7 +190,10 @@ class KeyBERT:
 
             # Calculate distances and extract keywords
             if use_mmr:
-                keywords = mmr(doc_embedding, candidate_embeddings, candidates, top_n, diversity)
+                print(doc_embedding.shape, candidate_embeddings.shape)
+                print(doc)
+                print(candidates)
+                keywords = mmr_fast(doc_embedding, candidate_embeddings, candidates, top_n, diversity)
             elif use_maxsum:
                 keywords = max_sum_similarity(doc_embedding, candidate_embeddings, candidates, top_n, nr_candidates)
             else:

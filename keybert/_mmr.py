@@ -1,13 +1,11 @@
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Tuple
 
-
-def mmr(doc_embedding: np.ndarray,
-        word_embeddings: np.ndarray,
-        words: List[str],
-        top_n: int = 5,
-        diversity: float = 0.8) -> List[Tuple[str, float]]:
+def mmr_fast(doc_embedding: np.ndarray,
+            word_embeddings: np.ndarray,
+            words: List[str],
+            top_n: int = 5,
+            diversity: float = 0.8) -> List[Tuple[str, float]]:
     """ Calculate Maximal Marginal Relevance (MMR)
     between candidate keywords and the document.
 
@@ -32,8 +30,8 @@ def mmr(doc_embedding: np.ndarray,
     """
 
     # Extract similarity within words, and between words and the document
-    word_doc_similarity = cosine_similarity(word_embeddings, doc_embedding)
-    word_similarity = cosine_similarity(word_embeddings)
+    word_doc_similarity = calc_cos_sim_einsum(word_embeddings, doc_embedding).swapaxes(0,1)
+    word_similarity = calc_cos_matrix(word_embeddings)
 
     # Initialize candidates and already choose best keyword/keyphras
     keywords_idx = [np.argmax(word_doc_similarity)]
@@ -55,3 +53,9 @@ def mmr(doc_embedding: np.ndarray,
 
     return [(words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4)) for idx in keywords_idx]
 
+def calc_cos_sim_einsum(embeddings, target_emb):
+    return np.dot(target_emb, embeddings.T)/(np.linalg.norm(target_emb)*np.sqrt(np.einsum('ij,ij->i',embeddings,embeddings)))
+
+def calc_cos_matrix(embeddings):
+    p = embeddings / np.linalg.norm(embeddings, 2, axis=1).reshape(-1,1)
+    return np.dot(p, p.T)
