@@ -1,9 +1,9 @@
 # CountVectorizer Tips & Tricks
 
-An unexpectly important component of KeyBERT is the CountVectorizer. In KeyBERT, it is used to split up your documents into candidate keywords and keyphrases. However, 
-there is much more flexibility with the CountVectorizer than you might have initially thought. Since we use the vectorizer to split up the documents *after* embedding them, 
-we can parse the document however we want as it does not affect the quality of the document embeddings. In this page, we will go through several examples of how you can take 
-the CountVectorizer to the next level and improve upon the generated keywords. 
+An unexpectly important component of KeyBERT is the CountVectorizer. In KeyBERT, it is used to split up your documents into candidate keywords and keyphrases. However,
+there is much more flexibility with the CountVectorizer than you might have initially thought. Since we use the vectorizer to split up the documents *after* embedding them,
+we can parse the document however we want as it does not affect the quality of the document embeddings. In this page, we will go through several examples of how you can take
+the CountVectorizer to the next level and improve upon the generated keywords.
 
 
 ## **Basic Usage**
@@ -18,17 +18,17 @@ doc = """
          maps an input to an output based on example input-output pairs.[1] It infers a
          function from labeled training data consisting of a set of training examples.[2]
          In supervised learning, each example is a pair consisting of an input object
-         (typically a vector) and a desired output value (also called the supervisory signal). 
-         A supervised learning algorithm analyzes the training data and produces an inferred function, 
-         which can be used for mapping new examples. An optimal scenario will allow for the 
-         algorithm to correctly determine the class labels for unseen instances. This requires 
-         the learning algorithm to generalize from the training data to unseen situations in a 
+         (typically a vector) and a desired output value (also called the supervisory signal).
+         A supervised learning algorithm analyzes the training data and produces an inferred function,
+         which can be used for mapping new examples. An optimal scenario will allow for the
+         algorithm to correctly determine the class labels for unseen instances. This requires
+         the learning algorithm to generalize from the training data to unseen situations in a
          'reasonable' way (see inductive bias).
       """
 kw_model = KeyBERT()
 ```
 
-We will use the above code throughout this tutorial as the base and built upon it with the CountVectorizer. 
+We will use the above code throughout this tutorial as the base and built upon it with the CountVectorizer.
 Next, we can use a basic vectorizer when extracting keywords as follows:
 
 
@@ -42,12 +42,12 @@ Next, we can use a basic vectorizer when extracting keywords as follows:
  ('mapping', 0.3700)]
 ```
 
-**NOTE**: Although I typically like to use `use_mmr=True` as it often improves upon the generated keywords, this tutorial will do without 
-in order give you a clear view of the effects of the CountVectorizer. 
+**NOTE**: Although I typically like to use `use_mmr=True` as it often improves upon the generated keywords, this tutorial will do without
+in order give you a clear view of the effects of the CountVectorizer.
 
 ## **Parameters**
 
-There are a number of basic parameters in the CountVectorizer that we can use to improve upon the quality of the resulting keywords. 
+There are a number of basic parameters in the CountVectorizer that we can use to improve upon the quality of the resulting keywords.
 
 ### ngram_range
 
@@ -63,15 +63,15 @@ By setting the `ngram_range` we can decide how many tokens the keyphrases needs 
  ('in supervised learning', 0.6474)]
 ```
 
-As we can see, the length of the resulting keyphrases are higher than what we have seen before. This may happen as embeddings in vector space are often closer 
-in distance if their document counterparts in similar in size. 
+As we can see, the length of the resulting keyphrases are higher than what we have seen before. This may happen as embeddings in vector space are often closer
+in distance if their document counterparts in similar in size.
 
-There are two interesting things happening here. First, there are many similar keyphrases that we want to diversify, which we can achieve by setting `use_mmr=True`. Second, 
+There are two interesting things happening here. First, there are many similar keyphrases that we want to diversify, which we can achieve by setting `use_mmr=True`. Second,
 you may have noticed stopwords appearing in the keyphrases. That we can solve by following the section below!
 
 ### stop_words
 
-As we have seen in the results above, stopwords might appear in your keyphrases. To remove them, we can tell the CountVectorizer to either remove a list of keywords 
+As we have seen in the results above, stopwords might appear in your keyphrases. To remove them, we can tell the CountVectorizer to either remove a list of keywords
 that we supplied ourselves or simply state for which language stopwords need to be removed:
 
 ```python
@@ -88,19 +88,19 @@ This already looks much better! The stopwords are removed and the resulting keyp
 
 ### vocabulary
 
-For some use cases, keywords can only be generated from predefined vocabularies. For example, when you already have a list of possible keywords you can use those as a vocabulary and 
-ask the CountVectorizer to only select keywords from that list. 
+For some use cases, keywords can only be generated from predefined vocabularies. For example, when you already have a list of possible keywords you can use those as a vocabulary and
+ask the CountVectorizer to only select keywords from that list.
 
 First, let's define our vocabulary:
 
 ```python
 vocab = [
  'produces inferred function',
- 'supervised', 
- 'inductive', 
- 'function', 
- 'bias', 
- 'supervisory', 
+ 'supervised',
+ 'inductive',
+ 'function',
+ 'bias',
+ 'supervisory',
  'supervised learning',
  'infers function',
  'supervisory signal',
@@ -122,8 +122,8 @@ Then, we pass that vocabulary to our CountVectorizer and extract our keywords:
 
 ### tokenizer
 
-The default tokenizer in the CountVectorizer works well for western languages but fails to tokenize some non-western languages, like Chinese. 
-Fortunately, we can use the `tokenizer` variable in the CountVectorizer to use [`jieba`](https://github.com/fxsjy/jieba), which is a package 
+The default tokenizer in the CountVectorizer works well for western languages but fails to tokenize some non-western languages, like Chinese.
+Fortunately, we can use the `tokenizer` variable in the CountVectorizer to use [`jieba`](https://github.com/fxsjy/jieba), which is a package
 for Chinese text segmentation. Using it is straightforward:
 
 ```python
@@ -144,13 +144,13 @@ from keybert import KeyBERT
 
 kw_model = KeyBERT()
 keywords = kw_model.extract_keywords(doc, vectorizer=vectorizer)
-``` 
+```
 
 ## **KeyphraseVectorizers**
 
-To even further enhance the possibilities of the CountVectorizer, [Tim Schopf](https://github.com/TimSchopf) created an excellent package, [KeyphraseVectorizers](https://github.com/TimSchopf/KeyphraseVectorizers), that enriches the CountVectorizer with the possibilities to extract keyphrases with part-of-speech patterns using the Spacy library. 
+To even further enhance the possibilities of the CountVectorizer, [Tim Schopf](https://github.com/TimSchopf) created an excellent package, [KeyphraseVectorizers](https://github.com/TimSchopf/KeyphraseVectorizers), that enriches the CountVectorizer with the possibilities to extract keyphrases with part-of-speech patterns using the Spacy library.
 
-The great thing about the `KeyphraseVectorizers` is that aside from leveraging part-of-speech patterns, it automatically extract keyphrases without the need to specify 
+The great thing about the `KeyphraseVectorizers` is that aside from leveraging part-of-speech patterns, it automatically extract keyphrases without the need to specify
 an n-gram range. That by itself is an amazing feature to have! Other advantages of this package:
 
 * Extract grammatically accurate keyphases based on their part-of-speech tags.
@@ -193,7 +193,7 @@ Not bad but as we have seen before, this can definitely be improved. Now, let's 
  ('training', 0.3858)]
 ```
 
-A large improvement compared to the basic CountVectorizer! Now, as seen before it seems that there are still some repeated keyphrases that we want to remove. To do this, 
+A large improvement compared to the basic CountVectorizer! Now, as seen before it seems that there are still some repeated keyphrases that we want to remove. To do this,
 we again leverage the `MMR` function on top of KeyBERT to diversify the output:
 
 ```python
@@ -207,13 +207,13 @@ we again leverage the `MMR` function on top of KeyBERT to diversify the output:
  ('class labels', 0.3715)]
 ```
 
-We can see much more diverse keyphrases and based on the input document the keyphrases also make sense. 
+We can see much more diverse keyphrases and based on the input document the keyphrases also make sense.
 
 
 ### Languages
 
-Those familiar with Spacy might know that in order to use part-of-speech, we need a language-specific model. 
-You can find an overview of these models [here](https://spacy.io/models). To change the language model, we only need to change 
+Those familiar with Spacy might know that in order to use part-of-speech, we need a language-specific model.
+You can find an overview of these models [here](https://spacy.io/models). To change the language model, we only need to change
 one parameter in order to select a different language:
 
 ```python
@@ -223,11 +223,11 @@ vectorizer = KeyphraseCountVectorizer(spacy_pipeline='de_core_news_sm')
 
 ### Part-of-speech
 
-KeyphraseVectorizers extracts the part-of-speech tags from the documents and then applies a regex pattern to extract 
-keyphrases that fit within that pattern. The default pattern is `<J.*>*<N.*>+` which means that it extract keyphrases 
-that have 0 or more adjectives followed by 1 or more nouns. 
+KeyphraseVectorizers extracts the part-of-speech tags from the documents and then applies a regex pattern to extract
+keyphrases that fit within that pattern. The default pattern is `<J.*>*<N.*>+` which means that it extract keyphrases
+that have 0 or more adjectives followed by 1 or more nouns.
 
-However, we might not agree with that for our specific use case! Fortunately, the package allows you to use a different 
+However, we might not agree with that for our specific use case! Fortunately, the package allows you to use a different
 pattern. To visualize the effect, let's first perform it with the default settings:
 
 ```python
@@ -240,7 +240,7 @@ pattern. To visualize the effect, let's first perform it with the default settin
  ('training', 0.3858)]
 ```
 
-Although the above keyphrases seem accurate, we might want to only extract a noun from the documents in 
+Although the above keyphrases seem accurate, we might want to only extract a noun from the documents in
 order to only extract keywords and not keyphrases:
 
 ```python
@@ -253,4 +253,4 @@ order to only extract keywords and not keyphrases:
  ('algorithm', 0.2827)]
 ```
 
-These seem much better as keywords now that we focus only on nouns in the document. 
+These seem much better as keywords now that we focus only on nouns in the document.

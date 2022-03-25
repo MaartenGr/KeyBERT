@@ -3,7 +3,7 @@ from ._sentencetransformers import SentenceTransformerBackend
 
 
 def select_backend(embedding_model) -> BaseEmbedder:
-    """ Select an embedding model based on language or a specific sentence transformer models.
+    """Select an embedding model based on language or a specific sentence transformer models.
     When selecting a language, we choose `all-MiniLM-L6-v2` for English and
     `paraphrase-multilingual-MiniLM-L12-v2` for all other languages as it support 100+ languages.
 
@@ -17,21 +17,25 @@ def select_backend(embedding_model) -> BaseEmbedder:
     # Flair word embeddings
     if "flair" in str(type(embedding_model)):
         from keybert.backend._flair import FlairBackend
+
         return FlairBackend(embedding_model)
 
     # Spacy embeddings
     if "spacy" in str(type(embedding_model)):
         from keybert.backend._spacy import SpacyBackend
+
         return SpacyBackend(embedding_model)
 
     # Gensim embeddings
     if "gensim" in str(type(embedding_model)):
         from keybert.backend._gensim import GensimBackend
+
         return GensimBackend(embedding_model)
 
     # USE embeddings
     if "tensorflow" and "saved_model" in str(type(embedding_model)):
         from keybert.backend._use import USEBackend
+
         return USEBackend(embedding_model)
 
     # Sentence Transformer embeddings

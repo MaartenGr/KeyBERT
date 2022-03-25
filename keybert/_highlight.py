@@ -11,9 +11,8 @@ class NullHighlighter(RegexHighlighter):
     highlights = [r""]
 
 
-def highlight_document(doc: str,
-                       keywords: List[Tuple[str, float]]):
-    """ Highlight keywords in a document
+def highlight_document(doc: str, keywords: List[Tuple[str, float]]):
+    """Highlight keywords in a document
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases
@@ -36,9 +35,8 @@ def highlight_document(doc: str,
     console.print(highlighted_text)
 
 
-def _highlight_one_gram(doc: str,
-                        keywords: List[str]) -> str:
-    """ Highlight 1-gram keywords in a document
+def _highlight_one_gram(doc: str, keywords: List[str]) -> str:
+    """Highlight 1-gram keywords in a document
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases
@@ -48,18 +46,19 @@ def _highlight_one_gram(doc: str,
         highlighted_text: The document with additional tags to highlight keywords
                           according to the rich package
     """
-    tokens = re.sub(r' +', ' ', doc.replace("\n", " ")).split(" ")
+    tokens = re.sub(r" +", " ", doc.replace("\n", " ")).split(" ")
 
-    highlighted_text = " ".join([f"[black on #FFFF00]{token}[/]"
-                                 if token.lower() in keywords
-                                 else f"{token}"
-                                 for token in tokens]).strip()
+    highlighted_text = " ".join(
+        [
+            f"[black on #FFFF00]{token}[/]" if token.lower() in keywords else f"{token}"
+            for token in tokens
+        ]
+    ).strip()
     return highlighted_text
 
 
-def _highlight_n_gram(doc: str,
-                      keywords: List[str]) -> str:
-    """ Highlight n-gram keywords in a document
+def _highlight_n_gram(doc: str, keywords: List[str]) -> str:
+    """Highlight n-gram keywords in a document
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases
@@ -70,8 +69,11 @@ def _highlight_n_gram(doc: str,
                           according to the rich package
     """
     max_len = max([len(token.split(" ")) for token in keywords])
-    tokens = re.sub(r' +', ' ', doc.replace("\n", " ")).strip().split(" ")
-    n_gram_tokens = [[" ".join(tokens[i: i + max_len][0: j + 1]) for j in range(max_len)] for i, _ in enumerate(tokens)]
+    tokens = re.sub(r" +", " ", doc.replace("\n", " ")).strip().split(" ")
+    n_gram_tokens = [
+        [" ".join(tokens[i : i + max_len][0 : j + 1]) for j in range(max_len)]
+        for i, _ in enumerate(tokens)
+    ]
     highlighted_text = []
     skip = False
 
@@ -82,7 +84,9 @@ def _highlight_n_gram(doc: str,
             for index, n_gram in enumerate(n_grams):
 
                 if n_gram.lower() in keywords:
-                    candidate = f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1].split(n_gram)[-1]
+                    candidate = (
+                        f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1].split(n_gram)[-1]
+                    )
                     skip = index + 1
 
             if not candidate:
