@@ -62,7 +62,7 @@ class KeyBERT:
                          vectorizer: CountVectorizer = None,
                          highlight: bool = False,
                          seed_keywords: List[str] = None) -> Union[List[Tuple[str, float]],
-                                                                    List[List[Tuple[str, float]]]]:
+                                                                   List[List[Tuple[str, float]]]]:
         """ Extract keywords/keyphrases
 
         NOTE:

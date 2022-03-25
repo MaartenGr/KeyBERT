@@ -7,7 +7,7 @@ doc_one, doc_two = get_test_data()
 model = KeyBERT(model='all-MiniLM-L6-v2')
 
 
-@pytest.mark.parametrize("keyphrase_length", [(1, i+1) for i in range(5)])
+@pytest.mark.parametrize("keyphrase_length", [(1, i + 1) for i in range(5)])
 @pytest.mark.parametrize("vectorizer", [None, CountVectorizer(ngram_range=(1, 1), stop_words="english")])
 def test_single_doc(keyphrase_length, vectorizer):
     """ Test whether the keywords are correctly extracted """
@@ -28,7 +28,7 @@ def test_single_doc(keyphrase_length, vectorizer):
         assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
-@pytest.mark.parametrize("keyphrase_length, mmr, maxsum", [((1, i+1), truth, not truth)
+@pytest.mark.parametrize("keyphrase_length, mmr, maxsum", [((1, i + 1), truth, not truth)
                                                            for i in range(4)
                                                            for truth in [True, False]])
 @pytest.mark.parametrize("vectorizer", [None, CountVectorizer(ngram_range=(1, 1), stop_words="english")])
@@ -50,7 +50,7 @@ def test_extract_keywords_single_doc(keyphrase_length, mmr, maxsum, vectorizer):
         assert len(keyword[0].split(" ")) <= keyphrase_length[1]
 
 
-@pytest.mark.parametrize("keyphrase_length", [(1, i+1) for i in range(5)])
+@pytest.mark.parametrize("keyphrase_length", [(1, i + 1) for i in range(5)])
 def test_extract_keywords_multiple_docs(keyphrase_length):
     """ Test extractino of protected multiple document method"""
     top_n = 5
