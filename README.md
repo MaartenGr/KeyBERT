@@ -14,16 +14,16 @@ create keywords and keyphrases that are most similar to a document.
 Corresponding medium post can be found [here](https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea).
 
 <a name="toc"/></a>
-## Table of Contents
-<!--ts-->
-   1. [About the Project](#about) 
-   2. [Getting Started](#gettingstarted) 
-        2.1. [Installation](#installation) 
-        2.2. [Basic Usage](#usage) 
-        2.3. [Max Sum Similarity](#maxsum) 
-        2.4. [Maximal Marginal Relevance](#maximal) 
-        2.5. [Embedding Models](#embeddings) 
-<!--te-->
+## Table of Contents  
+<!--ts-->  
+   1. [About the Project](#about)  
+   2. [Getting Started](#gettingstarted)  
+        2.1. [Installation](#installation)  
+        2.2. [Basic Usage](#usage)  
+        2.3. [Max Sum Similarity](#maxsum)  
+        2.4. [Maximal Marginal Relevance](#maximal)  
+        2.5. [Embedding Models](#embeddings)  
+<!--te-->  
 
 
 <a name="about"/></a>
