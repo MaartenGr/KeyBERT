@@ -120,6 +120,32 @@ Then, we pass that vocabulary to our CountVectorizer and extract our keywords:
  ('produces inferred function', 0.3365)]
 ```
 
+### tokenizer
+
+The default tokenizer in the CountVectorizer works well for western languages but fails to tokenize some non-western languages, like Chinese. 
+Fortunately, we can use the `tokenizer` variable in the CountVectorizer to use [`jieba`](https://github.com/fxsjy/jieba), which is a package 
+for Chinese text segmentation. Using it is straightforward:
+
+```python
+from sklearn.feature_extraction.text import CountVectorizer
+import jieba
+
+def tokenize_zh(text):
+    words = jieba.lcut(text)
+    return words
+
+vectorizer = CountVectorizer(tokenizer=tokenize_zh)
+```
+
+Then, simply pass the vectorizer to your KeyBERT instance:
+
+```python
+from keybert import KeyBERT
+
+kw_model = KeyBERT()
+keywords = kw_model.extract_keywords(doc, vectorizer=vectorizer)
+``` 
+
 ## **KeyphraseVectorizers**
 
 To even further enhance the possibilities of the CountVectorizer, [Tim Schopf](https://github.com/TimSchopf) created an excellent package, [KeyphraseVectorizers](https://github.com/TimSchopf/KeyphraseVectorizers), that enriches the CountVectorizer with the possibilities to extract keyphrases with part-of-speech patterns using the Spacy library. 
