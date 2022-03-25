@@ -3,6 +3,11 @@ repos:
     rev: v3.4.0
     hooks:
     -   id: trailing-whitespace
+        exclude: |
+            (?x)^(
+                README.md|
+                docs/
+            )$
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
@@ -14,3 +19,7 @@ repos:
     rev: 20.8b1
     hooks:
       - id: black
+        exclude: |
+            (?x)^(
+                README.md
+            )$

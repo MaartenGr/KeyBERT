@@ -16,13 +16,13 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
 <a name="toc"/></a>
 ## Table of Contents
 <!--ts-->
-   1. [About the Project](#about)
-   2. [Getting Started](#gettingstarted)
-        2.1. [Installation](#installation)
-        2.2. [Basic Usage](#usage)
-        2.3. [Max Sum Similarity](#maxsum)
-        2.4. [Maximal Marginal Relevance](#maximal)
-        2.5. [Embedding Models](#embeddings)
+   1. [About the Project](#about) 
+   2. [Getting Started](#gettingstarted) 
+        2.1. [Installation](#installation) 
+        2.2. [Basic Usage](#usage) 
+        2.3. [Max Sum Similarity](#maxsum) 
+        2.4. [Maximal Marginal Relevance](#maximal) 
+        2.5. [Embedding Models](#embeddings) 
 <!--te-->
 
 
