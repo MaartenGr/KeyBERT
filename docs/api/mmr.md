@@ -1,3 +1,3 @@
 # `Maximal Marginal Relevance`
 
-::: keybert.mmr.mmr
+::: keybert._mmr.mmr
