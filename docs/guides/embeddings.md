@@ -1,9 +1,9 @@
 # Embedding Models
-In this tutorial we will be going through the embedding models that can be used in KeyBERT. 
-Having the option to choose embedding models allow you to leverage pre-trained embeddings that suit your use-case. 
+In this tutorial we will be going through the embedding models that can be used in KeyBERT.
+Having the option to choose embedding models allow you to leverage pre-trained embeddings that suit your use-case.
 
 ### **Sentence Transformers**
-You can select any model from sentence-transformers [here](https://www.sbert.net/docs/pretrained_models.html) 
+You can select any model from sentence-transformers [here](https://www.sbert.net/docs/pretrained_models.html)
 and pass it through KeyBERT with `model`:
 
 ```python
@@ -21,7 +21,7 @@ kw_model = KeyBERT(model=sentence_model)
 ```
 
 ### **Flair**
-[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that 
+[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that
 is publicly available. Flair can be used as follows:
 
 ```python
@@ -33,9 +33,9 @@ kw_model = KeyBERT(model=roberta)
 
 You can select any 🤗 transformers model [here](https://huggingface.co/models).
 
-Moreover, you can also use Flair to use word embeddings and pool them to create document embeddings. 
-Under the hood, Flair simply averages all word embeddings in a document. Then, we can easily 
-pass it to KeyBERT in order to use those word embeddings as document embeddings: 
+Moreover, you can also use Flair to use word embeddings and pool them to create document embeddings.
+Under the hood, Flair simply averages all word embeddings in a document. Then, we can easily
+pass it to KeyBERT in order to use those word embeddings as document embeddings:
 
 ```python
 from flair.embeddings import WordEmbeddings, DocumentPoolEmbeddings
@@ -47,10 +47,10 @@ kw_model = KeyBERT(model=document_glove_embeddings)
 ```
 
 ### **Spacy**
-[Spacy](https://github.com/explosion/spaCy) is an amazing framework for processing text. There are 
-many models available across many languages for modeling text. 
- 
- allows you to choose almost any embedding model that 
+[Spacy](https://github.com/explosion/spaCy) is an amazing framework for processing text. There are
+many models available across many languages for modeling text.
+
+ allows you to choose almost any embedding model that
 is publicly available. Flair can be used as follows:
 
 To use Spacy's non-transformer models in KeyBERT:
@@ -88,8 +88,8 @@ kw_model = KeyBERT(model=nlp)
 ```
 
 ### **Universal Sentence Encoder (USE)**
-The Universal Sentence Encoder encodes text into high dimensional vectors that are used here 
-for embedding the documents. The model is trained and optimized for greater-than-word length text, 
+The Universal Sentence Encoder encodes text into high dimensional vectors that are used here
+for embedding the documents. The model is trained and optimized for greater-than-word length text,
 such as sentences, phrases or short paragraphs.
 
 Using USE in KeyBERT is rather straightforward:
@@ -101,8 +101,8 @@ kw_model = KeyBERT(model=embedding_model)
 ```
 
 ### **Gensim**
-For Gensim, KeyBERT supports its `gensim.downloader` module. Here, we can download any model word embedding model 
-to be used in KeyBERT. Note that Gensim is primarily used for Word Embedding models. This works typically 
+For Gensim, KeyBERT supports its `gensim.downloader` module. Here, we can download any model word embedding model
+to be used in KeyBERT. Note that Gensim is primarily used for Word Embedding models. This works typically
 best for short documents since the word embeddings are pooled.
 
 ```python
@@ -112,7 +112,7 @@ kw_model = KeyBERT(model=ft)
 ```
 
 ### **Custom Backend**
-If your backend or model cannot be found in the ones currently available, you can use the `keybert.backend.BaseEmbedder` class to 
+If your backend or model cannot be found in the ones currently available, you can use the `keybert.backend.BaseEmbedder` class to
 create your own backend. Below, you will find an example of creating a SentenceTransformer backend for KeyBERT:
 
 ```python
@@ -126,7 +126,7 @@ class CustomEmbedder(BaseEmbedder):
 
     def embed(self, documents, verbose=False):
         embeddings = self.embedding_model.encode(documents, show_progress_bar=verbose)
-        return embeddings 
+        return embeddings
 
 # Create custom backend
 distilbert = SentenceTransformer("paraphrase-MiniLM-L6-v2")

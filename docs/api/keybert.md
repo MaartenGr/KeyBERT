@@ -1,3 +1,3 @@
 # `KeyBERT`
 
-::: keybert.model.KeyBERT
+::: keybert._model.KeyBERT

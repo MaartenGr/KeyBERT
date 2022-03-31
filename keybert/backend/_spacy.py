@@ -5,7 +5,7 @@ from keybert.backend import BaseEmbedder
 
 
 class SpacyBackend(BaseEmbedder):
-    """ Spacy embedding model
+    """Spacy embedding model
 
     The Spacy embedding model used for generating document and
     word embeddings.
@@ -50,19 +50,20 @@ class SpacyBackend(BaseEmbedder):
     spacy_model = SpacyBackend(nlp)
     ```
     """
+
     def __init__(self, embedding_model):
         super().__init__()
 
         if "spacy" in str(type(embedding_model)):
             self.embedding_model = embedding_model
         else:
-            raise ValueError("Please select a correct Spacy model by either using a string such as 'en_core_web_md' "
-                             "or create a nlp model using: `nlp = spacy.load('en_core_web_md')")
+            raise ValueError(
+                "Please select a correct Spacy model by either using a string such as 'en_core_web_md' "
+                "or create a nlp model using: `nlp = spacy.load('en_core_web_md')"
+            )
 
-    def embed(self,
-              documents: List[str],
-              verbose: bool = False) -> np.ndarray:
-        """ Embed a list of n documents/words into an n-dimensional
+    def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
+        """Embed a list of n documents/words into an n-dimensional
         matrix of embeddings
 
         Arguments:
@@ -79,9 +80,15 @@ class SpacyBackend(BaseEmbedder):
             embeddings = []
             for doc in tqdm(documents, position=0, leave=True, disable=not verbose):
                 try:
-                    embedding = self.embedding_model(doc)._.trf_data.tensors[-1][0].tolist()
+                    embedding = (
+                        self.embedding_model(doc)._.trf_data.tensors[-1][0].tolist()
+                    )
                 except:
-                    embedding = self.embedding_model("An empty document")._.trf_data.tensors[-1][0].tolist()
+                    embedding = (
+                        self.embedding_model("An empty document")
+                        ._.trf_data.tensors[-1][0]
+                        .tolist()
+                    )
                 embeddings.append(embedding)
             embeddings = np.array(embeddings)
 

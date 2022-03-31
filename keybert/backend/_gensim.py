@@ -6,7 +6,7 @@ from gensim.models.keyedvectors import Word2VecKeyedVectors
 
 
 class GensimBackend(BaseEmbedder):
-    """ Gensim Embedding Model
+    """Gensim Embedding Model
 
     The Gensim embedding model is typically used for word embeddings with
     GloVe, Word2Vec or FastText.
@@ -24,20 +24,21 @@ class GensimBackend(BaseEmbedder):
     ft_embedder = GensimBackend(ft)
     ```
     """
+
     def __init__(self, embedding_model: Word2VecKeyedVectors):
         super().__init__()
 
         if isinstance(embedding_model, Word2VecKeyedVectors):
             self.embedding_model = embedding_model
         else:
-            raise ValueError("Please select a correct Gensim model: \n"
-                             "`import gensim.downloader as api` \n"
-                             "`ft = api.load('fasttext-wiki-news-subwords-300')`")
+            raise ValueError(
+                "Please select a correct Gensim model: \n"
+                "`import gensim.downloader as api` \n"
+                "`ft = api.load('fasttext-wiki-news-subwords-300')`"
+            )
 
-    def embed(self,
-              documents: List[str],
-              verbose: bool = False) -> np.ndarray:
-        """ Embed a list of n documents/words into an n-dimensional
+    def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
+        """Embed a list of n documents/words into an n-dimensional
         matrix of embeddings
 
         Arguments:
@@ -48,7 +49,9 @@ class GensimBackend(BaseEmbedder):
             Document/words embeddings with shape (n, m) with `n` documents/words
             that each have an embeddings size of `m`
         """
-        vector_shape = self.embedding_model.word_vec(list(self.embedding_model.vocab.keys())[0]).shape
+        vector_shape = self.embedding_model.word_vec(
+            list(self.embedding_model.vocab.keys())[0]
+        ).shape
         empty_vector = np.zeros(vector_shape[0])
 
         embeddings = []

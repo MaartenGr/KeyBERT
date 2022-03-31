@@ -3,12 +3,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Tuple
 
 
-def mmr(doc_embedding: np.ndarray,
-        word_embeddings: np.ndarray,
-        words: List[str],
-        top_n: int = 5,
-        diversity: float = 0.8) -> List[Tuple[str, float]]:
-    """ Calculate Maximal Marginal Relevance (MMR)
+def mmr(
+    doc_embedding: np.ndarray,
+    word_embeddings: np.ndarray,
+    words: List[str],
+    top_n: int = 5,
+    diversity: float = 0.8,
+) -> List[Tuple[str, float]]:
+    """Calculate Maximal Marginal Relevance (MMR)
     between candidate keywords and the document.
 
 
@@ -43,15 +45,21 @@ def mmr(doc_embedding: np.ndarray,
         # Extract similarities within candidates and
         # between candidates and selected keywords/phrases
         candidate_similarities = word_doc_similarity[candidates_idx, :]
-        target_similarities = np.max(word_similarity[candidates_idx][:, keywords_idx], axis=1)
+        target_similarities = np.max(
+            word_similarity[candidates_idx][:, keywords_idx], axis=1
+        )
 
         # Calculate MMR
-        mmr = (1-diversity) * candidate_similarities - diversity * target_similarities.reshape(-1, 1)
+        mmr = (
+            1 - diversity
+        ) * candidate_similarities - diversity * target_similarities.reshape(-1, 1)
         mmr_idx = candidates_idx[np.argmax(mmr)]
 
         # Update keywords & candidates
         keywords_idx.append(mmr_idx)
         candidates_idx.remove(mmr_idx)
 
-    return [(words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4)) for idx in keywords_idx]
-
+    return [
+        (words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4))
+        for idx in keywords_idx
+    ]

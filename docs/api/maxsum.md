@@ -1,3 +1,3 @@
 # `Max Sum Similarity`
 
-::: keybert.maxsum.max_sum_similarity
+::: keybert._maxsum.max_sum_similarity

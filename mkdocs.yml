@@ -10,6 +10,7 @@ nav:
   - Guides:
       - Quickstart: guides/quickstart.md
       - Embedding Models: guides/embeddings.md
+      - CountVectorizer: guides/countvectorizer.md
   - API:
       - KeyBERT: api/keybert.md
       - MMR: api/mmr.md
