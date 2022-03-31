@@ -37,14 +37,14 @@ class KeyBERT:
 
         Arguments:
             model: Use a custom embedding model.
-                   The following backends are currently supported:  
-                      * SentenceTransformers  
-                      * Flair  
-                      * Spacy  
-                      * Gensim  
-                      * USE (TF-Hub)  
+                   The following backends are currently supported:
+                      * SentenceTransformers
+                      * Flair
+                      * Spacy
+                      * Gensim
+                      * USE (TF-Hub)
                     You can also pass in a string that points to one of the following
-                    sentence-transformers models:  
+                    sentence-transformers models:
                       * https://www.sbert.net/docs/pretrained_models.html
         """
         self.model = select_backend(model)

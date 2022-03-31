@@ -193,7 +193,7 @@ KeyBERT supports many embedding models that can be used to embed the documents a
 
 Click [here](https://maartengr.github.io/KeyBERT/guides/embeddings.html) for a full overview of all supported embedding models.
 
-**Sentence-Transformers**
+**Sentence-Transformers**  
 You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html)
 and pass it through KeyBERT with `model`:
 
@@ -212,7 +212,7 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
-**Flair**
+**Flair**  
 [Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that
 is publicly available. Flair can be used as follows:
 
