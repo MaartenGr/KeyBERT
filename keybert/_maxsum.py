@@ -18,8 +18,7 @@ def max_sum_similarity(
     extract the combination that are the least similar to each other
     by cosine similarity.
 
-    NOTE:
-        This is O(n^2) and therefore not advised if you use a large top_n
+    This is O(n^2) and therefore not advised if you use a large `top_n`
 
     Arguments:
         doc_embedding: The document embeddings

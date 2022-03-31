@@ -1,3 +1,17 @@
+## **Version 0.5.1**
+*Release date:  31 March, 2022*
+
+
+* Added a [page](https://maartengr.github.io/KeyBERT/guides/countvectorizer.html) about leveraging `CountVectorizer` and `KeyphraseVectorizers`
+    * Shoutout to [@TimSchopf](https://github.com/TimSchopf) for creating and optimizing the package!
+    * The `KeyphraseVectorizers` package can be found [here](https://github.com/TimSchopf/KeyphraseVectorizers)
+* Fixed Max Sum Similarity returning incorrect similarities [#92](https://github.com/MaartenGr/KeyBERT/issues/92)
+    * Thanks to [@kunihik0](https://github.com/kunihik0) for the PR!
+* Fixed out of bounds condition in MMR
+    * Thanks to [@artmatsak](https://github.com/artmatsak) for the PR!
+* Started styling with Flake8 and Black (which was long overdue)
+    * Added pre-commit to make following through a bit easier with styling
+
 ## **Version 0.5.0**
 *Release date:  28 September, 2021*
 

@@ -37,14 +37,14 @@ class KeyBERT:
 
         Arguments:
             model: Use a custom embedding model.
-                   The following backends are currently supported
-                      * SentenceTransformers
-                      * Flair
-                      * Spacy
-                      * Gensim
-                      * USE (TF-Hub)
+                   The following backends are currently supported:  
+                      * SentenceTransformers  
+                      * Flair  
+                      * Spacy  
+                      * Gensim  
+                      * USE (TF-Hub)  
                     You can also pass in a string that points to one of the following
-                    sentence-transformers models:
+                    sentence-transformers models:  
                       * https://www.sbert.net/docs/pretrained_models.html
         """
         self.model = select_backend(model)
@@ -65,22 +65,18 @@ class KeyBERT:
         highlight: bool = False,
         seed_keywords: List[str] = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
-        """Extract keywords/keyphrases
+        """Extract keywords and/or keyphrases
 
-        NOTE:
-            I would advise you to iterate over single documents as they
-            will need the least amount of memory. Even though this is slower,
-            you are not likely to run into memory errors.
+        I would advise you to iterate over single documents as they
+        will need the least amount of memory. Even though this is slower,
+        you are not likely to run into memory errors.
 
-        Multiple Documents:
-            There is an option to extract keywords for multiple documents
-            that is faster than extraction for multiple single documents.
-
-            However...this method assumes that you can keep the word embeddings
-            for all words in the vocabulary in memory which might be troublesome.
-
-            I would advise against using this option and simply iterating
-            over documents instead if you have limited hardware.
+        There is an option to extract keywords for multiple documents
+        that is faster than extraction for multiple single documents.
+        However, this method assumes that you can keep the word embeddings
+        for all words in the vocabulary in memory which might be troublesome.
+        I would advise against using this option and simply iterating
+        over documents instead if you have limited hardware.
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
