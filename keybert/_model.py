@@ -179,7 +179,7 @@ class KeyBERT:
                     count = CountVectorizer(
                         ngram_range=keyphrase_ngram_range, stop_words=stop_words
                     ).fit([doc])
-                candidates = count.get_feature_names()
+                candidates = count.get_feature_names_out()
 
             # Extract Embeddings
             doc_embedding = self.model.embed([doc])
@@ -249,7 +249,7 @@ class KeyBERT:
             count = CountVectorizer(
                 ngram_range=keyphrase_ngram_range, stop_words=stop_words, min_df=min_df
             ).fit(docs)
-        words = count.get_feature_names()
+        words = count.get_feature_names_out()
         df = count.transform(docs)
 
         # Extract embeddings
