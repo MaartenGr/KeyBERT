@@ -21,7 +21,7 @@ docs_packages = [
     "mkdocstrings>=0.8.0",
 ]
 
-flair_packages = ["transformers==3.5.1", "torch>=1.4.0,<1.7.1", "flair==0.7"]
+flair_packages = ["transformers==3.5.1", "torch>=1.7.1", "flair==0.7"]
 
 spacy_packages = ["spacy>=3.0.1"]
 
@@ -30,6 +30,9 @@ use_packages = ["tensorflow", "tensorflow_hub", "tensorflow_text"]
 gensim_packages = ["gensim>=3.6.0"]
 
 dev_packages = docs_packages + test_packages
+
+all_packages = test_packages + base_packages + docs_packages + \
+    flair_packages + spacy_packages + use_packages + gensim_packages
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -66,6 +69,10 @@ setup(
         "docs": docs_packages,
         "dev": dev_packages,
         "flair": flair_packages,
+        "spacy": spacy_packages,
+        "use": use_packages,
+        "gensim": gensim_packages,
+        "all": all_packages,
     },
     python_requires=">=3.6",
 )
