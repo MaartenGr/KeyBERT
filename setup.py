@@ -21,7 +21,7 @@ docs_packages = [
     "mkdocstrings>=0.8.0",
 ]
 
-flair_packages = ["transformers==3.5.1", "torch>=1.4.0,<1.7.1", "flair==0.7"]
+flair_packages = ["transformers>=3.5.1", "torch>=1.4.0", "flair>=0.7"]
 
 spacy_packages = ["spacy>=3.0.1"]
 
@@ -66,6 +66,9 @@ setup(
         "docs": docs_packages,
         "dev": dev_packages,
         "flair": flair_packages,
+        "spacy": spacy_packages,
+        "use": use_packages,
+        "gensim": gensim_packages,
     },
     python_requires=">=3.6",
 )
