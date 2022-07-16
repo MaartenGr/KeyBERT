@@ -42,7 +42,7 @@ def test_single_doc(keyphrase_length, vectorizer):
 def test_extract_keywords_single_doc(keyphrase_length, mmr, maxsum, vectorizer):
     """Test extraction of protected single document method"""
     top_n = 5
-    keywords = model._extract_keywords_single_doc(
+    keywords = model.extract_keywords(
         doc_one,
         top_n=top_n,
         keyphrase_ngram_range=keyphrase_length,
@@ -63,7 +63,7 @@ def test_extract_keywords_single_doc(keyphrase_length, mmr, maxsum, vectorizer):
 def test_extract_keywords_multiple_docs(keyphrase_length):
     """Test extractino of protected multiple document method"""
     top_n = 5
-    keywords_list = model._extract_keywords_multiple_docs(
+    keywords_list = model.extract_keywords(
         [doc_one, doc_two], top_n=top_n, keyphrase_ngram_range=keyphrase_length
     )
     assert isinstance(keywords_list, list)
@@ -92,16 +92,9 @@ def test_guided():
     assert len(keywords) == top_n
 
 
-def test_error():
-    """Empty doc should raise a ValueError"""
-    with pytest.raises(AttributeError):
-        doc = []
-        model._extract_keywords_single_doc(doc)
-
-
 def test_empty_doc():
     """Test empty document"""
     doc = ""
-    result = model._extract_keywords_single_doc(doc)
+    result = model.extract_keywords(doc)
 
     assert result == []

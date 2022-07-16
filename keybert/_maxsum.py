@@ -35,6 +35,8 @@ def max_sum_similarity(
             "Make sure that the number of candidates exceeds the number "
             "of keywords to return."
         )
+    elif top_n > len(words):
+        return []
 
     # Calculate distances and extract keywords
     distances = cosine_similarity(doc_embedding, word_embeddings)
