@@ -1,10 +1,11 @@
 site_name: KeyBERT
-extra_css: [style.css]
 repo_url: https://github.com/MaartenGr/keyBERT
 site_url: https://maartengr.github.io/keyBERT/
 site_description: Leveraging BERT to extract important keywords
 site_author: Maarten P. Grootendorst
 use_directory_urls: false
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
@@ -44,8 +45,14 @@ theme:
     - navigation.tracking
     - toc.follow
   palette:
-    primary: black
-    accent: blue
+    - scheme: black
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 markdown_extensions:
   - admonition
   - pymdownx.details
