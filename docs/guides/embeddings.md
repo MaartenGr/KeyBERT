@@ -20,6 +20,21 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
+### 🤗 **Hugging Face Transformers**
+To use a Hugging Face transformers model, load in a pipeline and point 
+to any model found on their model hub (https://huggingface.co/models):
+
+```python
+from transformers.pipelines import pipeline
+
+hf_model = pipeline("feature-extraction", model="distilbert-base-cased")
+kw_model = KeyBERT(model=hf_model)
+```
+
+!!! tip "Tip!"
+    These transformers also work quite well using `sentence-transformers` which has a number of 
+    optimizations tricks that make using it a bit faster. 
+
 ### **Flair**
 [Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that
 is publicly available. Flair can be used as follows:

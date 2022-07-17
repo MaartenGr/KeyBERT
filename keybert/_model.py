@@ -65,16 +65,8 @@ class KeyBERT:
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
-        I would advise you to iterate over single documents as they
-        will need the least amount of memory. Even though this is slower,
-        you are not likely to run into memory errors.
-
-        There is an option to extract keywords for multiple documents
-        that is faster than extraction for multiple single documents.
-        However, this method assumes that you can keep the word embeddings
-        for all words in the vocabulary in memory which might be troublesome.
-        I would advise against using this option and simply iterating
-        over documents instead if you have limited hardware.
+        To get the biggest speed-up, make sure to pass multiple documents
+        at once instead of iterating over a single document.
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
@@ -94,8 +86,8 @@ class KeyBERT:
                            set to True
             vectorizer: Pass in your own CountVectorizer from scikit-learn
             highlight: Whether to print the document and highlight
-                       its keywords/keyphrases. NOTE: This does not work if
-                       multiple documents are passed.
+                       its keywords/keyphrases. 
+                       NOTE: This does not work if multiple documents are passed.
             seed_keywords: Seed keywords that may guide the extraction of keywords by
                            steering the similarities towards the seeded keywords
 
