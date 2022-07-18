@@ -178,7 +178,7 @@ class KeyBERT:
         # Highlight keywords in the document
         if len(all_keywords) == 1:
             if highlight:
-                highlight_document(docs[0], all_keywords[0])
+                highlight_document(docs[0], all_keywords[0], count)
             all_keywords = all_keywords[0]
 
         return all_keywords
