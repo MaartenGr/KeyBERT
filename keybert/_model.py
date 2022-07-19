@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 from keybert._mmr import mmr
-from keybert._maxsum import max_sum_similarity
+from keybert._maxsum import max_sum_distance
 from keybert._highlight import highlight_document
 from keybert.backend._utils import select_backend
 
@@ -76,7 +76,7 @@ class KeyBERT:
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
                     if keywords for multiple documents need to be extracted
-            use_maxsum: Whether to use Max Sum Similarity for the selection
+            use_maxsum: Whether to use Max Sum Distance for the selection
                         of keywords/keyphrases
             use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the
                      selection of keywords/keyphrases
@@ -153,7 +153,7 @@ class KeyBERT:
 
                 # Max Sum Distance
                 elif use_maxsum:
-                    keywords = max_sum_similarity(
+                    keywords = max_sum_distance(
                         doc_embedding,
                         candidate_embeddings,
                         candidates,

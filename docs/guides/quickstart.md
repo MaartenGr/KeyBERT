@@ -70,7 +70,7 @@ keywords = kw_model.extract_keywords(doc, highlight=True)
     I would advise either `"all-MiniLM-L6-v2"` for English documents or `"paraphrase-multilingual-MiniLM-L12-v2"`
     for multi-lingual documents or any other language.
 
-###  **Max Sum Similarity**
+###  **Max Sum Distance**
 
 To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination

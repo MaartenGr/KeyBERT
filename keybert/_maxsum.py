@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Tuple
 
 
-def max_sum_similarity(
+def max_sum_distance(
     doc_embedding: np.ndarray,
     word_embeddings: np.ndarray,
     words: List[str],
