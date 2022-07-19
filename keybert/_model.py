@@ -4,6 +4,9 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 
 import numpy as np
 from typing import List, Union, Tuple
+
+from packaging import version
+from sklearn import __version__ as sklearn_version
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -116,7 +119,12 @@ class KeyBERT:
             except ValueError:
                 return []
 
-        words = count.get_feature_names()
+        # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0 
+        # and will be removed in 1.2. Please use get_feature_names_out instead.
+        if version.parse(sklearn_version) >= version.parse('1.0.0'):
+            words = count.get_feature_names_out()
+        else:
+            words = count.get_feature_names()
         df = count.transform(docs)
 
         # Extract embeddings
