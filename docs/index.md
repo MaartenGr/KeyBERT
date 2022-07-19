@@ -92,3 +92,6 @@ of words you would like in the resulting keyphrases:
  ('algorithm analyzes', 0.5860),
  ('learning function', 0.5850)]
 ```
+
+!!! note "NOTE"
+    You can also pass multiple documents at once if you are looking for a major speed-up!

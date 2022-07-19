@@ -30,7 +30,6 @@ class KeyBERT:
 
     The most similar words could then be identified as the words that
     best describe the entire document.
-
     """
 
     def __init__(self, model="all-MiniLM-L6-v2"):
@@ -40,6 +39,7 @@ class KeyBERT:
             model: Use a custom embedding model.
                    The following backends are currently supported:
                       * SentenceTransformers
+                      * 🤗 Transformers
                       * Flair
                       * Spacy
                       * Gensim
@@ -74,30 +74,53 @@ class KeyBERT:
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
             candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
-            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases
-            stop_words: Stopwords to remove from the document
+            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
+                                   NOTE: This is not used if you passed a `vectorizer`.
+            stop_words: Stopwords to remove from the document.
+                        NOTE: This is not used if you passed a `vectorizer`.
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
-                    if keywords for multiple documents need to be extracted
+                    if keywords for multiple documents need to be extracted.
+                    NOTE: This is not used if you passed a `vectorizer`.
             use_maxsum: Whether to use Max Sum Distance for the selection
-                        of keywords/keyphrases
+                        of keywords/keyphrases.
             use_mmr: Whether to use Maximal Marginal Relevance (MMR) for the
-                     selection of keywords/keyphrases
-            diversity: The diversity of the results between 0 and 1 if use_mmr
-                       is set to True
-            nr_candidates: The number of candidates to consider if use_maxsum is
-                           set to True
-            vectorizer: Pass in your own CountVectorizer from scikit-learn
-            highlight: Whether to print the document and highlight
-                       its keywords/keyphrases. 
+                     selection of keywords/keyphrases.
+            diversity: The diversity of the results between 0 and 1 if `use_mmr`
+                       is set to True.
+            nr_candidates: The number of candidates to consider if `use_maxsum` is
+                           set to True.
+            vectorizer: Pass in your own `CountVectorizer` from
+                        `sklearn.feature_extraction.text.CountVectorizer`
+            highlight: Whether to print the document and highlight its keywords/keyphrases.
                        NOTE: This does not work if multiple documents are passed.
             seed_keywords: Seed keywords that may guide the extraction of keywords by
-                           steering the similarities towards the seeded keywords
+                           steering the similarities towards the seeded keywords.
 
         Returns:
-            keywords: the top n keywords for a document with their respective distances
-                      to the input document
+            keywords: The top n keywords for a document with their respective distances
+                      to the input document.
 
+        Usage:
+
+        To extract keywords from a single document:
+
+        ```python
+        from keybert import KeyBERT
+
+        kw_model = KeyBERT()
+        keywords = kw_model.extract_keywords(doc)
+        ```
+
+        To extract keywords from multiple documents,
+        which is typically quite a bit faster:
+
+        ```python
+        from keybert import KeyBERT
+
+        kw_model = KeyBERT()
+        keywords = kw_model.extract_keywords(docs)
+        ```
         """
         # Check for a single, empty document
         if isinstance(docs, str):
@@ -119,9 +142,9 @@ class KeyBERT:
             except ValueError:
                 return []
 
-        # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0 
+        # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0
         # and will be removed in 1.2. Please use get_feature_names_out instead.
-        if version.parse(sklearn_version) >= version.parse('1.0.0'):
+        if version.parse(sklearn_version) >= version.parse("1.0.0"):
             words = count.get_feature_names_out()
         else:
             words = count.get_feature_names()

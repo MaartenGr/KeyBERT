@@ -1,3 +1,38 @@
+## **Version 0.6.0**
+*Release date: 25 July, 2022*
+
+**Highlights**:
+
+* Major speedup, up to 2x to 5x when passing multiple documents (for MMR and MaxSum) compared to single documents
+* Same results whether passing a single document or multiple documents
+* MMR and MaxSum now work when passing a single document or multiple documents
+* Improved documentation
+* Added 🤗 Hugging Face Transformers
+
+```python
+from keybert import KeyBERT
+from transformers.pipelines import pipeline
+
+hf_model = pipeline("feature-extraction", model="distilbert-base-cased")
+kw_model = KeyBERT(model=hf_model)
+```
+
+* Highlighting support for Chinese texts
+    * Now uses the `CountVectorizer` for creating the tokens
+    * This should also improve the highlighting for most applications and higher n-grams
+
+![image](https://user-images.githubusercontent.com/25746895/179488649-3c66403c-9620-4e12-a7a8-c2fab26b18fc.png)
+
+**NOTE**: Although highlighting for Chinese texts is improved, since I am not familiar with the Chinese language there is a good chance it is not yet as optimized as for other languages. Any feedback with respect to this is highly appreciated!
+
+**Fixes**: 
+
+* Fix typo in ReadMe by [@priyanshul-govil](https://github.com/priyanshul-govil) in [#117](https://github.com/MaartenGr/KeyBERT/pull/117)
+* Add missing optional dependencies (gensim, use, and spacy) by [@yusuke1997](https://github.com/yusuke1997)
+ in [#114](https://github.com/MaartenGr/KeyBERT/pull/114)
+
+
+
 ## **Version 0.5.1**
 *Release date:  31 March, 2022*
 
@@ -25,6 +60,8 @@
 **Miscellaneous**:
 
 * Added instructions in the FAQ to extract keywords from Chinese documents
+* Fix typo in ReadMe by [@koaning](https://github.com/koaning) in [#51](https://github.com/MaartenGr/KeyBERT/pull/51)
+
 
 ## **Version 0.4.0**
 *Release date:  23 June, 2021*

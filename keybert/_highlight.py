@@ -11,18 +11,20 @@ class NullHighlighter(RegexHighlighter):
     highlights = [r""]
 
 
-def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: CountVectorizer):
+def highlight_document(
+    doc: str, keywords: List[Tuple[str, float]], vectorizer: CountVectorizer
+):
     """Highlight keywords in a document
 
     Arguments:
-        doc: The document for which to extract keywords/keyphrases
-        keywords: the top n keywords for a document with their respective distances
-                  to the input document
-        vectorizer: The vectorizer used for tokenizing the document
+        doc: The document for which to extract keywords/keyphrases.
+        keywords: The top n keywords for a document with their respective distances
+                  to the input document.
+        vectorizer: The vectorizer used for tokenizing the document.
 
     Returns:
         highlighted_text: The document with additional tags to highlight keywords
-                          according to the rich package
+                          according to the rich package.
     """
     keywords_only = [keyword for keyword, _ in keywords]
     max_len = vectorizer.ngram_range[1]
@@ -36,17 +38,19 @@ def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: 
     console.print(highlighted_text)
 
 
-def _highlight_one_gram(doc: str, keywords: List[str], vectorizer: CountVectorizer) -> str:
+def _highlight_one_gram(
+    doc: str, keywords: List[str], vectorizer: CountVectorizer
+) -> str:
     """Highlight 1-gram keywords in a document
 
     Arguments:
-        doc: The document for which to extract keywords/keyphrases
-        keywords: The top n keywords for a document
-        vectorizer: The vectorizer used for tokenizing the document
+        doc: The document for which to extract keywords/keyphrases.
+        keywords: The top n keywords for a document.
+        vectorizer: The vectorizer used for tokenizing the document.
 
     Returns:
         highlighted_text: The document with additional tags to highlight keywords
-                          according to the rich package
+                          according to the rich package.
     """
     tokenizer = vectorizer.build_tokenizer()
     tokens = tokenizer(doc)
@@ -61,17 +65,19 @@ def _highlight_one_gram(doc: str, keywords: List[str], vectorizer: CountVectoriz
     return highlighted_text
 
 
-def _highlight_n_gram(doc: str, keywords: List[str], vectorizer: CountVectorizer) -> str:
+def _highlight_n_gram(
+    doc: str, keywords: List[str], vectorizer: CountVectorizer
+) -> str:
     """Highlight n-gram keywords in a document
 
     Arguments:
-        doc: The document for which to extract keywords/keyphrases
-        keywords: The top n keywords for a document
-        vectorizer: The vectorizer used for tokenizing the document
+        doc: The document for which to extract keywords/keyphrases.
+        keywords: The top n keywords for a document.
+        vectorizer: The vectorizer used for tokenizing the document.
 
     Returns:
         highlighted_text: The document with additional tags to highlight keywords
-                          according to the rich package
+                          according to the rich package.
     """
     tokenizer = vectorizer.build_tokenizer()
     tokens = tokenizer(doc)

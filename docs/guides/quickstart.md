@@ -59,7 +59,7 @@ of words you would like in the resulting keyphrases:
  ('learning function', 0.5850)]
 ```
 
-We can highlight the keywords in the document by simply setting `hightlight`:
+We can highlight the keywords in the document by simply setting `highlight`:
 
 ```python
 keywords = kw_model.extract_keywords(doc, highlight=True)
