@@ -2,47 +2,47 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://maartengr.github.io/keyBERT/index.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/changelog.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/faq.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/keybert.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/maxsum.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/mmr.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/countvectorizer.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/embeddings.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/quickstart.html</loc>
-         <lastmod>2022-03-31</lastmod>
+         <lastmod>2022-07-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
