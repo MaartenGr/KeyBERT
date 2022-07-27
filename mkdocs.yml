@@ -1,10 +1,12 @@
 site_name: KeyBERT
-extra_css: [style.css]
 repo_url: https://github.com/MaartenGr/keyBERT
 site_url: https://maartengr.github.io/keyBERT/
 site_description: Leveraging BERT to extract important keywords
 site_author: Maarten P. Grootendorst
 use_directory_urls: false
+extra_css:
+  - stylesheets/extra.css
+
 nav:
   - Home: index.md
   - Guides:
@@ -17,12 +19,14 @@ nav:
       - MaxSum: api/maxsum.md
   - FAQ: faq.md
   - Changelog: changelog.md
+
 plugins:
   - mkdocstrings:
       watch:
         - keybert
   - search
-copyright: Copyright &copy; 2021 Maintained by <a href="https://github.com/MaartenGr">Maarten</a>.
+copyright: Copyright &copy; 2022 Maintained by <a href="https://github.com/MaartenGr">Maarten Grootendorst</a>.
+
 theme:
   custom_dir: images/
   name: material
@@ -33,13 +37,26 @@ theme:
     code: Ubuntu Mono
   favicon: icon.png
   logo: icon.png
-  feature:
-    tabs: true
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.instant
+    - navigation.top
+    - navigation.tracking
+    - toc.follow
   palette:
-    primary: black
-    accent: blue
+    - scheme: black
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 markdown_extensions:
-  - pymdownx.highlight:
-  - pymdownx.superfences:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
   - toc:
       permalink: true

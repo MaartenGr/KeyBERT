@@ -1,11 +1,11 @@
 <img src="https://raw.githubusercontent.com/MaartenGr/KeyBERT/master/images/logo.png" width="35%" height="35%" align="right" />
 
-# KeyBERT
+# **KeyBERT**
 
 KeyBERT is a minimal and easy-to-use keyword extraction technique that leverages BERT embeddings to
 create keywords and keyphrases that are most similar to a document.
 
-## About the Project
+## **About the Project**
 
 Although there are already many methods available for keyword generation
 (e.g.,
@@ -31,7 +31,7 @@ papers and solutions out there that use BERT-embeddings
 could be used for beginners (**correct me if I'm wrong!**).
 Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
-## Installation
+## **Installation**
 Installation can be done using [pypi](https://pypi.org/project/keybert/):
 
 ```
@@ -47,14 +47,7 @@ pip install keybert[spacy]
 pip install keybert[use]
 ```
 
-To install all backends:
-
-```
-pip install keybert[all]
-```
-
-
-## Usage
+## **Usage**
 
 
 The most minimal example can be seen below for the extraction of keywords:
@@ -99,3 +92,6 @@ of words you would like in the resulting keyphrases:
  ('algorithm analyzes', 0.5860),
  ('learning function', 0.5850)]
 ```
+
+!!! note "NOTE"
+    You can also pass multiple documents at once if you are looking for a major speed-up!

@@ -20,7 +20,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
    2. [Getting Started](#gettingstarted)  
         2.1. [Installation](#installation)  
         2.2. [Basic Usage](#usage)  
-        2.3. [Max Sum Similarity](#maxsum)  
+        2.3. [Max Sum Distance](#maxsum)  
         2.4. [Maximal Marginal Relevance](#maximal)  
         2.5. [Embedding Models](#embeddings)  
 <!--te-->  
@@ -134,7 +134,7 @@ I would advise either `"all-MiniLM-L6-v2"` for English documents or `"paraphrase
 for multi-lingual documents or any other language.
 
 <a name="maxsum"/></a>
-###  2.3. Max Sum Similarity
+###  2.3. Max Sum Distance
 
 To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
 Then, we take all top_n combinations from the 2 x top_n words and extract the combination

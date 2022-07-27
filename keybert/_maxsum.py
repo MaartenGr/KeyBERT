@@ -4,7 +4,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List, Tuple
 
 
-def max_sum_similarity(
+def max_sum_distance(
     doc_embedding: np.ndarray,
     word_embeddings: np.ndarray,
     words: List[str],
@@ -35,6 +35,8 @@ def max_sum_similarity(
             "Make sure that the number of candidates exceeds the number "
             "of keywords to return."
         )
+    elif top_n > len(words):
+        return []
 
     # Calculate distances and extract keywords
     distances = cosine_similarity(doc_embedding, word_embeddings)

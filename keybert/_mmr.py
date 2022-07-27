@@ -1,6 +1,7 @@
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
+from operator import itemgetter
 from typing import List, Tuple
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def mmr(
@@ -59,7 +60,10 @@ def mmr(
         keywords_idx.append(mmr_idx)
         candidates_idx.remove(mmr_idx)
 
-    return [
+    # Extract and sort keywords in descending similarity
+    keywords = [
         (words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4))
         for idx in keywords_idx
     ]
+    keywords = sorted(keywords, key=itemgetter(1), reverse=True)
+    return keywords

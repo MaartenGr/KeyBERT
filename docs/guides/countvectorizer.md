@@ -42,8 +42,10 @@ Next, we can use a basic vectorizer when extracting keywords as follows:
  ('mapping', 0.3700)]
 ```
 
-**NOTE**: Although I typically like to use `use_mmr=True` as it often improves upon the generated keywords, this tutorial will do without
-in order give you a clear view of the effects of the CountVectorizer.
+!!! note "NOTE"
+    Although I typically like to use `use_mmr=True` as it often improves upon the generated keywords, this tutorial will do without
+    in order give you a clear view of the effects of the CountVectorizer.
+
 
 ## **Parameters**
 

@@ -15,12 +15,39 @@ typically do not contribute to the meaning of a document and should therefore be
 topic modeling to HTML-code to extract topics of code, then it becomes important.
 
 
-## **Can I use the GPU to speed up the model?**
-Yes! Since KeyBERT uses embeddings as its backend, a GPU is actually prefered when using this package.
+## **How can I speed up the model?**
+Since KeyBERT uses large language models as its backend, a GPU is typically prefered when using this package. 
 Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower.
 
+A second method for speeding up KeyBERT is by passing it multiple documents at once. By doing this, words 
+need to only be embedded a single time, which can result in a major speed up. 
+
+This is **faster**:
+
+```python
+from keybert import KeyBERT
+
+kw_model = KeyBERT()
+
+keywords = kw_model.extract_keywords(my_list_of_documents)
+```
+
+This is **slower**:
+
+```python
+from keybert import KeyBERT
+
+kw_model = KeyBERT()
+
+keywords = []
+for document in my_list_of_documents:
+    keyword = kw_model.extract_keywords(document)
+    keywords.append(keyword)
+```
+
+
 ## **How can I use KeyBERT with Chinese documents?**
-You need to make sure you use a Tokenizer in KeyBERT that supports tokenization of Chinese. I suggest installing [`jieba`](https://github.com/fxsjy/jieba) for this:
+You need to make sure you use a tokenizer in KeyBERT that supports tokenization of Chinese. I suggest installing [`jieba`](https://github.com/fxsjy/jieba) for this:
 
 ```python
 from sklearn.feature_extraction.text import CountVectorizer
@@ -41,3 +68,7 @@ from keybert import KeyBERT
 kw_model = KeyBERT()
 keywords = kw_model.extract_keywords(doc, vectorizer=vectorizer)
 ```
+
+It also supports highlighting:
+
+![image](https://user-images.githubusercontent.com/25746895/179488649-3c66403c-9620-4e12-a7a8-c2fab26b18fc.png)

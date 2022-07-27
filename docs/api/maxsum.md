@@ -1,3 +1,3 @@
-# `Max Sum Similarity`
+# `Max Sum Distance`
 
-::: keybert._maxsum.max_sum_similarity
+::: keybert._maxsum.max_sum_distance
