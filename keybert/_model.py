@@ -74,6 +74,7 @@ class KeyBERT:
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
             candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
+                        NOTE: This is not used if you passed a `vectorizer`.
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
                                    NOTE: This is not used if you passed a `vectorizer`.
             stop_words: Stopwords to remove from the document.
@@ -138,6 +139,7 @@ class KeyBERT:
                     ngram_range=keyphrase_ngram_range,
                     stop_words=stop_words,
                     min_df=min_df,
+                    vocabulary=candidates,
                 ).fit(docs)
             except ValueError:
                 return []
