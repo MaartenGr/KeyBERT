@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 ## **Version 0.6.0**
 *Release date: 25 July, 2022*
 

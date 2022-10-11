@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 <img src="https://raw.githubusercontent.com/MaartenGr/KeyBERT/master/images/logo.png" width="35%" height="35%" align="right" />
 
 # **KeyBERT**
