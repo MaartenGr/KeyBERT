@@ -65,6 +65,7 @@ class KeyBERT:
         vectorizer: CountVectorizer = None,
         highlight: bool = False,
         seed_keywords: List[str] = None,
+        doc_embeddings: np.ndarray = None
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -153,7 +154,8 @@ class KeyBERT:
         df = count.transform(docs)
 
         # Extract embeddings
-        doc_embeddings = self.model.embed(docs)
+        if doc_embeddings is None:
+            doc_embeddings = self.model.embed(docs)
         word_embeddings = self.model.embed(words)
 
         # Find keywords
