@@ -30,6 +30,10 @@ class KeyBERT:
 
     The most similar words could then be identified as the words that
     best describe the entire document.
+
+    <div class="excalidraw">
+    --8<-- "docs/images/pipeline.svg"
+    </div>
     """
 
     def __init__(self, model="all-MiniLM-L6-v2"):

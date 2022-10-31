@@ -14,6 +14,12 @@ pip install keybert[spacy]
 pip install keybert[use]
 ```
 
+
+<div class="excalidraw">
+--8<-- "docs/images/pipeline.svg"
+</div>
+
+
 ## **Basic usage**
 
 The most minimal example can be seen below for the extraction of keywords:
@@ -140,6 +146,10 @@ keywords = kw_model.extract_keywords(doc, candidates=candidates)
 ## **Guided KeyBERT**
 
 Guided KeyBERT is similar to Guided Topic Modeling in that it tries to steer the training towards a set of seeded terms. When applying KeyBERT it automatically extracts the most related keywords to a specific document. However, there are times when stakeholders and users are looking for specific types of keywords. For example, when publishing an article on your website through contentful, you typically already know the global keywords related to the article. However, there might be a specific topic in the article that you would like to be extracted through the keywords. To achieve this, we simply give KeyBERT a set of related seeded keywords (it can also be a single one!) and search for keywords that are similar to both the document and the seeded keywords.
+
+<div class="excalidraw">
+--8<-- "docs/images/guided.svg"
+</div>
 
 Using this feature is as simple as defining a list of seeded keywords and passing them to KeyBERT:
 

@@ -5,3 +5,15 @@
 :root>* {
 --md-typeset-a-color: #0277BD;
 }
+
+body[data-md-color-primary="black"] .excalidraw  svg  {  
+  filter: invert(100%) hue-rotate(180deg);
+}
+
+body[data-md-color-primary="black"] .excalidraw svg rect {
+  fill: transparent;
+}
+
+.excalidraw {
+  text-align: center;
+}
