@@ -1,7 +1,9 @@
 import numpy as np
 from tqdm import tqdm
 from typing import List
+from packaging import version
 from keybert.backend import BaseEmbedder
+from gensim import __version__ as gensim_version
 from gensim.models.keyedvectors import Word2VecKeyedVectors
 
 
@@ -49,9 +51,13 @@ class GensimBackend(BaseEmbedder):
             Document/words embeddings with shape (n, m) with `n` documents/words
             that each have an embeddings size of `m`
         """
-        vector_shape = self.embedding_model.word_vec(
-            list(self.embedding_model.vocab.keys())[0]
-        ).shape
+        if version.parse(gensim_version) >= version.parse("4.0.0"):
+            get_vector = self.embedding_model.get_vector
+            vector_shape = get_vector(self.embedding_model.index_to_key[0]).shape
+        else:
+            get_vector = self.embedding_model.word_vec
+            vector_shape = get_vector(list(self.embedding_model.vocab.keys())[0]).shape
+
         empty_vector = np.zeros(vector_shape[0])
 
         embeddings = []
@@ -61,7 +67,7 @@ class GensimBackend(BaseEmbedder):
             # Extract word embeddings
             for word in doc.split(" "):
                 try:
-                    word_embedding = self.embedding_model.word_vec(word)
+                    word_embedding = get_vector(word)
                     doc_embedding.append(word_embedding)
                 except KeyError:
                     doc_embedding.append(empty_vector)

@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 ## **Which embedding model works best for which language?**
 Unfortunately, there is not a definitive list of the best models for each language, this highly depends
 on your data, the model, and your specific use-case. However, the default model in KeyBERT

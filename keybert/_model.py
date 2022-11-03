@@ -30,6 +30,10 @@ class KeyBERT:
 
     The most similar words could then be identified as the words that
     best describe the entire document.
+
+    <div class="excalidraw">
+    --8<-- "docs/images/pipeline.svg"
+    </div>
     """
 
     def __init__(self, model="all-MiniLM-L6-v2"):
@@ -65,6 +69,8 @@ class KeyBERT:
         vectorizer: CountVectorizer = None,
         highlight: bool = False,
         seed_keywords: List[str] = None,
+        doc_embeddings: np.array = None,
+        word_embeddings: np.array = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -97,6 +103,12 @@ class KeyBERT:
                        NOTE: This does not work if multiple documents are passed.
             seed_keywords: Seed keywords that may guide the extraction of keywords by
                            steering the similarities towards the seeded keywords.
+            doc_embeddings: The embeddings of each document.
+            word_embeddings: The embeddings of each potential keyword/keyphrase across
+                             across the vocabulary of the set of input documents.
+                             NOTE: The `word_embeddings` should be generated through
+                             `.extract_embeddings` as the order of these embeddings depend
+                             on the vectorizer that was used to generate its vocabulary.
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
@@ -113,8 +125,7 @@ class KeyBERT:
         keywords = kw_model.extract_keywords(doc)
         ```
 
-        To extract keywords from multiple documents,
-        which is typically quite a bit faster:
+        To extract keywords from multiple documents, which is typically quite a bit faster:
 
         ```python
         from keybert import KeyBERT
@@ -152,9 +163,21 @@ class KeyBERT:
             words = count.get_feature_names()
         df = count.transform(docs)
 
+        # Check if the right number of word embeddings are generated compared with the vectorizer
+        if word_embeddings is not None:
+            if word_embeddings.shape[0] != len(words):
+                raise ValueError("Make sure that the `word_embeddings` are generated from the function "
+                                 "`.extract_embeddings`. \nMoreover, the `candidates`, `keyphrase_ngram_range`,"
+                                 "`stop_words`, and `min_df` parameters need to have the same values in both "
+                                 "`.extract_embeddings` and `.extract_keywords`.")
+
         # Extract embeddings
-        doc_embeddings = self.model.embed(docs)
-        word_embeddings = self.model.embed(words)
+        if doc_embeddings is None:
+            doc_embeddings = self.model.embed(docs)
+        if word_embeddings is None:
+            word_embeddings = self.model.embed(words)
+        if seed_keywords is not None:
+            seed_embeddings = self.model.embed([" ".join(seed_keywords)])
 
         # Find keywords
         all_keywords = []
@@ -169,7 +192,6 @@ class KeyBERT:
 
                 # Guided KeyBERT with seed keywords
                 if seed_keywords is not None:
-                    seed_embeddings = self.model.embed([" ".join(seed_keywords)])
                     doc_embedding = np.average(
                         [doc_embedding, seed_embeddings], axis=0, weights=[3, 1]
                     )
@@ -215,3 +237,92 @@ class KeyBERT:
             all_keywords = all_keywords[0]
 
         return all_keywords
+
+    def extract_embeddings(
+        self,
+        docs: Union[str, List[str]],
+        candidates: List[str] = None,
+        keyphrase_ngram_range: Tuple[int, int] = (1, 1),
+        stop_words: Union[str, List[str]] = "english",
+        min_df: int = 1,
+        vectorizer: CountVectorizer = None
+    ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
+        """Extract document and word embeddings for the input documents and the
+        generated candidate keywords/keyphrases respectively.
+
+        Note that all potential keywords/keyphrases are not returned but only their
+        word embeddings. This means that the values of `candidates`, `keyphrase_ngram_range`,
+        `stop_words`, and `min_df` need to be the same between using `.extract_embeddings` and
+        `.extract_keywords`.
+
+        Arguments:
+            docs: The document(s) for which to extract keywords/keyphrases
+            candidates: Candidate keywords/keyphrases to use instead of extracting them from the document(s)
+                        NOTE: This is not used if you passed a `vectorizer`.
+            keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
+                                   NOTE: This is not used if you passed a `vectorizer`.
+            stop_words: Stopwords to remove from the document.
+                        NOTE: This is not used if you passed a `vectorizer`.
+            min_df: Minimum document frequency of a word across all documents
+                    if keywords for multiple documents need to be extracted.
+                    NOTE: This is not used if you passed a `vectorizer`.
+            vectorizer: Pass in your own `CountVectorizer` from
+                        `sklearn.feature_extraction.text.CountVectorizer`
+
+        Returns:
+            doc_embeddings: The embeddings of each document.
+            word_embeddings: The embeddings of each potential keyword/keyphrase across
+                             across the vocabulary of the set of input documents.
+                             NOTE: The `word_embeddings` should be generated through
+                             `.extract_embeddings` as the order of these embeddings depend
+                             on the vectorizer that was used to generate its vocabulary.
+
+        Usage:
+
+        To generate the word and document embeddings from a set of documents:
+
+        ```python
+        from keybert import KeyBERT
+
+        kw_model = KeyBERT()
+        doc_embeddings, word_embeddings = kw_model.extract_embeddings(docs)
+        ```
+
+        You can then use these embeddings and pass them to `.extract_keywords` to speed up the tuning the model:
+
+        ```python
+        keywords = kw_model.extract_keywords(docs, doc_embeddings=doc_embeddings, word_embeddings=word_embeddings)
+        ```
+        """
+        # Check for a single, empty document
+        if isinstance(docs, str):
+            if docs:
+                docs = [docs]
+            else:
+                return []
+
+        # Extract potential words using a vectorizer / tokenizer
+        if vectorizer:
+            count = vectorizer.fit(docs)
+        else:
+            try:
+                count = CountVectorizer(
+                    ngram_range=keyphrase_ngram_range,
+                    stop_words=stop_words,
+                    min_df=min_df,
+                    vocabulary=candidates,
+                ).fit(docs)
+            except ValueError:
+                return []
+
+        # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0
+        # and will be removed in 1.2. Please use get_feature_names_out instead.
+        if version.parse(sklearn_version) >= version.parse("1.0.0"):
+            words = count.get_feature_names_out()
+        else:
+            words = count.get_feature_names()
+
+        doc_embeddings = self.model.embed(docs)
+        word_embeddings = self.model.embed(words)
+
+        return doc_embeddings, word_embeddings

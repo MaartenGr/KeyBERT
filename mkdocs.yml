@@ -7,6 +7,7 @@ use_directory_urls: false
 extra_css:
   - stylesheets/extra.css
 
+
 nav:
   - Home: index.md
   - Guides:
@@ -45,18 +46,23 @@ theme:
     - navigation.tracking
     - toc.follow
   palette:
-    - scheme: black
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to dark mode
-    - scheme: slate
-      toggle:
-        icon: material/weather-night
-        name: Switch to light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: black
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: black
+    toggle:
+      icon: material/weather-night
+      name: Switch to light mode
+
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.highlight
   - pymdownx.superfences
-  - toc:
+  - pymdownx.snippets
+  - toc:  
       permalink: true

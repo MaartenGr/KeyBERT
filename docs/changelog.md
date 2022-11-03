@@ -1,3 +1,38 @@
+---
+hide:
+  - navigation
+---
+
+
+## **Version 0.7.0**
+*Release date: 3 November, 2022*
+
+**Highlights**:
+
+* Cleaned up documentation and added several visual representations of the algorithm (excluding MMR / MaxSum)
+* Added function to extract and pass word- and document embeddings which should make fine-tuning much faster
+
+```python
+from keybert import KeyBERT
+
+kw_model = KeyBERT()
+
+# Prepare embeddings
+doc_embeddings, word_embeddings = kw_model.extract_embeddings(docs)
+
+# Extract keywords without needing to re-calculate embeddings
+keywords = kw_model.extract_keywords(docs, doc_embeddings=doc_embeddings, word_embeddings=word_embeddings)
+```
+
+Do note that the parameters passed to `.extract_embeddings` for creating the vectorizer should be exactly the same as those in `.extract_keywords`. 
+
+**Fixes**:
+
+* Redundant documentation was removed by [@mabhay3420](https://github.com/priyanshul-govil) in [#123](https://github.com/MaartenGr/KeyBERT/pull/123)
+* Fixed Gensim backend not working after v4 migration ([#71](https://github.com/MaartenGr/KeyBERT/issues/71))
+* Fixed `candidates` not working ([#122](https://github.com/MaartenGr/KeyBERT/issues/122))
+
+
 ## **Version 0.6.0**
 *Release date: 25 July, 2022*
 
