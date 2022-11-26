@@ -12,7 +12,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 
 from keybert._mmr import mmr
 from keybert._maxsum import max_sum_distance
-from keybert._highlight import highlight_document
 from keybert.backend._utils import select_backend
 
 
@@ -215,11 +214,5 @@ class KeyBERT:
             # Capturing empty keywords
             except ValueError:
                 all_keywords.append([])
-
-        # Highlight keywords in the document
-        if len(all_keywords) == 1:
-            if highlight:
-                highlight_document(docs[0], all_keywords[0], count)
-            all_keywords = all_keywords[0]
 
         return all_keywords
