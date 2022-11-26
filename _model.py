@@ -131,42 +131,48 @@ class KeyBERT:
             else:
                 return []
 
-        # Extract potential words using a vectorizer / tokenizer
-        if vectorizer:
-            count = vectorizer.fit(docs)
+        if candidates:
+            word_embeddings = self.model.embed(candidates)
         else:
-            try:
-                count = CountVectorizer(
-                    ngram_range=keyphrase_ngram_range,
-                    stop_words=stop_words,
-                    min_df=min_df,
-                    vocabulary=candidates,
-                ).fit(docs)
-            except ValueError:
-                return []
+            # Extract potential words using a vectorizer / tokenizer
+            if vectorizer:
+                count = vectorizer.fit(docs)
+            else:
+                try:
+                    count = CountVectorizer(
+                        ngram_range=keyphrase_ngram_range,
+                        stop_words=stop_words,
+                        min_df=min_df,
+                        vocabulary=candidates,
+                    ).fit(docs)
+                except ValueError:
+                    return []
 
-        # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0
-        # and will be removed in 1.2. Please use get_feature_names_out instead.
-        if version.parse(sklearn_version) >= version.parse("1.0.0"):
-            words = count.get_feature_names_out()
-        else:
-            words = count.get_feature_names()
-        df = count.transform(docs)
+            # Scikit-Learn Deprecation: get_feature_names is deprecated in 1.0
+            # and will be removed in 1.2. Please use get_feature_names_out instead.
+            if version.parse(sklearn_version) >= version.parse("1.0.0"):
+                words = count.get_feature_names_out()
+            else:
+                words = count.get_feature_names()
+            df = count.transform(docs)
+            word_embeddings = self.model.embed(words)
 
         # Extract embeddings
         if doc_embeddings is None:
             doc_embeddings = self.model.embed(docs)
-        word_embeddings = self.model.embed(words)
 
         # Find keywords
         all_keywords = []
         for index, _ in enumerate(docs):
 
             try:
-                # Select embeddings
-                candidate_indices = df[index].nonzero()[1]
-                candidates = [words[index] for index in candidate_indices]
-                candidate_embeddings = word_embeddings[candidate_indices]
+                if candidates:
+                    candidate_embeddings = word_embeddings
+                else:
+                    # Select embeddings
+                    candidate_indices = df[index].nonzero()[1]
+                    candidates = [words[index] for index in candidate_indices]
+                    candidate_embeddings = word_embeddings[candidate_indices]
                 doc_embedding = doc_embeddings[index].reshape(1, -1)
 
                 # Guided KeyBERT with seed keywords
