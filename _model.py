@@ -62,7 +62,6 @@ class KeyBERT:
         diversity: float = 0.5,
         nr_candidates: int = 20,
         vectorizer: CountVectorizer = None,
-        highlight: bool = False,
         seed_keywords: List[str] = None,
         doc_embeddings: np.ndarray = None
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
