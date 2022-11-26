@@ -214,4 +214,8 @@ class KeyBERT:
             except ValueError:
                 all_keywords.append([])
 
+        # Highlight keywords in the document
+        if len(all_keywords) == 1:
+            all_keywords = all_keywords[0]
+
         return all_keywords
