@@ -76,3 +76,6 @@ venv.bak/
 .idea
 .idea/
 .vscode
+
+# MacOS
+.DS_Store
