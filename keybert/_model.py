@@ -68,7 +68,7 @@ class KeyBERT:
         nr_candidates: int = 20,
         vectorizer: CountVectorizer = None,
         highlight: bool = False,
-        seed_keywords: List[str] = None,
+        seed_keywords: Union[List[str], List[List[str]]] = None,
         doc_embeddings: np.array = None,
         word_embeddings: np.array = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
@@ -103,6 +103,10 @@ class KeyBERT:
                        NOTE: This does not work if multiple documents are passed.
             seed_keywords: Seed keywords that may guide the extraction of keywords by
                            steering the similarities towards the seeded keywords.
+                           NOTE: when multiple documents are passed, 
+                           `seed_keywords`funtions in either of the two ways below:
+                           - shared by all documents, when a flat list of str is passed.
+                           - differs among documents, when a nested list of str is passed.
             doc_embeddings: The embeddings of each document.
             word_embeddings: The embeddings of each potential keyword/keyphrase across
                              across the vocabulary of the set of input documents.
@@ -177,7 +181,15 @@ class KeyBERT:
         if word_embeddings is None:
             word_embeddings = self.model.embed(words)
         if seed_keywords is not None:
-            seed_embeddings = self.model.embed([" ".join(seed_keywords)])
+            # str or flat list of str
+            if isinstance(seed_keywords[0], str):
+                seed_embeddings = self.model.embed([" ".join(seed_keywords)])
+            # nested list of str
+            else:
+                if len(docs) != len(seed_keywords):
+                    raise ValueError("The length of docs must match the length of seed_keywords")
+                else:
+                    seed_embeddings = self.model.embed([" ".join(keywords) for keywords in seed_keywords])
 
         # Find keywords
         all_keywords = []
@@ -192,8 +204,9 @@ class KeyBERT:
 
                 # Guided KeyBERT with seed keywords
                 if seed_keywords is not None:
+                    seed_index = slice(None) if isinstance(seed_keywords[0], str) else index
                     doc_embedding = np.average(
-                        [doc_embedding, seed_embeddings], axis=0, weights=[3, 1]
+                        [doc_embedding, seed_embeddings[seed_index].reshape(1, -1)], axis=0, weights=[3, 1]
                     )
 
                 # Maximal Marginal Relevance (MMR)
