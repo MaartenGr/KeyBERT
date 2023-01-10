@@ -184,7 +184,7 @@ class KeyBERT:
             # get seed embeddings
             ## single doc or global keywords: `seed_keywords` is str or flat list of str
             if isinstance(seed_keywords[0], str):
-                seed_embeddings = self.model.embed(seed_keywords).mean(axis=0).reshape(1, -1)
+                seed_embeddings = self.model.embed(seed_keywords).mean(axis=0, keepdims=True)
                 # if multiple docs are passed, keywords are shared among all docs
                 if len(docs) > 1:
                     seed_embeddings = np.repeat(seed_embeddings, repeats=len(docs), axis=0)
@@ -194,14 +194,12 @@ class KeyBERT:
                     raise ValueError("The length of docs must match the length of seed_keywords")
                 else:
                     seed_embeddings = np.vstack([
-                        self.model.embed(keywords).mean(axis=0).reshape(1, -1)
+                        self.model.embed(keywords).mean(axis=0, keepdims=True)
                         for keywords in seed_keywords
                     ])
 
             # update doc embeddings using seed embeddings
-            doc_embeddings = np.average(
-                [doc_embeddings, seed_embeddings], axis=0, weights=[3, 1]
-            )
+            doc_embeddings = np.average([doc_embeddings, seed_embeddings], axis=0, weights=[3, 1])
 
         # Find keywords
         all_keywords = []
