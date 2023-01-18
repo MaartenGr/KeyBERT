@@ -103,21 +103,61 @@ def test_extract_keywords_multiple_docs(keyphrase_length, candidates):
         assert keywords_list[0][0][0] == candidates[0]
         assert len(keywords_list[1]) == 0
 
-
 def test_guided():
     """Test whether the keywords are correctly extracted"""
+
+    # single doc + a keywords list
     top_n = 5
     seed_keywords = ["time", "night", "day", "moment"]
     keywords = model.extract_keywords(
         doc_one, min_df=1, top_n=top_n, seed_keywords=seed_keywords
     )
-
     assert isinstance(keywords, list)
     assert isinstance(keywords[0], tuple)
     assert isinstance(keywords[0][0], str)
     assert isinstance(keywords[0][1], float)
     assert len(keywords) == top_n
 
+    # a bacth of docs sharing one single list of seed keywords
+    top_n = 5
+    list_of_docs = [doc_one, doc_two]
+    list_of_seed_keywords = ["time", "night", "day", "moment"]
+    keywords = model.extract_keywords(
+        list_of_docs, 
+        min_df=1, 
+        top_n=top_n, 
+        seed_keywords=list_of_seed_keywords
+    )
+    print(keywords)
+
+    assert isinstance(keywords, list)
+    assert isinstance(keywords[0], list)
+    assert isinstance(keywords[0][0], tuple)
+    assert isinstance(keywords[0][0][0], str)
+    assert isinstance(keywords[0][0][1], float)
+    assert len(keywords[0]) == top_n
+
+    # a bacth of docs, each of which has its own seed keywords
+    top_n = 5
+    list_of_docs = [doc_one, doc_two]
+    list_of_seed_keywords = [
+        ["time", "night", "day", "moment"], 
+        ["hockey", "games", "afternoon", "tv"]
+    ]
+    keywords = model.extract_keywords(
+        list_of_docs, 
+        min_df=1, 
+        top_n=top_n, 
+        seed_keywords=list_of_seed_keywords
+    )
+    print(keywords)
+
+    assert isinstance(keywords, list)
+    assert isinstance(keywords[0], list)
+    assert isinstance(keywords[0][0], tuple)
+    assert isinstance(keywords[0][0][0], str)
+    assert isinstance(keywords[0][0][1], float)
+    assert len(keywords[0]) == top_n
 
 def test_empty_doc():
     """Test empty document"""
