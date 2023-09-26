@@ -23,7 +23,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
         2.3. [Max Sum Distance](#maxsum)  
         2.4. [Maximal Marginal Relevance](#maximal)  
         2.5. [Embedding Models](#embeddings)  
-    3. [Large Language Models](#llms)  
+   3. [Large Language Models](#llms)  
 <!--te-->  
 
 
