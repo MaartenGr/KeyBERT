@@ -2,7 +2,7 @@ import time
 from tqdm import tqdm
 from litellm import completion
 from typing import Mapping, Any, List
-from keybert.llm._base import BaseRepresentation
+from keybert.llm._base import BaseLLM
 
 
 DEFAULT_PROMPT = """
@@ -15,7 +15,7 @@ Use the following format separated by commas:
 """
 
 
-class LiteLLM(BaseRepresentation):
+class LiteLLM(BaseLLM):
     """ Extract keywords using LiteLLM to call any LLM API using OpenAI format 
     such as Anthropic, Huggingface, Cohere, TogetherAI, Azure, OpenAI, etc.
 

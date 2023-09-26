@@ -1,7 +1,7 @@
 import time
 from tqdm import tqdm
 from typing import List
-from keybert.llm._base import BaseRepresentation
+from keybert.llm._base import BaseLLM
 
 
 DEFAULT_PROMPT = """
@@ -23,7 +23,7 @@ Document:
 Keywords:"""
 
 
-class Cohere(BaseRepresentation):
+class Cohere(BaseLLM):
     """ Use the Cohere API to generate topic labels based on their
     generative model.
 

@@ -2,7 +2,7 @@ from tqdm import tqdm
 from transformers import pipeline, set_seed
 from transformers.pipelines.base import Pipeline
 from typing import Mapping, List, Any, Union
-from keybert.llm._base import BaseRepresentation
+from keybert.llm._base import BaseLLM
 
 
 DEFAULT_PROMPT = """
@@ -13,7 +13,7 @@ Please give me the keywords that are present in this document and separate them 
 """
 
 
-class TextGeneration(BaseRepresentation):
+class TextGeneration(BaseLLM):
     """ Text2Text or text generation with transformers
 
     NOTE: The resulting keywords are expected to be separated by commas so

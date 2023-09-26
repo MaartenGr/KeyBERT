@@ -1,5 +1,11 @@
 from typing import List, Union
 
+try:
+    from sentence_transformers import util
+    HAS_SBERT = True
+except ModuleNotFoundError:
+    HAS_SBERT = False
+
 
 class KeyLLM:
     """
@@ -20,6 +26,10 @@ class KeyLLM:
     def extract_keywords(
         self,
         docs: Union[str, List[str]],
+        check_vocab: bool = False,
+        candidate_keywords: List[List[str]] = None,
+        threshold: float = None,
+        embeddings = None
     ) -> Union[List[str], List[List[str]]]:
         """Extract keywords and/or keyphrases
 
@@ -32,7 +42,8 @@ class KeyLLM:
 
         Arguments:
             docs: The document(s) for which to extract keywords/keyphrases
-            top_n: Return the top n keywords/keyphrases
+            check_vocab: Only return keywords that appear exactly in the documents
+            candidate_keywords: Candidate keywords for each document
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
@@ -66,5 +77,68 @@ class KeyLLM:
             else:
                 return []
 
-        keywords = self.llm.extract_keywords(docs)
+        if HAS_SBERT and threshold is not None and embeddings is not None:
+
+            # Find similar documents
+            clusters = util.community_detection(embeddings, min_community_size=2, threshold=threshold)
+            in_cluster = set([cluster for cluster_set in clusters for cluster in cluster_set])
+            out_cluster = set(list(range(len(docs)))).difference(in_cluster)
+
+            # Extract keywords for all documents not in a cluster
+            if out_cluster:    
+                selected_docs = [docs[index] for index in out_cluster]
+                print(out_cluster, selected_docs)
+                if candidate_keywords is not None:
+                    selected_keywords = [candidate_keywords[index] for index in out_cluster]
+                else:
+                    selected_keywords = None
+                print(f"Call LLM with {len(selected_docs)} docs; out-cluster")
+                out_cluster_keywords = self.llm.extract_keywords(
+                    selected_docs,
+                    selected_keywords,
+                )
+                out_cluster_keywords = {index: words for words, index in zip(out_cluster_keywords, out_cluster)}
+
+            # Extract keywords for only the first document in a cluster        
+            if in_cluster:
+                selected_docs = [docs[cluster[0]] for cluster in clusters]
+                print(in_cluster, selected_docs)
+                if candidate_keywords is not None:
+                    selected_keywords = [candidate_keywords[cluster[0]] for cluster in in_cluster]
+                else:
+                    selected_keywords = None
+                print(f"Call LLM with {len(selected_docs)} docs; in-cluster")
+                in_cluster_keywords = self.llm.extract_keywords(
+                    selected_docs,
+                    selected_keywords
+                )
+                in_cluster_keywords = {
+                    doc_id: in_cluster_keywords[index] 
+                    for index, cluster in enumerate(clusters)
+                    for doc_id in cluster
+                }
+
+            # Update out cluster keywords with in cluster keywords
+            if out_cluster:
+                if in_cluster:
+                    out_cluster_keywords.update(in_cluster_keywords)
+                print(out_cluster_keywords)
+                keywords = [out_cluster_keywords[index] for index in range(len(docs))]
+            else:
+                keywords = [in_cluster_keywords[index] for index in range(len(docs))]
+        else:
+            # Extract keywords using a Large Language Model (LLM)
+            keywords = self.llm.extract_keywords(docs, candidate_keywords)
+
+        # Only extract keywords that appear in the input document
+        if check_vocab:
+            updated_keywords = []
+            for keyword_set, document in zip(keywords, docs):
+                updated_keyword_set = []
+                for keyword in keyword_set:
+                    if keyword in document:
+                        updated_keyword_set.append(keyword)
+                updated_keywords.append(updated_keyword_set)
+            return updated_keywords
+
         return keywords

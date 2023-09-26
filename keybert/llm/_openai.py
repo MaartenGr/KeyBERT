@@ -2,7 +2,7 @@ import time
 import openai
 from tqdm import tqdm
 from typing import Mapping, Any, List
-from keybert.llm._base import BaseRepresentation
+from keybert.llm._base import BaseLLM
 from keybert.llm._utils import retry_with_exponential_backoff
 
 
@@ -34,7 +34,7 @@ Use the following format separated by commas:
 """
 
 
-class OpenAI(BaseRepresentation):
+class OpenAI(BaseLLM):
     """ Using the OpenAI API to extract keywords
 
     The default method is `openai.Completion` if `chat=False`.
@@ -110,7 +110,7 @@ class OpenAI(BaseRepresentation):
     ```
     """
     def __init__(self,
-                 model: str = "text-ada-001",
+                 model: str = "gpt-3.5-turbo-instruct",
                  prompt: str = None,
                  generator_kwargs: Mapping[str, Any] = {},
                  delay_in_seconds: float = None,
@@ -139,19 +139,32 @@ class OpenAI(BaseRepresentation):
         if not self.generator_kwargs.get("stop") and not chat:
             self.generator_kwargs["stop"] = "\n"
 
-    def extract_keywords(self, documents: List[str]):
+    def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
         """ Extract topics
 
         Arguments:
             documents: The documents to extract keywords from
+            candidate_keywords: A list of candidate keywords that the LLM will fine-tune
+                        For example, it will create a nicer representation of 
+                        the candidate keywords, remove redundant keywords, or 
+                        shorten them depending on the input prompt.
 
         Returns:
             all_keywords: All keywords for each document
         """
         all_keywords = []
-
-        for document in tqdm(documents, disable=not self.verbose):
+        if candidate_keywords is None:
+            candidate_keywords = [None for _ in documents]
+        elif isinstance(candidate_keywords[0][0], str) and not isinstance(candidate_keywords[0], list):
+            candidate_keywords = [[keyword for keyword, _ in candidate_keywords]]
+        elif isinstance(candidate_keywords[0][0], tuple):
+            candidate_keywords = [[keyword for keyword, _ in keywords] for keywords in candidate_keywords]
+            print(candidate_keywords)
+        
+        for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             prompt = self.prompt.replace("[DOCUMENT]", document)
+            if candidates is not None:
+                prompt = prompt.replace("[CANDIDATES]", ", ".join(candidates))
 
             # Delay
             if self.delay_in_seconds:

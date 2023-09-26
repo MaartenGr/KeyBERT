@@ -14,6 +14,8 @@ from keybert._mmr import mmr
 from keybert._maxsum import max_sum_distance
 from keybert._highlight import highlight_document
 from keybert.backend._utils import select_backend
+from keybert.llm._base import BaseLLM
+from keybert import KeyLLM
 
 
 class KeyBERT:
@@ -36,7 +38,7 @@ class KeyBERT:
     </div>
     """
 
-    def __init__(self, model="all-MiniLM-L6-v2"):
+    def __init__(self, model="all-MiniLM-L6-v2", llm: BaseLLM = None):
         """KeyBERT initialization
 
         Arguments:
@@ -53,6 +55,11 @@ class KeyBERT:
                       * https://www.sbert.net/docs/pretrained_models.html
         """
         self.model = select_backend(model)
+
+        if isinstance(llm, BaseLLM):
+            self.llm = KeyLLM(llm)
+        else:
+            self.llm = llm
 
     def extract_keywords(
         self,
@@ -71,6 +78,7 @@ class KeyBERT:
         seed_keywords: Union[List[str], List[List[str]]] = None,
         doc_embeddings: np.array = None,
         word_embeddings: np.array = None,
+        threshold: float = None
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -245,6 +253,19 @@ class KeyBERT:
                 highlight_document(docs[0], all_keywords[0], count)
             all_keywords = all_keywords[0]
 
+        # Fine-tune keywords using an LLM
+        if self.llm is not None:
+            if isinstance(all_keywords[0], tuple):
+                candidate_keywords = [[keyword[0] for keyword in all_keywords]]
+            else:
+                candidate_keywords = [[keyword[0] for keyword in keywords] for keywords in all_keywords]
+            keywords = self.llm.extract_keywords(
+                docs, 
+                embeddings=doc_embeddings,
+                candidate_keywords=candidate_keywords, 
+                threshold=threshold
+            )
+            return keywords
         return all_keywords
 
     def extract_embeddings(

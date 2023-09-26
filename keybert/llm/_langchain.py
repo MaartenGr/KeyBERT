@@ -1,13 +1,13 @@
 from tqdm import tqdm
 from typing import List
 from langchain.docstore.document import Document
-from keybert.llm._base import BaseRepresentation
+from keybert.llm._base import BaseLLM
 
 
 DEFAULT_PROMPT = "What is this document about? Please provide keywords separated by commas."
 
 
-class LangChain(BaseRepresentation):
+class LangChain(BaseLLM):
     """ Using chains in langchain to generate keywords.
 
     Currently, only chains from question answering is implemented. See:
