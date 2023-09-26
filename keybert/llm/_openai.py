@@ -3,7 +3,7 @@ import openai
 from tqdm import tqdm
 from typing import Mapping, Any, List
 from keybert.llm._base import BaseLLM
-from keybert.llm._utils import retry_with_exponential_backoff
+from keybert.llm._utils import retry_with_exponential_backoff, process_candidate_keywords
 
 
 DEFAULT_PROMPT = """
@@ -145,21 +145,16 @@ class OpenAI(BaseLLM):
         Arguments:
             documents: The documents to extract keywords from
             candidate_keywords: A list of candidate keywords that the LLM will fine-tune
-                        For example, it will create a nicer representation of 
-                        the candidate keywords, remove redundant keywords, or 
+                        For example, it will create a nicer representation of
+                        the candidate keywords, remove redundant keywords, or
                         shorten them depending on the input prompt.
 
         Returns:
             all_keywords: All keywords for each document
         """
         all_keywords = []
-        if candidate_keywords is None:
-            candidate_keywords = [None for _ in documents]
-        elif isinstance(candidate_keywords[0][0], str) and not isinstance(candidate_keywords[0], list):
-            candidate_keywords = [[keyword for keyword, _ in candidate_keywords]]
-        elif isinstance(candidate_keywords[0][0], tuple):
-            candidate_keywords = [[keyword for keyword, _ in keywords] for keywords in candidate_keywords]
-        
+        candidate_keywords = process_candidate_keywords(documents, candidate_keywords)
+
         for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             prompt = self.prompt.replace("[DOCUMENT]", document)
             if candidates is not None:

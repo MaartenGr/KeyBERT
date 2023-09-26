@@ -15,10 +15,18 @@ nav:
       - Embedding Models: guides/embeddings.md
       - CountVectorizer: guides/countvectorizer.md
       - KeyLLM: guides/keyllm.md
+      - LLMs: guides/llms.md
   - API:
       - KeyBERT: api/keybert.md
       - MMR: api/mmr.md
       - MaxSum: api/maxsum.md
+      - KeyLLM: api/keyllm.md
+      - LLM:
+        - OpenAI: api/openai.md
+        - Cohere: api/cohere.md
+        - LangChain: api/langchain.md
+        - TextGeneration: api/textgeneration.md
+        - LiteLLM: api/litellm.md
   - FAQ: faq.md
   - Changelog: changelog.md
 

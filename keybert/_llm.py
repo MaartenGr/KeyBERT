@@ -29,7 +29,7 @@ class KeyLLM:
         check_vocab: bool = False,
         candidate_keywords: List[List[str]] = None,
         threshold: float = None,
-        embeddings = None
+        embeddings=None
     ) -> Union[List[str], List[List[str]]]:
         """Extract keywords and/or keyphrases
 
@@ -85,7 +85,7 @@ class KeyLLM:
             out_cluster = set(list(range(len(docs)))).difference(in_cluster)
 
             # Extract keywords for all documents not in a cluster
-            if out_cluster:    
+            if out_cluster:
                 selected_docs = [docs[index] for index in out_cluster]
                 print(out_cluster, selected_docs)
                 if candidate_keywords is not None:

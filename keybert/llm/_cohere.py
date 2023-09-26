@@ -2,6 +2,7 @@ import time
 from tqdm import tqdm
 from typing import List
 from keybert.llm._base import BaseLLM
+from keybert.llm._utils import process_candidate_keywords
 
 
 DEFAULT_PROMPT = """
@@ -93,19 +94,26 @@ class Cohere(BaseLLM):
         self.delay_in_seconds = delay_in_seconds
         self.verbose = verbose
 
-    def extract_keywords(self, documents: List[str]):
+    def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
         """ Extract topics
 
         Arguments:
             documents: The documents to extract keywords from
+            candidate_keywords: A list of candidate keywords that the LLM will fine-tune
+                        For example, it will create a nicer representation of
+                        the candidate keywords, remove redundant keywords, or
+                        shorten them depending on the input prompt.
 
         Returns:
             all_keywords: All keywords for each document
         """
         all_keywords = []
+        candidate_keywords = process_candidate_keywords(documents, candidate_keywords)
 
-        for document in tqdm(documents, disable=not self.verbose):
+        for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             prompt = self.prompt.replace("[DOCUMENT]", document)
+            if candidates is not None:
+                prompt = prompt.replace("[CANDIDATES]", ", ".join(candidates))
 
             # Delay
             if self.delay_in_seconds:

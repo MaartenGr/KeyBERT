@@ -1,149 +1,146 @@
-# Embedding Models
-In this tutorial we will be going through the embedding models that can be used in KeyBERT.
-Having the option to choose embedding models allow you to leverage pre-trained embeddings that suit your use-case.
+# Large Language Models (LLM)
+In this tutorial we will be going through the Large Language Models (LLM) that can be used in KeyLLM.
+Having the option to choose the LLM allow you to leverage the model that suit your use-case.
 
-### **Sentence Transformers**
-You can select any model from sentence-transformers [here](https://www.sbert.net/docs/pretrained_models.html)
-and pass it through KeyBERT with `model`:
+### **OpenAI**
+To use OpenAI's external API, we need to define our key and use the `keybert.llm.OpenAI` model:
 
 ```python
-from keybert import KeyBERT
-kw_model = KeyBERT(model="all-MiniLM-L6-v2")
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
+
+# Create your OpenAI LLM
+openai.api_key = "sk-..."
+llm = OpenAI()
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+
+# Extract keywords
+keywords = kw_model.extract_keywords(MY_DOCUMENTS)
 ```
 
-Or select a SentenceTransformer model with your own parameters:
+If you want to use a chat-based model, please run the following instead:
 
 ```python
-from sentence_transformers import SentenceTransformer
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
 
-sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
-kw_model = KeyBERT(model=sentence_model)
+# Create your LLM
+openai.api_key = "sk-..."
+llm = OpenAI(model="gpt-3.5-turbo", chat=True)
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+```
+
+### **Cohere**
+To use Cohere's external API, we need to define our key and use the `keybert.llm.OpenAI` model:
+
+```python
+import cohere
+from keybert.llm import Cohere
+from keybert import KeyLLM
+
+# Create your OpenAI LLM
+co = cohere.Client(my_api_key)
+llm = Cohere(co)
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+
+# Extract keywords
+keywords = kw_model.extract_keywords(MY_DOCUMENTS)
+```
+
+### **LiteLLM**
+[LiteLLM](https://github.com/BerriAI/litellm) allows you to use any closed-source LLM with KeyLLM
+
+Let's use OpenAI as an example:
+
+```python
+import os
+from keybert.llm import LiteLLM
+from keybert import KeyLLM
+
+# Select LLM
+os.environ["OPENAI_API_KEY"] = "sk-..."
+llm = LiteLLM("gpt-3.5-turbo")
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
 ```
 
 ### 🤗 **Hugging Face Transformers**
 To use a Hugging Face transformers model, load in a pipeline and point 
-to any model found on their model hub (https://huggingface.co/models):
+to any model found on their model hub (https://huggingface.co/models). Let's use Llama 2 as an example:
 
 ```python
-from transformers.pipelines import pipeline
+from torch import cuda, bfloat16
+import transformers
 
-hf_model = pipeline("feature-extraction", model="distilbert-base-cased")
-kw_model = KeyBERT(model=hf_model)
+model_id = 'meta-llama/Llama-2-7b-chat-hf'
+
+# 4-bit Quantization to load Llama 2 with less GPU memory
+bnb_config = transformers.BitsAndBytesConfig(
+    load_in_4bit=True,  
+    bnb_4bit_quant_type='nf4',  
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_compute_dtype=bfloat16
+)
+
+# Llama 2 Model & Tokenizer
+tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
+model = transformers.AutoModelForCausalLM.from_pretrained(
+    model_id,
+    trust_remote_code=True,
+    quantization_config=bnb_config,
+    device_map='auto',
+)
+model.eval()
+
+# Our text generator
+generator = transformers.pipeline(
+    model=model, tokenizer=tokenizer,
+    task='text-generation',
+    temperature=0.1,
+    max_new_tokens=500,
+    repetition_penalty=1.1
+)
 ```
 
-!!! tip "Tip!"
-    These transformers also work quite well using `sentence-transformers` which has a number of 
-    optimizations tricks that make using it a bit faster. 
-
-### **Flair**
-[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that
-is publicly available. Flair can be used as follows:
+Then, we load the `generator` in `KeyLLM`:
 
 ```python
-from flair.embeddings import TransformerDocumentEmbeddings
+from keybert.llm import TextGeneration
+from keybert import KeyLLM
 
-roberta = TransformerDocumentEmbeddings('roberta-base')
-kw_model = KeyBERT(model=roberta)
+# Load it in KeyLLM
+llm = TextGeneration(generator)
+kw_model = KeyLLM(llm)
 ```
 
-You can select any 🤗 transformers model [here](https://huggingface.co/models).
+### **LangChain**
 
-Moreover, you can also use Flair to use word embeddings and pool them to create document embeddings.
-Under the hood, Flair simply averages all word embeddings in a document. Then, we can easily
-pass it to KeyBERT in order to use those word embeddings as document embeddings:
+To use LangChain, we can simply load in any LLM and pass that as a QA-chain to KeyLLM:
 
 ```python
-from flair.embeddings import WordEmbeddings, DocumentPoolEmbeddings
-
-glove_embedding = WordEmbeddings('crawl')
-document_glove_embeddings = DocumentPoolEmbeddings([glove_embedding])
-
-kw_model = KeyBERT(model=document_glove_embeddings)
+from langchain.chains.question_answering import load_qa_chain
+from langchain.llms import OpenAI
+chain = load_qa_chain(OpenAI(temperature=0, openai_api_key=my_openai_api_key), chain_type="stuff")
 ```
 
-### **Spacy**
-[Spacy](https://github.com/explosion/spaCy) is an amazing framework for processing text. There are
-many models available across many languages for modeling text.
-
-To use Spacy's non-transformer models in KeyBERT:
+Finally, you can pass the chain to KeyBERT as follows:
 
 ```python
-import spacy
+from keybert.llm import LangChain
+from keybert import KeyLLM
 
-nlp = spacy.load("en_core_web_md", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
+# Create your LLM
+llm = LangChain(chain)
 
-kw_model = KeyBERT(model=nlp)
-```
-
-Using spacy-transformer models:
-
-```python
-import spacy
-
-spacy.prefer_gpu()
-nlp = spacy.load("en_core_web_trf", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
-
-kw_model = KeyBERT(model=nlp)
-```
-
-If you run into memory issues with spacy-transformer models, try:
-
-```python
-import spacy
-from thinc.api import set_gpu_allocator, require_gpu
-
-nlp = spacy.load("en_core_web_trf", exclude=['tagger', 'parser', 'ner', 'attribute_ruler', 'lemmatizer'])
-set_gpu_allocator("pytorch")
-require_gpu(0)
-
-kw_model = KeyBERT(model=nlp)
-```
-
-### **Universal Sentence Encoder (USE)**
-The Universal Sentence Encoder encodes text into high dimensional vectors that are used here
-for embedding the documents. The model is trained and optimized for greater-than-word length text,
-such as sentences, phrases or short paragraphs.
-
-Using USE in KeyBERT is rather straightforward:
-
-```python
-import tensorflow_hub
-embedding_model = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
-kw_model = KeyBERT(model=embedding_model)
-```
-
-### **Gensim**
-For Gensim, KeyBERT supports its `gensim.downloader` module. Here, we can download any model word embedding model
-to be used in KeyBERT. Note that Gensim is primarily used for Word Embedding models. This works typically
-best for short documents since the word embeddings are pooled.
-
-```python
-import gensim.downloader as api
-ft = api.load('fasttext-wiki-news-subwords-300')
-kw_model = KeyBERT(model=ft)
-```
-
-### **Custom Backend**
-If your backend or model cannot be found in the ones currently available, you can use the `keybert.backend.BaseEmbedder` class to
-create your own backend. Below, you will find an example of creating a SentenceTransformer backend for KeyBERT:
-
-```python
-from keybert.backend import BaseEmbedder
-from sentence_transformers import SentenceTransformer
-
-class CustomEmbedder(BaseEmbedder):
-    def __init__(self, embedding_model):
-        super().__init__()
-        self.embedding_model = embedding_model
-
-    def embed(self, documents, verbose=False):
-        embeddings = self.embedding_model.encode(documents, show_progress_bar=verbose)
-        return embeddings
-
-# Create custom backend
-distilbert = SentenceTransformer("paraphrase-MiniLM-L6-v2")
-custom_embedder = CustomEmbedder(embedding_model=distilbert)
-
-# Pass custom backend to keybert
-kw_model = KeyBERT(model=custom_embedder)
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
 ```
