@@ -228,7 +228,7 @@ kw_model = KeyBERT(model=roberta)
 You can select any 🤗 transformers model [here](https://huggingface.co/models).
 
 <a name="llms"/></a>
-## 3. Getting Started
+## 3. Large Language Models
 [Back to ToC](#toc)
 
 With `KeyLLM` you can new perform keyword extraction with Large Language Models (LLM). You can find the full documentation [here](https://maartengr.github.io/KeyBERT/guides/keyllm.html) but there are two examples that are common with this new method. Make sure to install the OpenAI package through `pip install openai` before you start.
