@@ -159,7 +159,6 @@ class OpenAI(BaseLLM):
             candidate_keywords = [[keyword for keyword, _ in candidate_keywords]]
         elif isinstance(candidate_keywords[0][0], tuple):
             candidate_keywords = [[keyword for keyword, _ in keywords] for keywords in candidate_keywords]
-            print(candidate_keywords)
         
         for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             prompt = self.prompt.replace("[DOCUMENT]", document)
