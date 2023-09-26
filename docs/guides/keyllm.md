@@ -22,9 +22,23 @@ Let's start with `KeyLLM` only.
 
 If you want the full performance and easiest method, you can skip the use cases below and go straight to number 5 where you will combine `KeyBERT` with `KeyLLM`.
 
+!!! Tip
+    If you want to use KeyLLM without any of the HuggingFace packages, you can install it as follows:
+    `pip install keybert --no-deps`
+    `pip install scikit-learn numpy rich`
+    This will make the installation much smaller and the import much quicker.
+
 ## 1. **Create** Keywords with `KeyLLM`
 
-We start by creating keywords for each document. This creation process is simply asking the LLM to come up with a bunch of keywords for each document. The focus here is on **creating** keywords which refers to the idea that the keywords do not necessarily need to appear in the input documents:
+We start by creating keywords for each document. This creation process is simply asking the LLM to come up with a bunch of keywords for each document. The focus here is on **creating** keywords which refers to the idea that the keywords do not necessarily need to appear in the input documents.
+
+Install the relevant LLM first:
+
+```bash
+pip install openai
+```
+
+Then we can use any OpenAI model, such as ChatGPT, as follows:
 
 ```python
 import openai

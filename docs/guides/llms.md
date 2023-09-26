@@ -3,7 +3,15 @@ In this tutorial we will be going through the Large Language Models (LLM) that c
 Having the option to choose the LLM allow you to leverage the model that suit your use-case.
 
 ### **OpenAI**
-To use OpenAI's external API, we need to define our key and use the `keybert.llm.OpenAI` model:
+To use OpenAI's external API, we need to define our key and use the `keybert.llm.OpenAI` model. 
+
+We install the package first:
+
+```bash
+pip install openai
+```
+
+Then we run OpenAI as follows:
 
 ```python
 import openai
@@ -37,7 +45,16 @@ kw_model = KeyLLM(llm)
 ```
 
 ### **Cohere**
-To use Cohere's external API, we need to define our key and use the `keybert.llm.OpenAI` model:
+To use Cohere's external API, we need to define our key and use the `keybert.llm.Cohere` model.
+
+We install the package first:
+
+```bash
+pip install cohere
+```
+
+Then we run Cohere as follows:
+
 
 ```python
 import cohere
@@ -57,6 +74,13 @@ keywords = kw_model.extract_keywords(MY_DOCUMENTS)
 
 ### **LiteLLM**
 [LiteLLM](https://github.com/BerriAI/litellm) allows you to use any closed-source LLM with KeyLLM
+
+We install the package first:
+
+```bash
+pip install litellm
+```
+
 
 Let's use OpenAI as an example:
 
@@ -148,7 +172,16 @@ kw_model = KeyLLM(llm)
 
 ### **LangChain**
 
-To use LangChain, we can simply load in any LLM and pass that as a QA-chain to KeyLLM:
+To use LangChain, we can simply load in any LLM and pass that as a QA-chain to KeyLLM.
+
+We install the package first:
+
+```bash
+pip install langchain
+```
+
+Then we run LangChain as follows:
+
 
 ```python
 from langchain.chains.question_answering import load_qa_chain

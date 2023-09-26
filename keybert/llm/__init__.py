@@ -1,7 +1,13 @@
 from keybert._utils import NotInstalled
 from keybert.llm._base import BaseLLM
-from keybert.llm._textgeneration import TextGeneration
 
+
+# TextGeneration
+try:
+    from keybert.llm._textgeneration import TextGeneration
+except ModuleNotFoundError:
+    msg = "`pip install keybert` \n\n"
+    TextGeneration = NotInstalled("TextGeneration", "keybert", custom_msg=msg)
 
 # OpenAI Generator
 try:
