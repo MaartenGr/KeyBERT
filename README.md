@@ -23,6 +23,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
         2.3. [Max Sum Distance](#maxsum)  
         2.4. [Maximal Marginal Relevance](#maximal)  
         2.5. [Embedding Models](#embeddings)  
+    3. [Large Language Models](#llms)  
 <!--te-->  
 
 
@@ -226,6 +227,55 @@ kw_model = KeyBERT(model=roberta)
 
 You can select any 🤗 transformers model [here](https://huggingface.co/models).
 
+<a name="llms"/></a>
+## 3. Getting Started
+[Back to ToC](#toc)
+
+With `KeyLLM` you can new perform keyword extraction with Large Language Models (LLM). You can find the full documentation [here](https://maartengr.github.io/KeyBERT/guides/keyllm.html) but there are two examples that are common with this new method. Make sure to install the OpenAI package through `pip install openai` before you start.
+
+First, we can ask OpenAI directly to extract keywords:
+
+```python
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
+
+# Create your LLM
+openai.api_key = "sk-..."
+llm = OpenAI()
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+```
+
+This will query any ChatGPT model and ask it to extract keywords from text.
+
+Second, we can find documents that are likely to have the same keywords and only extract keywords for those. 
+This is much more efficient then asking the keywords for every single documents. There are likely documents that 
+have the exact same keywords. Doing so is straightforward:
+
+```python
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
+from sentence_transformers import SentenceTransformer
+
+# Extract embeddings
+model = SentenceTransformer('all-MiniLM-L6-v2')
+embeddings = model.encode(MY_DOCUMENTS, convert_to_tensor=True)
+
+# Create your LLM
+openai.api_key = "sk-..."
+llm = OpenAI()
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+
+# Extract keywords
+keywords = kw_model.extract_keywords(MY_DOCUMENTS, embeddings=embeddings, threshold=.75)
+```
+
+You can use the `threshold` parameter to decide how similar documents need to be in order to receive the same keywords.
 
 ## Citation
 To cite KeyBERT in your work, please use the following bibtex reference:

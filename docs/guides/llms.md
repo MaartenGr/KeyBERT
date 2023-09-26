@@ -111,14 +111,38 @@ generator = transformers.pipeline(
 )
 ```
 
-Then, we load the `generator` in `KeyLLM`:
+Then, we load the `generator` in `KeyLLM` with a custom prompt:
 
 ```python
 from keybert.llm import TextGeneration
 from keybert import KeyLLM
 
+prompt = """
+<s>[INST] <<SYS>>
+
+You are a helpful assistant specialized in extracting comma-separated keywords.
+You are to the point and only give the answer in isolation without any chat-based fluff.
+
+<</SYS>>
+I have the following document:
+- The website mentions that it only takes a couple of days to deliver but I still have not received mine.
+
+Please give me the keywords that are present in this document and separate them with commas.
+Make sure you to only return the keywords and say nothing else. For example, don't say: 
+"Here are the keywords present in the document"
+[/INST] meat, beef, eat, eating, emissions, steak, food, health, processed, chicken [INST]
+
+I have the following document:
+- [DOCUMENT]
+
+Please give me the keywords that are present in this document and separate them with commas.
+Make sure you to only return the keywords and say nothing else. For example, don't say: 
+"Here are the keywords present in the document"
+[/INST]
+"""
+
 # Load it in KeyLLM
-llm = TextGeneration(generator)
+llm = TextGeneration(generator, prompt=prompt)
 kw_model = KeyLLM(llm)
 ```
 
