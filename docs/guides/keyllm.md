@@ -25,7 +25,7 @@ If you want the full performance and easiest method, you can skip the use cases 
 !!! Tip
     If you want to use KeyLLM without any of the HuggingFace packages, you can install it as follows:
     `pip install keybert --no-deps`
-    `pip install scikit-learn numpy rich`
+    `pip install scikit-learn numpy rich tqdm`
     This will make the installation much smaller and the import much quicker.
 
 ## 1. **Create** Keywords with `KeyLLM`
