@@ -3,8 +3,13 @@ hide:
   - navigation
 ---
 
+## **Version 0.8.1**
+*Release date: 29 September, 2023*
+
+* Remove unnecessary print statements
+
 ## **Version 0.8.0**
-*Release date: 27 September, 2023*
+*Release date: 29 September, 2023*
 
 **Highlights**:
 

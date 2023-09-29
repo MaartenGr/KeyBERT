@@ -87,12 +87,10 @@ class KeyLLM:
             # Extract keywords for all documents not in a cluster
             if out_cluster:
                 selected_docs = [docs[index] for index in out_cluster]
-                print(out_cluster, selected_docs)
                 if candidate_keywords is not None:
                     selected_keywords = [candidate_keywords[index] for index in out_cluster]
                 else:
                     selected_keywords = None
-                print(f"Call LLM with {len(selected_docs)} docs; out-cluster")
                 out_cluster_keywords = self.llm.extract_keywords(
                     selected_docs,
                     selected_keywords,
@@ -102,12 +100,10 @@ class KeyLLM:
             # Extract keywords for only the first document in a cluster        
             if in_cluster:
                 selected_docs = [docs[cluster[0]] for cluster in clusters]
-                print(in_cluster, selected_docs)
                 if candidate_keywords is not None:
                     selected_keywords = [candidate_keywords[cluster[0]] for cluster in in_cluster]
                 else:
                     selected_keywords = None
-                print(f"Call LLM with {len(selected_docs)} docs; in-cluster")
                 in_cluster_keywords = self.llm.extract_keywords(
                     selected_docs,
                     selected_keywords
@@ -122,7 +118,6 @@ class KeyLLM:
             if out_cluster:
                 if in_cluster:
                     out_cluster_keywords.update(in_cluster_keywords)
-                print(out_cluster_keywords)
                 keywords = [out_cluster_keywords[index] for index in range(len(docs))]
             else:
                 keywords = [in_cluster_keywords[index] for index in range(len(docs))]
