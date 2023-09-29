@@ -14,8 +14,14 @@
       
         <link rel="canonical" href="https://maartengr.github.io/keyBERT/api/keybert.html">
       
+      
+        <link rel="prev" href="../guides/llms.html">
+      
+      
+        <link rel="next" href="mmr.html">
+      
       <link rel="icon" href="../icon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.9">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
@@ -23,12 +29,13 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.120efc48.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.240905d7.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.9647289d.min.css">
-        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
       
+      
+
     
     
     
@@ -45,10 +52,11 @@
     
       <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
+    
     
     
   </head>
@@ -115,7 +123,6 @@
       <form class="md-header__option" data-md-component="palette">
         
           
-          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="black" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
@@ -123,7 +130,6 @@
             </label>
           
         
-          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
@@ -150,7 +156,7 @@
       </label>
       <nav class="md-search__options" aria-label="Search">
         
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -162,7 +168,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -174,7 +180,7 @@
         <a href="https://github.com/MaartenGr/keyBERT" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -193,7 +199,7 @@
           
             
 <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
-  <div class="md-tabs__inner md-grid">
+  <div class="md-grid">
     <ul class="md-tabs__list">
       
         
@@ -299,7 +305,7 @@
       <a href="https://github.com/MaartenGr/keyBERT" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -335,17 +341,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_2">
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Guides
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Guides
@@ -394,6 +401,34 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/keyllm.html" class="md-nav__link">
+        KeyLLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guides/llms.html" class="md-nav__link">
+        LLMs
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -413,17 +448,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
           API
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="API" data-md-level="1">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           API
@@ -439,7 +475,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
@@ -529,6 +565,126 @@
       <a href="maxsum.html" class="md-nav__link">
         MaxSum
       </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="keyllm.html" class="md-nav__link">
+        KeyLLM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+          LLM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          LLM
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openai.html" class="md-nav__link">
+        OpenAI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cohere.html" class="md-nav__link">
+        Cohere
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="langchain.html" class="md-nav__link">
+        LangChain
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="textgeneration.html" class="md-nav__link">
+        TextGeneration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="litellm.html" class="md-nav__link">
+        LiteLLM
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -632,14 +788,14 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-  <a href="https://github.com/MaartenGr/keyBERT/edit/master/docs/api/keybert.md" title="Edit this page" class="md-content__button md-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+                  
 
+  
+  
 
 
 <h1 id="keybert"><code>KeyBERT</code><a class="headerlink" href="#keybert" title="Permanent link">&para;</a></h1>
@@ -681,7 +837,7 @@ best describe the entire document.</p>
         <details class="quote">
           <summary>Source code in <code>keybert\_model.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">KeyBERT</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A minimal method for keyword extraction with BERT</span>
 
 <span class="sd">    The keyword extraction is done by finding the sub-phrases in</span>
@@ -700,8 +856,8 @@ best describe the entire document.</p>
 <span class="sd">    &lt;/div&gt;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;KeyBERT initialization</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">,</span> <span class="n">llm</span><span class="p">:</span> <span class="n">BaseLLM</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;KeyBERT initialization</span>
 
 <span class="sd">        Arguments:</span>
 <span class="sd">            model: Use a custom embedding model.</span>
@@ -718,6 +874,11 @@ best describe the entire document.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">select_backend</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">BaseLLM</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">KeyLLM</span><span class="p">(</span><span class="n">llm</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span>
+
     <span class="k">def</span> <span class="nf">extract_keywords</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">docs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
@@ -732,11 +893,12 @@ best describe the entire document.</p>
         <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
         <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">seed_keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">seed_keywords</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">doc_embeddings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">word_embeddings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
-        <span class="sd">&quot;&quot;&quot;Extract keywords and/or keyphrases</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract keywords and/or keyphrases</span>
 
 <span class="sd">        To get the biggest speed-up, make sure to pass multiple documents</span>
 <span class="sd">        at once instead of iterating over a single document.</span>
@@ -767,6 +929,10 @@ best describe the entire document.</p>
 <span class="sd">                       NOTE: This does not work if multiple documents are passed.</span>
 <span class="sd">            seed_keywords: Seed keywords that may guide the extraction of keywords by</span>
 <span class="sd">                           steering the similarities towards the seeded keywords.</span>
+<span class="sd">                           NOTE: when multiple documents are passed, </span>
+<span class="sd">                           `seed_keywords`funtions in either of the two ways below:</span>
+<span class="sd">                           - globally: when a flat list of str is passed, keywords are shared by all documents, </span>
+<span class="sd">                           - locally: when a nested list of str is passed, keywords differs among documents.</span>
 <span class="sd">            doc_embeddings: The embeddings of each document.</span>
 <span class="sd">            word_embeddings: The embeddings of each potential keyword/keyphrase across</span>
 <span class="sd">                             across the vocabulary of the set of input documents.</span>
@@ -840,8 +1006,19 @@ best describe the entire document.</p>
             <span class="n">doc_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">word_embeddings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">word_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+        <span class="c1"># Guided KeyBERT either local (keywords shared among documents) or global (keywords per document)</span>
         <span class="k">if</span> <span class="n">seed_keywords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">([</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of docs must match the length of seed_keywords&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">seed_keywords</span>
+                <span class="p">])</span>
+            <span class="n">doc_embeddings</span> <span class="o">=</span> <span class="p">((</span><span class="n">doc_embeddings</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">seed_embeddings</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
 
         <span class="c1"># Find keywords</span>
         <span class="n">all_keywords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -853,12 +1030,6 @@ best describe the entire document.</p>
                 <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">words</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">candidate_indices</span><span class="p">]</span>
                 <span class="n">candidate_embeddings</span> <span class="o">=</span> <span class="n">word_embeddings</span><span class="p">[</span><span class="n">candidate_indices</span><span class="p">]</span>
                 <span class="n">doc_embedding</span> <span class="o">=</span> <span class="n">doc_embeddings</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-                <span class="c1"># Guided KeyBERT with seed keywords</span>
-                <span class="k">if</span> <span class="n">seed_keywords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">doc_embedding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span>
-                        <span class="p">[</span><span class="n">doc_embedding</span><span class="p">,</span> <span class="n">seed_embeddings</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                    <span class="p">)</span>
 
                 <span class="c1"># Maximal Marginal Relevance (MMR)</span>
                 <span class="k">if</span> <span class="n">use_mmr</span><span class="p">:</span>
@@ -900,6 +1071,19 @@ best describe the entire document.</p>
                 <span class="n">highlight_document</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span>
             <span class="n">all_keywords</span> <span class="o">=</span> <span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+        <span class="c1"># Fine-tune keywords using an LLM</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">candidate_keywords</span> <span class="o">=</span> <span class="p">[[</span><span class="n">keyword</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">all_keywords</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">candidate_keywords</span> <span class="o">=</span> <span class="p">[[</span><span class="n">keyword</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">]</span> <span class="k">for</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">all_keywords</span><span class="p">]</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span>
+                <span class="n">docs</span><span class="p">,</span> 
+                <span class="n">embeddings</span><span class="o">=</span><span class="n">doc_embeddings</span><span class="p">,</span>
+                <span class="n">candidate_keywords</span><span class="o">=</span><span class="n">candidate_keywords</span><span class="p">,</span> 
+                <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">keywords</span>
         <span class="k">return</span> <span class="n">all_keywords</span>
 
     <span class="k">def</span> <span class="nf">extract_embeddings</span><span class="p">(</span>
@@ -911,7 +1095,7 @@ best describe the entire document.</p>
         <span class="n">min_df</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
-        <span class="sd">&quot;&quot;&quot;Extract document and word embeddings for the input documents and the</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract document and word embeddings for the input documents and the</span>
 <span class="sd">        generated candidate keywords/keyphrases respectively.</span>
 
 <span class="sd">        Note that all potential keywords/keyphrases are not returned but only their</span>
@@ -1010,7 +1194,7 @@ best describe the entire document.</p>
 
 
 <h2 id="keybert._model.KeyBERT.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;all-MiniLM-L6-v2&#39;</span><span class="p">,</span> <span class="n">llm</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
@@ -1053,8 +1237,8 @@ best describe the entire document.</p>
 </table>
         <details class="quote">
           <summary>Source code in <code>keybert\_model.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;KeyBERT initialization</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;all-MiniLM-L6-v2&quot;</span><span class="p">,</span> <span class="n">llm</span><span class="p">:</span> <span class="n">BaseLLM</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;KeyBERT initialization</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        model: Use a custom embedding model.</span>
@@ -1070,6 +1254,11 @@ best describe the entire document.</p>
 <span class="sd">                  * https://www.sbert.net/docs/pretrained_models.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">select_backend</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">BaseLLM</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">KeyLLM</span><span class="p">(</span><span class="n">llm</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span>
 </code></pre></div>
         </details>
     </div>
@@ -1193,7 +1382,7 @@ word_embeddings: The embeddings of each potential keyword/keyphrase across
     <span class="n">min_df</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
-    <span class="sd">&quot;&quot;&quot;Extract document and word embeddings for the input documents and the</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract document and word embeddings for the input documents and the</span>
 <span class="sd">    generated candidate keywords/keyphrases respectively.</span>
 
 <span class="sd">    Note that all potential keywords/keyphrases are not returned but only their</span>
@@ -1285,7 +1474,7 @@ word_embeddings: The embeddings of each potential keyword/keyphrase across
 
 
 <h2 id="keybert._model.KeyBERT.extract_keywords" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed_keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">word_embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">extract_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">docs</span><span class="p">,</span> <span class="n">candidates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyphrase_ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_maxsum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">use_mmr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">diversity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nr_candidates</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">vectorizer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">highlight</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">seed_keywords</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc_embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">word_embeddings</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
 <a href="#keybert._model.KeyBERT.extract_keywords" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1392,9 +1581,13 @@ at once instead of iterating over a single document.</p>
       </tr>
       <tr>
         <td><code>seed_keywords</code></td>
-        <td><code>List[str]</code></td>
+        <td><code>Union[List[str], List[List[str]]]</code></td>
         <td><p>Seed keywords that may guide the extraction of keywords by
-           steering the similarities towards the seeded keywords.</p></td>
+           steering the similarities towards the seeded keywords.
+           NOTE: when multiple documents are passed, 
+           <code>seed_keywords</code>funtions in either of the two ways below:
+           - globally: when a flat list of str is passed, keywords are shared by all documents, 
+           - locally: when a nested list of str is passed, keywords differs among documents.</p></td>
         <td><code>None</code></td>
       </tr>
       <tr>
@@ -1460,11 +1653,12 @@ at once instead of iterating over a single document.</p>
     <span class="n">nr_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
     <span class="n">vectorizer</span><span class="p">:</span> <span class="n">CountVectorizer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">highlight</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">seed_keywords</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">seed_keywords</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">doc_embeddings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">word_embeddings</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]]:</span>
-    <span class="sd">&quot;&quot;&quot;Extract keywords and/or keyphrases</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract keywords and/or keyphrases</span>
 
 <span class="sd">    To get the biggest speed-up, make sure to pass multiple documents</span>
 <span class="sd">    at once instead of iterating over a single document.</span>
@@ -1495,6 +1689,10 @@ at once instead of iterating over a single document.</p>
 <span class="sd">                   NOTE: This does not work if multiple documents are passed.</span>
 <span class="sd">        seed_keywords: Seed keywords that may guide the extraction of keywords by</span>
 <span class="sd">                       steering the similarities towards the seeded keywords.</span>
+<span class="sd">                       NOTE: when multiple documents are passed, </span>
+<span class="sd">                       `seed_keywords`funtions in either of the two ways below:</span>
+<span class="sd">                       - globally: when a flat list of str is passed, keywords are shared by all documents, </span>
+<span class="sd">                       - locally: when a nested list of str is passed, keywords differs among documents.</span>
 <span class="sd">        doc_embeddings: The embeddings of each document.</span>
 <span class="sd">        word_embeddings: The embeddings of each potential keyword/keyphrase across</span>
 <span class="sd">                         across the vocabulary of the set of input documents.</span>
@@ -1568,8 +1766,19 @@ at once instead of iterating over a single document.</p>
         <span class="n">doc_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">word_embeddings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">word_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+
+    <span class="c1"># Guided KeyBERT either local (keywords shared among documents) or global (keywords per document)</span>
     <span class="k">if</span> <span class="n">seed_keywords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">([</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_keywords</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of docs must match the length of seed_keywords&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seed_embeddings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">keywords</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">seed_keywords</span>
+            <span class="p">])</span>
+        <span class="n">doc_embeddings</span> <span class="o">=</span> <span class="p">((</span><span class="n">doc_embeddings</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">seed_embeddings</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
 
     <span class="c1"># Find keywords</span>
     <span class="n">all_keywords</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1581,12 +1790,6 @@ at once instead of iterating over a single document.</p>
             <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">words</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">candidate_indices</span><span class="p">]</span>
             <span class="n">candidate_embeddings</span> <span class="o">=</span> <span class="n">word_embeddings</span><span class="p">[</span><span class="n">candidate_indices</span><span class="p">]</span>
             <span class="n">doc_embedding</span> <span class="o">=</span> <span class="n">doc_embeddings</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-
-            <span class="c1"># Guided KeyBERT with seed keywords</span>
-            <span class="k">if</span> <span class="n">seed_keywords</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">doc_embedding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span>
-                    <span class="p">[</span><span class="n">doc_embedding</span><span class="p">,</span> <span class="n">seed_embeddings</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="p">)</span>
 
             <span class="c1"># Maximal Marginal Relevance (MMR)</span>
             <span class="k">if</span> <span class="n">use_mmr</span><span class="p">:</span>
@@ -1628,6 +1831,19 @@ at once instead of iterating over a single document.</p>
             <span class="n">highlight_document</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span>
         <span class="n">all_keywords</span> <span class="o">=</span> <span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+    <span class="c1"># Fine-tune keywords using an LLM</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">all_keywords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">candidate_keywords</span> <span class="o">=</span> <span class="p">[[</span><span class="n">keyword</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">all_keywords</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">candidate_keywords</span> <span class="o">=</span> <span class="p">[[</span><span class="n">keyword</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">]</span> <span class="k">for</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">all_keywords</span><span class="p">]</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">extract_keywords</span><span class="p">(</span>
+            <span class="n">docs</span><span class="p">,</span> 
+            <span class="n">embeddings</span><span class="o">=</span><span class="n">doc_embeddings</span><span class="p">,</span>
+            <span class="n">candidate_keywords</span><span class="o">=</span><span class="n">candidate_keywords</span><span class="p">,</span> 
+            <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">keywords</span>
     <span class="k">return</span> <span class="n">all_keywords</span>
 </code></pre></div>
         </details>
@@ -1645,54 +1861,25 @@ at once instead of iterating over a single document.</p>
 
   </div>
 
-              
-            </article>
-          </div>
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
-          </a>
+          </button>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../guides/countvectorizer.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: CountVectorizer" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              CountVectorizer
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="mmr.html" class="md-footer__link md-footer__link--next" aria-label="Next: MMR" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              MMR
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1718,10 +1905,11 @@ at once instead of iterating over a single document.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.instant", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.6e54b5cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.19047be9.min.js"></script>
       
     
   </body>

@@ -2,47 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://maartengr.github.io/keyBERT/index.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/changelog.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/faq.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/cohere.html</loc>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/keybert.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/keyllm.html</loc>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/langchain.html</loc>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/litellm.html</loc>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/maxsum.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/api/mmr.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/openai.html</loc>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/api/textgeneration.html</loc>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/countvectorizer.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/embeddings.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/guides/keyllm.html</loc>
+         <lastmod>2023-09-29</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://maartengr.github.io/keyBERT/guides/llms.html</loc>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://maartengr.github.io/keyBERT/guides/quickstart.html</loc>
-         <lastmod>2022-11-03</lastmod>
+         <lastmod>2023-09-29</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
