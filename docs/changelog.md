@@ -3,6 +3,11 @@ hide:
   - navigation
 ---
 
+## **Version 0.8.2**
+*Release date: 29 September, 2023*
+
+* Fixed cuda error when using pre-calculated embeddings with `KeyBERT` + `KeyLLM`
+
 ## **Version 0.8.1**
 *Release date: 29 September, 2023*
 
