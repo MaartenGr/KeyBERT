@@ -255,14 +255,16 @@ class KeyBERT:
 
         # Fine-tune keywords using an LLM
         if self.llm is not None:
+            import torch
+            doc_embeddings = torch.from_numpy(doc_embeddings).float().to("cuda")
             if isinstance(all_keywords[0], tuple):
                 candidate_keywords = [[keyword[0] for keyword in all_keywords]]
             else:
                 candidate_keywords = [[keyword[0] for keyword in keywords] for keywords in all_keywords]
             keywords = self.llm.extract_keywords(
-                docs, 
+                docs,
                 embeddings=doc_embeddings,
-                candidate_keywords=candidate_keywords, 
+                candidate_keywords=candidate_keywords,
                 threshold=threshold
             )
             return keywords
