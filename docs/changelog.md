@@ -3,6 +3,34 @@ hide:
   - navigation
 ---
 
+## **Version 0.8.0**
+*Release date: 27 September, 2023*
+
+**Highlights**:
+
+* Use `KeyLLM` to leverage LLMs for extracting keywords
+  * Use it either with or without candidate keywords generated through `KeyBERT`
+  * Multiple LLMs are integrated: OpenAI, Cohere, LangChain, HF, and LiteLLM  
+
+```python
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
+
+# Create your LLM
+openai.api_key = "sk-..."
+llm = OpenAI()
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+```
+
+See [here](https://maartengr.github.io/KeyBERT/guides/keyllm.html) for full documentation on use cases of `KeyLLM` and [here](https://maartengr.github.io/KeyBERT/guides/llms.html) for the implemented Large Language Models.
+
+**Fixes**:
+
+* Enable Guided KeyBERT for seed keywords differing among docs by [@shengbo-ma](https://github.com/shengbo-ma) in [#152](https://github.com/MaartenGr/KeyBERT/pull/152)
+
 
 ## **Version 0.7.0**
 *Release date: 3 November, 2022*

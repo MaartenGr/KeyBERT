@@ -1,7 +1,4 @@
 from ._base import BaseEmbedder
-from ._sentencetransformers import SentenceTransformerBackend
-from ._hftransformers import HFTransformerBackend
-from transformers.pipelines import Pipeline
 
 
 def select_backend(embedding_model) -> BaseEmbedder:
@@ -42,14 +39,22 @@ def select_backend(embedding_model) -> BaseEmbedder:
 
     # Sentence Transformer embeddings
     if "sentence_transformers" in str(type(embedding_model)):
+        from ._sentencetransformers import SentenceTransformerBackend
         return SentenceTransformerBackend(embedding_model)
 
     # Create a Sentence Transformer model based on a string
     if isinstance(embedding_model, str):
+        from ._sentencetransformers import SentenceTransformerBackend
         return SentenceTransformerBackend(embedding_model)
 
     # Hugging Face embeddings
-    if isinstance(embedding_model, Pipeline):
-        return HFTransformerBackend(embedding_model)
-
+    try:
+        from transformers.pipelines import Pipeline
+        if isinstance(embedding_model, Pipeline):
+            from ._hftransformers import HFTransformerBackend
+            return HFTransformerBackend(embedding_model)
+    except ImportError:
+        pass
+    
+    from ._sentencetransformers import SentenceTransformerBackend
     return SentenceTransformerBackend("paraphrase-multilingual-MiniLM-L12-v2")
