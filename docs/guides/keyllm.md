@@ -18,6 +18,7 @@ This data was chosen to show the different use cases and techniques. As you migh
 
 Let's start with `KeyLLM` only. 
 
+
 # Use Cases
 
 If you want the full performance and easiest method, you can skip the use cases below and go straight to number 5 where you will combine `KeyBERT` with `KeyLLM`.
@@ -180,6 +181,13 @@ If you have embeddings of your documents, you could use those to find documents 
 --8<-- "docs/images/efficient.svg"
 </div>
 
+!!! Tip
+    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch. 
+    There is an issue with community detection (cluster) that might make the model run without finishing. It is as straightforward as:
+    `pip uninstall sentence-transformers`
+    `pip install --upgrade git+https://github.com/UKPLab/sentence-transformers`
+
+
 ```python
 import openai
 from keybert.llm import OpenAI
@@ -223,6 +231,13 @@ This is the best of both worlds. We use `KeyBERT` to generate a first pass of ke
 <div class="excalidraw">
 --8<-- "docs/images/keybert_keyllm.svg"
 </div>
+
+!!! Tip
+    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch. 
+    There is an issue with community detection (cluster) that might make the model run without finishing. It is as straightforward as:
+    `pip uninstall sentence-transformers`
+    `pip install --upgrade git+https://github.com/UKPLab/sentence-transformers`
+
 
 ```python
 import openai

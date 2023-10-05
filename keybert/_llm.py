@@ -101,7 +101,7 @@ class KeyLLM:
             if in_cluster:
                 selected_docs = [docs[cluster[0]] for cluster in clusters]
                 if candidate_keywords is not None:
-                    selected_keywords = [candidate_keywords[cluster[0]] for cluster in in_cluster]
+                    selected_keywords = [candidate_keywords[cluster[0]] for cluster in clusters]
                 else:
                     selected_keywords = None
                 in_cluster_keywords = self.llm.extract_keywords(
