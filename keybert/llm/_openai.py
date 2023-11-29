@@ -50,6 +50,7 @@ class OpenAI(BaseLLM):
     keywords are comma-separated.
 
     Arguments:
+        client: A `openai.OpenAI` client
         model: Model to use within OpenAI, defaults to `"text-ada-001"`.
                NOTE: If a `gpt-3.5-turbo` model is used, make sure to set
                `chat` to True.
@@ -85,8 +86,8 @@ class OpenAI(BaseLLM):
     from keybert import KeyLLM
 
     # Create your LLM
-    openai.api_key = "sk-..."
-    llm = OpenAI()
+    client = openai.OpenAI(api_key=MY_API_KEY)
+    llm = OpenAI(client)
 
     # Load it in KeyLLM
     kw_model = KeyLLM(llm)
@@ -100,16 +101,17 @@ class OpenAI(BaseLLM):
 
     ```python
     prompt = "I have the following document: [DOCUMENT] \nThis document contains the following keywords separated by commas: '"
-    llm = OpenAI(prompt=prompt, delay_in_seconds=5)
+    llm = OpenAI(client, prompt=prompt, delay_in_seconds=5)
     ```
 
     If you want to use OpenAI's ChatGPT model:
 
     ```python
-    llm = OpenAI(model="gpt-3.5-turbo", delay_in_seconds=10, chat=True)
+    llm = OpenAI(client, model="gpt-3.5-turbo", delay_in_seconds=10, chat=True)
     ```
     """
     def __init__(self,
+                 client,
                  model: str = "gpt-3.5-turbo-instruct",
                  prompt: str = None,
                  generator_kwargs: Mapping[str, Any] = {},
@@ -118,6 +120,7 @@ class OpenAI(BaseLLM):
                  chat: bool = False,
                  verbose: bool = False
                  ):
+        self.client = client
         self.model = model
 
         if prompt is None:
@@ -172,17 +175,17 @@ class OpenAI(BaseLLM):
                 ]
                 kwargs = {"model": self.model, "messages": messages, **self.generator_kwargs}
                 if self.exponential_backoff:
-                    response = chat_completions_with_backoff(**kwargs)
+                    response = chat_completions_with_backoff(self.client, **kwargs)
                 else:
-                    response = openai.ChatCompletion.create(**kwargs)
+                    response = self.client.chat.completions.create(**kwargs)
                 keywords = response["choices"][0]["message"]["content"].strip()
 
             # Use a non-chat model
             else:
                 if self.exponential_backoff:
-                    response = completions_with_backoff(model=self.model, prompt=prompt, **self.generator_kwargs)
+                    response = completions_with_backoff(self.client, model=self.model, prompt=prompt, **self.generator_kwargs)
                 else:
-                    response = openai.Completion.create(model=self.model, prompt=prompt, **self.generator_kwargs)
+                    response = self.client.completions.create(model=self.model, prompt=prompt, **self.generator_kwargs)
                 keywords = response["choices"][0]["text"].strip()
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
@@ -190,21 +193,19 @@ class OpenAI(BaseLLM):
         return all_keywords
 
 
-def completions_with_backoff(**kwargs):
+def completions_with_backoff(client, **kwargs):
     return retry_with_exponential_backoff(
-        openai.Completion.create,
+        client.completions.create,
         errors=(
-            openai.error.RateLimitError,
-            openai.error.ServiceUnavailableError,
+            openai.RateLimitError,
         ),
     )(**kwargs)
 
 
-def chat_completions_with_backoff(**kwargs):
+def chat_completions_with_backoff(client, **kwargs):
     return retry_with_exponential_backoff(
-        openai.ChatCompletion.create,
+        client.chat.completions.create,
         errors=(
-            openai.error.RateLimitError,
-            openai.error.ServiceUnavailableError,
+            openai.RateLimitError,
         ),
     )(**kwargs)

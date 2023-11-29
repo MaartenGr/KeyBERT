@@ -47,8 +47,8 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -85,8 +85,6 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your LLM
-openai.api_key = "sk-..."
-
 prompt = """
 I have the following document:
 [DOCUMENT]
@@ -96,7 +94,8 @@ Make sure to only extract keywords that appear in the text.
 Use the following format separated by commas:
 <keywords>
 """
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -129,8 +128,6 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your LLM
-openai.api_key = "sk-..."
-
 prompt = """
 I have the following document:
 [DOCUMENT]
@@ -143,7 +140,8 @@ Based on the information above, improve the candidate keywords to best describe 
 Use the following format separated by commas:
 <keywords>
 """
-llm = OpenAI(model="gpt-3.5-turbo", prompt=prompt, chat=True)
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client,model="gpt-3.5-turbo", prompt=prompt, chat=True)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -199,8 +197,8 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 embeddings = model.encode(documents, convert_to_tensor=True)
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -245,8 +243,8 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM, KeyBERT
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyBERT(llm=llm)

@@ -19,8 +19,8 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your OpenAI LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -37,8 +37,8 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI(model="gpt-3.5-turbo", chat=True)
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client, model="gpt-3.5-turbo", chat=True)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
