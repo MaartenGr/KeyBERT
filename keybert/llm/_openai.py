@@ -178,7 +178,7 @@ class OpenAI(BaseLLM):
                     response = chat_completions_with_backoff(self.client, **kwargs)
                 else:
                     response = self.client.chat.completions.create(**kwargs)
-                keywords = response["choices"][0]["message"]["content"].strip()
+                keywords = response.choices[0].message.content.strip()
 
             # Use a non-chat model
             else:
@@ -186,7 +186,7 @@ class OpenAI(BaseLLM):
                     response = completions_with_backoff(self.client, model=self.model, prompt=prompt, **self.generator_kwargs)
                 else:
                     response = self.client.completions.create(model=self.model, prompt=prompt, **self.generator_kwargs)
-                keywords = response["choices"][0]["text"].strip()
+                keywords = response.choices[0].message.content.strip()
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
