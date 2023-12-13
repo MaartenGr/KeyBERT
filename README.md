@@ -241,8 +241,8 @@ from keybert.llm import OpenAI
 from keybert import KeyLLM
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
@@ -265,8 +265,8 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 embeddings = model.encode(MY_DOCUMENTS, convert_to_tensor=True)
 
 # Create your LLM
-openai.api_key = "sk-..."
-llm = OpenAI()
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)

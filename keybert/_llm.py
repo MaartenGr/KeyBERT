@@ -59,8 +59,8 @@ class KeyLLM:
         from keybert import KeyLLM
 
         # Create your LLM
-        openai.api_key = "sk-..."
-        llm = OpenAI()
+        client = openai.OpenAI(api_key=MY_API_KEY)
+        llm = OpenAI(client)
 
         # Load it in KeyLLM
         kw_model = KeyLLM(llm)

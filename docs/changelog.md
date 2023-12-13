@@ -3,6 +3,26 @@ hide:
   - navigation
 ---
 
+## **Version 0.8.3**
+*Release date: 29 November, 2023*
+
+* Fix support for openai>=1
+
+You can now use it as follows:
+
+```python
+import openai
+from keybert.llm import OpenAI
+from keybert import KeyLLM
+
+# Create your LLM
+client = openai.OpenAI(api_key=MY_API_KEY)
+llm = OpenAI(client)
+
+# Load it in KeyLLM
+kw_model = KeyLLM(llm)
+```
+
 ## **Version 0.8.2**
 *Release date: 29 September, 2023*
 
