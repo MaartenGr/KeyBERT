@@ -82,7 +82,7 @@ class Cohere(BaseLLM):
     """
     def __init__(self,
                  client,
-                 model: str = "xlarge",
+                 model: str = "command",
                  prompt: str = None,
                  delay_in_seconds: float = None,
                  verbose: bool = False
