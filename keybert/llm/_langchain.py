@@ -97,7 +97,7 @@ class LangChain(BaseLLM):
             if candidates is not None:
                 prompt = prompt.replace("[CANDIDATES]", ", ".join(candidates))
             input_document = Document(page_content=document)
-            keywords = self.chain.run(input_documents=input_document, question=self.prompt).strip()
+            keywords = self.chain.run(input_documents=[input_document], question=self.prompt).strip()
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
