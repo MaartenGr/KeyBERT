@@ -3,6 +3,16 @@ hide:
   - navigation
 ---
 
+
+
+## **Version 0.8.4**
+*Release date: 15 Februari, 2024*
+
+* Update default Cohere model to `command` by [@sam-frampton](https://github.com/sam-frampton) in [#194](https://github.com/MaartenGr/KeyBERT/pull/194)
+* Fix KeyLLM fails when no GPU is available by [@igor-pechersky](https://github.com/igor-pechersky) in [#201](https://github.com/MaartenGr/KeyBERT/pull/201)
+* Fix `AttributeError: 'tuple' object has no attribute 'page_content'` in LangChain in [#199](https://github.com/MaartenGr/KeyBERT/pull/199)
+
+
 ## **Version 0.8.3**
 *Release date: 29 November, 2023*
 
