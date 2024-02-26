@@ -18,13 +18,12 @@ def test_single_doc_sentence_transformer_backend(keyphrase_length, vectorizer):
     """Test whether the keywords are correctly extracted"""
     top_n = 5
 
-    st_model = sentence_transformers.SentenceTransformer(
-        "all-MiniLM-L6-v2", device="cpu"
-    )
+    model_name = "paraphrase-MiniLM-L6-v2"
+    st_model = sentence_transformers.SentenceTransformer(model_name, device="cpu")
 
-    model = KeyBERT(backend=SentenceTransformerBackend(st_model, batch_size=128))
+    kb_model = KeyBERT(model=SentenceTransformerBackend(st_model, batch_size=128))
 
-    keywords = model.extract_keywords(
+    keywords = kb_model.extract_keywords(
         doc_one,
         keyphrase_ngram_range=keyphrase_length,
         min_df=1,
@@ -32,6 +31,7 @@ def test_single_doc_sentence_transformer_backend(keyphrase_length, vectorizer):
         vectorizer=vectorizer,
     )
 
+    assert model_name in kb_model.model.embedding_model.tokenizer.name_or_path
     assert isinstance(keywords, list)
     assert isinstance(keywords[0], tuple)
     assert isinstance(keywords[0][0], str)

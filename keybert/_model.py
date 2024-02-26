@@ -43,12 +43,11 @@ class KeyBERT:
         self,
         model="all-MiniLM-L6-v2",
         llm: BaseLLM = None,
-        backend: BaseEmbedder = None,
     ):
         """KeyBERT initialization
 
         Arguments:
-            model: Use a custom embedding model.
+            model: Use a custom embedding model or a specific KeyBERT Backend.
                    The following backends are currently supported:
                       * SentenceTransformers
                       * 🤗 Transformers
@@ -59,14 +58,8 @@ class KeyBERT:
                     You can also pass in a string that points to one of the following
                     sentence-transformers models:
                       * https://www.sbert.net/docs/pretrained_models.html
-            backend: Use a custom KeyBERT backend to load the model.
-                     Defaults to None, `model` parameter is used to select the backend.
-                     If provided, ignores `model` parameter.
         """
-        if isinstance(backend, BaseEmbedder):
-            self.model = backend
-        else:
-            self.model = select_backend(model)
+        self.model = select_backend(model)
 
         if isinstance(llm, BaseLLM):
             self.llm = KeyLLM(llm)
