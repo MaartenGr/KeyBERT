@@ -12,6 +12,7 @@ class SentenceTransformerBackend(BaseEmbedder):
 
     Arguments:
         embedding_model: A sentence-transformers embedding model
+        encode_kwargs: Additional parameters for the SentenceTransformers.encode() method
 
     Usage:
 
@@ -33,7 +34,9 @@ class SentenceTransformerBackend(BaseEmbedder):
     ```
     """
 
-    def __init__(self, embedding_model: Union[str, SentenceTransformer]):
+    def __init__(
+        self, embedding_model: Union[str, SentenceTransformer], **encode_kwargs
+    ):
         super().__init__()
 
         if isinstance(embedding_model, SentenceTransformer):
@@ -46,6 +49,7 @@ class SentenceTransformerBackend(BaseEmbedder):
                 "`from sentence_transformers import SentenceTransformer` \n"
                 "`model = SentenceTransformer('all-MiniLM-L6-v2')`"
             )
+        self.encode_kwargs = encode_kwargs
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional
@@ -59,5 +63,6 @@ class SentenceTransformerBackend(BaseEmbedder):
             Document/words embeddings with shape (n, m) with `n` documents/words
             that each have an embeddings size of `m`
         """
-        embeddings = self.embedding_model.encode(documents, show_progress_bar=verbose)
+        self.encode_kwargs.update({"show_progress_bar": verbose})
+        embeddings = self.embedding_model.encode(documents, **self.encode_kwargs)
         return embeddings

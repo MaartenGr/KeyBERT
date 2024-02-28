@@ -13,6 +13,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from keybert._mmr import mmr
 from keybert._maxsum import max_sum_distance
 from keybert._highlight import highlight_document
+from keybert.backend._base import BaseEmbedder
 from keybert.backend._utils import select_backend
 from keybert.llm._base import BaseLLM
 from keybert import KeyLLM
@@ -38,11 +39,15 @@ class KeyBERT:
     </div>
     """
 
-    def __init__(self, model="all-MiniLM-L6-v2", llm: BaseLLM = None):
+    def __init__(
+        self,
+        model="all-MiniLM-L6-v2",
+        llm: BaseLLM = None,
+    ):
         """KeyBERT initialization
 
         Arguments:
-            model: Use a custom embedding model.
+            model: Use a custom embedding model or a specific KeyBERT Backend.
                    The following backends are currently supported:
                       * SentenceTransformers
                       * 🤗 Transformers
@@ -78,7 +83,7 @@ class KeyBERT:
         seed_keywords: Union[List[str], List[List[str]]] = None,
         doc_embeddings: np.array = None,
         word_embeddings: np.array = None,
-        threshold: float = None
+        threshold: float = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -111,9 +116,9 @@ class KeyBERT:
                        NOTE: This does not work if multiple documents are passed.
             seed_keywords: Seed keywords that may guide the extraction of keywords by
                            steering the similarities towards the seeded keywords.
-                           NOTE: when multiple documents are passed, 
+                           NOTE: when multiple documents are passed,
                            `seed_keywords`funtions in either of the two ways below:
-                           - globally: when a flat list of str is passed, keywords are shared by all documents, 
+                           - globally: when a flat list of str is passed, keywords are shared by all documents,
                            - locally: when a nested list of str is passed, keywords differs among documents.
             doc_embeddings: The embeddings of each document.
             word_embeddings: The embeddings of each potential keyword/keyphrase across
@@ -178,10 +183,12 @@ class KeyBERT:
         # Check if the right number of word embeddings are generated compared with the vectorizer
         if word_embeddings is not None:
             if word_embeddings.shape[0] != len(words):
-                raise ValueError("Make sure that the `word_embeddings` are generated from the function "
-                                 "`.extract_embeddings`. \nMoreover, the `candidates`, `keyphrase_ngram_range`,"
-                                 "`stop_words`, and `min_df` parameters need to have the same values in both "
-                                 "`.extract_embeddings` and `.extract_keywords`.")
+                raise ValueError(
+                    "Make sure that the `word_embeddings` are generated from the function "
+                    "`.extract_embeddings`. \nMoreover, the `candidates`, `keyphrase_ngram_range`,"
+                    "`stop_words`, and `min_df` parameters need to have the same values in both "
+                    "`.extract_embeddings` and `.extract_keywords`."
+                )
 
         # Extract embeddings
         if doc_embeddings is None:
@@ -192,15 +199,21 @@ class KeyBERT:
         # Guided KeyBERT either local (keywords shared among documents) or global (keywords per document)
         if seed_keywords is not None:
             if isinstance(seed_keywords[0], str):
-                seed_embeddings = self.model.embed(seed_keywords).mean(axis=0, keepdims=True)    
+                seed_embeddings = self.model.embed(seed_keywords).mean(
+                    axis=0, keepdims=True
+                )
             elif len(docs) != len(seed_keywords):
-                raise ValueError("The length of docs must match the length of seed_keywords")
+                raise ValueError(
+                    "The length of docs must match the length of seed_keywords"
+                )
             else:
-                seed_embeddings = np.vstack([
-                    self.model.embed(keywords).mean(axis=0, keepdims=True)
-                    for keywords in seed_keywords
-                ])
-            doc_embeddings = ((doc_embeddings * 3 + seed_embeddings) / 4)
+                seed_embeddings = np.vstack(
+                    [
+                        self.model.embed(keywords).mean(axis=0, keepdims=True)
+                        for keywords in seed_keywords
+                    ]
+                )
+            doc_embeddings = (doc_embeddings * 3 + seed_embeddings) / 4
 
         # Find keywords
         all_keywords = []
@@ -256,18 +269,21 @@ class KeyBERT:
         # Fine-tune keywords using an LLM
         if self.llm is not None:
             import torch
+
             doc_embeddings = torch.from_numpy(doc_embeddings).float()
             if torch.cuda.is_available():
                 doc_embeddings = doc_embeddings.to("cuda")
             if isinstance(all_keywords[0], tuple):
                 candidate_keywords = [[keyword[0] for keyword in all_keywords]]
             else:
-                candidate_keywords = [[keyword[0] for keyword in keywords] for keywords in all_keywords]
+                candidate_keywords = [
+                    [keyword[0] for keyword in keywords] for keywords in all_keywords
+                ]
             keywords = self.llm.extract_keywords(
                 docs,
                 embeddings=doc_embeddings,
                 candidate_keywords=candidate_keywords,
-                threshold=threshold
+                threshold=threshold,
             )
             return keywords
         return all_keywords
@@ -279,7 +295,7 @@ class KeyBERT:
         keyphrase_ngram_range: Tuple[int, int] = (1, 1),
         stop_words: Union[str, List[str]] = "english",
         min_df: int = 1,
-        vectorizer: CountVectorizer = None
+        vectorizer: CountVectorizer = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract document and word embeddings for the input documents and the
         generated candidate keywords/keyphrases respectively.

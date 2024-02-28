@@ -11,8 +11,8 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+-   repo: https://github.com/PyCQA/flake8
+    rev: 7.0.0
     hooks:
     -   id: flake8
 -   repo: https://github.com/psf/black
