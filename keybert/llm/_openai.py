@@ -60,6 +60,9 @@ class OpenAI(BaseLLM):
                 `self.default_prompt_` is used instead.
                 NOTE: Use `"[DOCUMENT]"` in the prompt
                 to decide where the document needs to be inserted
+        system_prompt: The message that sets the behavior of the assistant. 
+                       It's typically used to provide high-level instructions 
+                       for the conversation.
         delay_in_seconds: The delay in seconds between consecutive prompts
                           in order to prevent RateLimitErrors.
         exponential_backoff: Retry requests with a random exponential backoff.
@@ -114,6 +117,7 @@ class OpenAI(BaseLLM):
                  client,
                  model: str = "gpt-3.5-turbo-instruct",
                  prompt: str = None,
+                 system_prompt: str = "You are a helpful assistant.",
                  generator_kwargs: Mapping[str, Any] = {},
                  delay_in_seconds: float = None,
                  exponential_backoff: bool = False,
@@ -128,6 +132,7 @@ class OpenAI(BaseLLM):
         else:
             self.prompt = prompt
 
+        self.system_prompt = system_prompt
         self.default_prompt_ = DEFAULT_CHAT_PROMPT if chat else DEFAULT_PROMPT
         self.delay_in_seconds = delay_in_seconds
         self.exponential_backoff = exponential_backoff
@@ -170,7 +175,7 @@ class OpenAI(BaseLLM):
             # Use a chat model
             if self.chat:
                 messages = [
-                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}
                 ]
                 kwargs = {"model": self.model, "messages": messages, **self.generator_kwargs}
