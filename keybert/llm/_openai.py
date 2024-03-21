@@ -191,7 +191,7 @@ class OpenAI(BaseLLM):
                     response = completions_with_backoff(self.client, model=self.model, prompt=prompt, **self.generator_kwargs)
                 else:
                     response = self.client.completions.create(model=self.model, prompt=prompt, **self.generator_kwargs)
-                keywords = response.choices[0].message.content.strip()
+                keywords = response.choices[0].text.strip()
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
