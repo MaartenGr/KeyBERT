@@ -9,7 +9,7 @@ install-test:
 	python -m pip install -e ".[all]"
 
 pypi:
-	python setup.py sdist
+	python -m build
 	twine upload dist/*
 
 clean:

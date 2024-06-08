@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "keybert"
+version = "0.8.4"
+description = "KeyBERT performs keyword extraction with state-of-the-art transformer models."
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+authors = [
+    { name = "Maarten Grootendorst", email = "maartengrootendorst@gmail.com" },
+]
+keywords = [
+    "nlp",
+    "bert",
+    "keyword",
+    "extraction",
+    "embeddings",
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.18.5",
+    "rich>=10.4.0",
+    "scikit-learn>=0.22.2",
+    "sentence-transformers>=0.3.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=19.3b0",
+    "flake8>=3.6.0",
+    "mkdocs-material>=4.6.3",
+    "mkdocs>=1.1",
+    "mkdocstrings>=0.8.0",
+    "pre-commit>=2.2.0",
+    "pytest-cov>=2.6.1",
+    "pytest>=5.4.3",
+]
+docs = [
+    "mkdocs-material>=4.6.3",
+    "mkdocs>=1.1",
+    "mkdocstrings>=0.8.0",
+]
+flair = [
+    "flair>=0.7",
+    "torch>=1.4.0",
+    "transformers>=3.5.1",
+]
+gensim = [
+    "gensim>=3.6.0",
+]
+spacy = [
+    "spacy>=3.0.1",
+]
+test = [
+    "black>=19.3b0",
+    "flake8>=3.6.0",
+    "pre-commit>=2.2.0",
+    "pytest-cov>=2.6.1",
+    "pytest>=5.4.3",
+]
+use = [
+    "tensorflow",
+    "tensorflow_hub",
+    "tensorflow_text",
+]
+
+[project.urls]
+Documentation = "https://maartengr.github.io/KeyBERT/"
+Homepage = "https://github.com/MaartenGr/KeyBERT"
+Issues = "https://github.com/MaartenGr/KeyBERT/issues"
+Repository = "https://github.com/MaartenGr/KeyBERT.git"
+
+[tool.setuptools.packages.find]
+include = ["keybert*"]
+exclude = ["tests"]
