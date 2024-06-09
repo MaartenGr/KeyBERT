@@ -45,14 +45,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "black>=19.3b0",
-    "flake8>=3.6.0",
-    "mkdocs-material>=4.6.3",
-    "mkdocs>=1.1",
-    "mkdocstrings>=0.8.0",
-    "pre-commit>=2.2.0",
-    "pytest-cov>=2.6.1",
-    "pytest>=5.4.3",
+    "keybert[docs,test]"
 ]
 docs = [
     "mkdocs-material>=4.6.3",
