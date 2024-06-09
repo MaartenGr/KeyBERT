@@ -45,7 +45,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "keybert[docs,test]"
+    "keybert[docs,test]",
 ]
 docs = [
     "mkdocs-material>=4.6.3",
