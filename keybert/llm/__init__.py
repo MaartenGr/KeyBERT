@@ -1,6 +1,12 @@
 from keybert._utils import NotInstalled
 from keybert.llm._base import BaseLLM
 
+# TextGenerationInference
+try:
+    from keybert.llm._textgenerationinference import TextGenerationInference
+except ModuleNotFoundError:
+    msg = "`pip install keybert` \n\n"
+    TextGeneration = NotInstalled("huggingface-hub", "huggingface-hub", custom_msg=msg)
 
 # TextGeneration
 try:
