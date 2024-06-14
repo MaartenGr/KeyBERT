@@ -84,7 +84,7 @@ class TextGenerationInference(BaseLLM):
         self.client = InferenceClient(model=url)
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
-        self.pipeline_kwargs = client_kwargs
+        self.client_kwargs = client_kwargs
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
