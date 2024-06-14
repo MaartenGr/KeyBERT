@@ -71,7 +71,7 @@ test = [
     "pytest>=5.4.3",
 ]
 tgi = [
-    "huggingface-hub==0.23.3",
+    "huggingface-hub>=0.23.3",
 ]
 use = [
     "tensorflow",
