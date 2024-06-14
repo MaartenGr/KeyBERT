@@ -5,8 +5,8 @@ from keybert.llm._base import BaseLLM
 try:
     from keybert.llm._textgenerationinference import TextGenerationInference
 except ModuleNotFoundError:
-    msg = "`pip install keybert` \n\n"
-    TextGeneration = NotInstalled("huggingface-hub", "huggingface-hub", custom_msg=msg)
+    msg = "`pip install huggingface-hub` \n\n"
+    TextGenerationInference = NotInstalled("huggingface-hub", "huggingface-hub", custom_msg=msg)
 
 # TextGeneration
 try:
@@ -49,6 +49,7 @@ __all__ = [
     "Cohere",
     "OpenAI",
     "TextGeneration",
+    "TextGenerationInference",
     "LangChain",
     "LiteLLM"
 ]
