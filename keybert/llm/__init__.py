@@ -5,7 +5,7 @@ from keybert.llm._base import BaseLLM
 try:
     from keybert.llm._textgenerationinference import TextGenerationInference
 except ModuleNotFoundError:
-    msg = "`pip install huggingface-hub` \n\n"
+    msg = "`pip install huggingface-hub pydantic ` \n\n"
     TextGenerationInference = NotInstalled("TextGenerationInference", "huggingface-hub", custom_msg=msg)
 
 # TextGeneration
