@@ -35,7 +35,7 @@ plugins:
       watch:
         - keybert
   - search
-copyright: Copyright &copy; 2022 Maintained by <a href="https://github.com/MaartenGr">Maarten Grootendorst</a>.
+copyright: Copyright &copy; 2024 Maintained by <a href="https://github.com/MaartenGr">Maarten Grootendorst</a>.
 
 theme:
   custom_dir: images/

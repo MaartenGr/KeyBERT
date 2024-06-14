@@ -4,6 +4,15 @@ hide:
 ---
 
 
+## **Version 0.8.5**
+*Release date: 14 June, 2024*
+
+* Use `batch_size` parameter with `keybert.backend.SentenceTransformerBackend` by [@adhadse](https://github.com/adhadse) in [#210](https://github.com/MaartenGr/KeyBERT/pull/210)
+* Add system_prompt param to LLMs by [@lucafirefox](https://github.com/lucafirefox) in [#214](https://github.com/MaartenGr/KeyBERT/pull/214)
+* Update OpenAI API response by [@lucafirefox](https://github.com/lucafirefox) in [#213](https://github.com/MaartenGr/KeyBERT/pull/213)
+* Drop support for python 3.6 and 3.7 by [@afuetterer](https://github.com/afuetterer) in [#230](https://github.com/MaartenGr/KeyBERT/pull/230)
+* Bump github actions versions by [@afuetterer](https://github.com/afuetterer) in [#228](https://github.com/MaartenGr/KeyBERT/pull/228)
+* Switch from setup.py to pyproject.toml by [@afuetterer](https://github.com/afuetterer) in [#231](https://github.com/MaartenGr/KeyBERT/pull/231)
 
 ## **Version 0.8.4**
 *Release date: 15 Februari, 2024*
