@@ -6,12 +6,16 @@ from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 import json
 
-
 DEFAULT_PROMPT = """
-I have the following document:
-* [DOCUMENT]
+    I have the following document:
+    [DOCUMENT]
 
-Please give me the keywords that are present in this document and separate them with commas:
+    With the following candidate keywords:
+    [CANDIDATES]
+
+    Based on the information above, improve the candidate keywords to best describe the topic of the document.
+
+    Output in JSON format:
 """
 
 
@@ -20,39 +24,37 @@ class Keywords(BaseModel):
 
 
 class TextGenerationInference(BaseLLM):
-    """ Text2Text or text generation with transformers
-
-    NOTE: The resulting keywords are expected to be separated by commas so
-    any changes to the prompt will have to make sure that the resulting
-    keywords are comma-separated.
+    """ Tex
 
     Arguments:
-        model: A transformers pipeline that should be initialized as "text-generation"
-               for gpt-like models or "text2text-generation" for T5-like models.
-               For example, `pipeline('text-generation', model='gpt2')`. If a string
-               is passed, "text-generation" will be selected by default.
+        client: InferenceClient from huggingface_hub.
         prompt: The prompt to be used in the model. If no prompt is given,
                 `self.default_prompt_` is used instead.
                 NOTE: Use `"[KEYWORDS]"` and `"[DOCUMENTS]"` in the prompt
                 to decide where the keywords and documents need to be
                 inserted.
-        pipeline_kwargs: Kwargs that you can pass to the transformers.pipeline
+        client_kwargs: Kwargs that you can pass to the client.text_generation
                          when it is called.
-        random_state: A random state to be passed to `transformers.set_seed`
-        verbose: Set this to True if you want to see a progress bar for the
-                 keyword extraction.
+        json_schema: Pydantic BaseModel to be used as guidance for keywords.
+                By default uses:
+                class Keywords(BaseModel):
+                    keywords: List[str]
 
     Usage:
 
-    To use a gpt-like model:
-
     ```python
-    from keybert.llm import TextGeneration
+    from pydantic import BaseModel
+    from huggingface_hub import InferenceClient
+    from keybert.llm import TextGenerationInference
     from keybert import KeyLLM
 
+    # Json Schema
+    class Keywords(BaseModel):
+        keywords: List[str]
+
     # Create your LLM
-    generator = pipeline('text-generation', model='gpt2')
-    llm = TextGeneration(generator)
+    generator = InferenceClient('url')
+    llm = TextGenerationInference(generator, Keywords)
 
     # Load it in KeyLLM
     kw_model = KeyLLM(llm)
@@ -66,26 +68,28 @@ class TextGenerationInference(BaseLLM):
     be inserted with the `[DOCUMENT]` tag:
 
     ```python
-    from keybert.llm import TextGeneration
+    from keybert.llm import TextGenerationInference
 
     prompt = "I have the following documents '[DOCUMENT]'. Please give me the keywords that are present in this document and separate them with commas:"
 
     # Create your representation model
-    generator = pipeline('text2text-generation', model='google/flan-t5-base')
-    llm = TextGeneration(generator)
+    from huggingface_hub import InferenceClient
+    generator = InferenceClient('url')
+    llm = TextGenerationInference(generator)
     ```
     """
+
     def __init__(self,
-                 url: str,
+                 client: InferenceClient,
                  prompt: str = None,
                  client_kwargs: Mapping[str, Any] = {},
-                 verbose: bool = False
+                 json_schema: BaseModel = Keywords
                  ):
-        self.client = InferenceClient(model=url)
+        self.client = client
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
         self.client_kwargs = client_kwargs
-        self.verbose = verbose
+        self.json_schema = json_schema
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
         """ Extract topics
@@ -111,7 +115,7 @@ class TextGenerationInference(BaseLLM):
             # Extract result from generator and use that as label
             response = self.client.text_generation(
                 prompt=prompt,
-                grammar={"type": "json", "value": Keywords.schema()},
+                grammar={"type": "json", "value": self.json_schema.schema()},
                 **self.client_kwargs
             )
             all_keywords = json.loads(response)["keywords"]
