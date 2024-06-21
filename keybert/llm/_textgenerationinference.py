@@ -82,16 +82,18 @@ class TextGenerationInference(BaseLLM):
     def __init__(self,
                  client: InferenceClient,
                  prompt: str = None,
-                 client_kwargs: Mapping[str, Any] = {},
                  json_schema: BaseModel = Keywords
                  ):
         self.client = client
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
-        self.client_kwargs = client_kwargs
         self.json_schema = json_schema
 
-    def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
+    def extract_keywords(
+            self,
+            documents: List[str], candidate_keywords: List[List[str]] = None,
+            inference_kwargs: Mapping[str, Any] = {}
+    ):
         """ Extract topics
 
         Arguments:
@@ -116,7 +118,7 @@ class TextGenerationInference(BaseLLM):
             response = self.client.text_generation(
                 prompt=prompt,
                 grammar={"type": "json", "value": self.json_schema.schema()},
-                **self.client_kwargs
+                **inference_kwargs
             )
             all_keywords = json.loads(response)["keywords"]
 
