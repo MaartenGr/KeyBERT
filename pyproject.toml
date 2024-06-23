@@ -40,7 +40,7 @@ dependencies = [
     "numpy>=1.18.5",
     "rich>=10.4.0",
     "scikit-learn>=0.22.2",
-    "sentence-transformers>=0.3.8",
+    "sentence-transformers>=0.3.8"
 ]
 
 [project.optional-dependencies]
@@ -69,6 +69,10 @@ test = [
     "pre-commit>=2.2.0",
     "pytest-cov>=2.6.1",
     "pytest>=5.4.3",
+]
+tgi = [
+    "huggingface-hub>=0.23.3",
+    "pydantic>=2.7.4"
 ]
 use = [
     "tensorflow",
