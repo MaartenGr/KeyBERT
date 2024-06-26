@@ -11,9 +11,7 @@ doc_one, doc_two = get_test_data()
 
 
 @pytest.mark.parametrize("keyphrase_length", [(1, i + 1) for i in range(5)])
-@pytest.mark.parametrize(
-    "vectorizer", [None, CountVectorizer(ngram_range=(1, 1), stop_words="english")]
-)
+@pytest.mark.parametrize("vectorizer", [None, CountVectorizer(ngram_range=(1, 1), stop_words="english")])
 def test_single_doc_sentence_transformer_backend(keyphrase_length, vectorizer):
     """Test whether the keywords are correctly extracted"""
     top_n = 5

@@ -3,7 +3,7 @@ In this tutorial we will be going through the Large Language Models (LLM) that c
 Having the option to choose the LLM allow you to leverage the model that suit your use-case.
 
 ### **OpenAI**
-To use OpenAI's external API, we need to define our key and use the `keybert.llm.OpenAI` model. 
+To use OpenAI's external API, we need to define our key and use the `keybert.llm.OpenAI` model.
 
 We install the package first:
 
@@ -98,7 +98,7 @@ kw_model = KeyLLM(llm)
 ```
 
 ### 🤗 **Hugging Face Transformers**
-To use a Hugging Face transformers model, load in a pipeline and point 
+To use a Hugging Face transformers model, load in a pipeline and point
 to any model found on their model hub (https://huggingface.co/models). Let's use Llama 2 as an example:
 
 ```python
@@ -109,8 +109,8 @@ model_id = 'meta-llama/Llama-2-7b-chat-hf'
 
 # 4-bit Quantization to load Llama 2 with less GPU memory
 bnb_config = transformers.BitsAndBytesConfig(
-    load_in_4bit=True,  
-    bnb_4bit_quant_type='nf4',  
+    load_in_4bit=True,
+    bnb_4bit_quant_type='nf4',
     bnb_4bit_use_double_quant=True,
     bnb_4bit_compute_dtype=bfloat16
 )
@@ -152,7 +152,7 @@ I have the following document:
 - The website mentions that it only takes a couple of days to deliver but I still have not received mine.
 
 Please give me the keywords that are present in this document and separate them with commas.
-Make sure you to only return the keywords and say nothing else. For example, don't say: 
+Make sure you to only return the keywords and say nothing else. For example, don't say:
 "Here are the keywords present in the document"
 [/INST] meat, beef, eat, eating, emissions, steak, food, health, processed, chicken [INST]
 
@@ -160,7 +160,7 @@ I have the following document:
 - [DOCUMENT]
 
 Please give me the keywords that are present in this document and separate them with commas.
-Make sure you to only return the keywords and say nothing else. For example, don't say: 
+Make sure you to only return the keywords and say nothing else. For example, don't say:
 "Here are the keywords present in the document"
 [/INST]
 """

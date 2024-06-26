@@ -59,7 +59,7 @@ kw_model = KeyLLM(llm)
 
 * Use `KeyLLM` to leverage LLMs for extracting keywords
   * Use it either with or without candidate keywords generated through `KeyBERT`
-  * Multiple LLMs are integrated: OpenAI, Cohere, LangChain, HF, and LiteLLM  
+  * Multiple LLMs are integrated: OpenAI, Cohere, LangChain, HF, and LiteLLM
 
 ```python
 import openai
@@ -101,7 +101,7 @@ doc_embeddings, word_embeddings = kw_model.extract_embeddings(docs)
 keywords = kw_model.extract_keywords(docs, doc_embeddings=doc_embeddings, word_embeddings=word_embeddings)
 ```
 
-Do note that the parameters passed to `.extract_embeddings` for creating the vectorizer should be exactly the same as those in `.extract_keywords`. 
+Do note that the parameters passed to `.extract_embeddings` for creating the vectorizer should be exactly the same as those in `.extract_keywords`.
 
 **Fixes**:
 
@@ -137,7 +137,7 @@ kw_model = KeyBERT(model=hf_model)
 
 **NOTE**: Although highlighting for Chinese texts is improved, since I am not familiar with the Chinese language there is a good chance it is not yet as optimized as for other languages. Any feedback with respect to this is highly appreciated!
 
-**Fixes**: 
+**Fixes**:
 
 * Fix typo in ReadMe by [@priyanshul-govil](https://github.com/priyanshul-govil) in [#117](https://github.com/MaartenGr/KeyBERT/pull/117)
 * Add missing optional dependencies (gensim, use, and spacy) by [@yusuke1997](https://github.com/yusuke1997)

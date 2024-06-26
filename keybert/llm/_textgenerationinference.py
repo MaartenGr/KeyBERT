@@ -24,7 +24,7 @@ class Keywords(BaseModel):
 
 
 class TextGenerationInference(BaseLLM):
-    """ Tex
+    """Tex
 
     Arguments:
         client: InferenceClient from huggingface_hub.
@@ -79,22 +79,16 @@ class TextGenerationInference(BaseLLM):
     ```
     """
 
-    def __init__(self,
-                 client: InferenceClient,
-                 prompt: str = None,
-                 json_schema: BaseModel = Keywords
-                 ):
+    def __init__(self, client: InferenceClient, prompt: str = None, json_schema: BaseModel = Keywords):
         self.client = client
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
         self.json_schema = json_schema
 
     def extract_keywords(
-            self,
-            documents: List[str], candidate_keywords: List[List[str]] = None,
-            inference_kwargs: Mapping[str, Any] = {}
+        self, documents: List[str], candidate_keywords: List[List[str]] = None, inference_kwargs: Mapping[str, Any] = {}
     ):
-        """ Extract topics
+        """Extract topics
 
         Arguments:
             documents: The documents to extract keywords from
@@ -116,9 +110,7 @@ class TextGenerationInference(BaseLLM):
 
             # Extract result from generator and use that as label
             response = self.client.text_generation(
-                prompt=prompt,
-                grammar={"type": "json", "value": self.json_schema.schema()},
-                **inference_kwargs
+                prompt=prompt, grammar={"type": "json", "value": self.json_schema.schema()}, **inference_kwargs
             )
             all_keywords = json.loads(response)["keywords"]
 

@@ -10,7 +10,7 @@ from keybert.backend import BaseEmbedder
 
 
 class HFTransformerBackend(BaseEmbedder):
-    """Hugging Face transformers model
+    """Hugging Face transformers model.
 
     This uses the `transformers.pipelines.pipeline` to define and create
     a feature generation pipeline from which embeddings can be extracted.
@@ -42,8 +42,7 @@ class HFTransformerBackend(BaseEmbedder):
             )
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
-        """Embed a list of n documents/words into an n-dimensional
-        matrix of embeddings
+        """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
         Arguments:
             documents: A list of documents or words to be embedded
@@ -57,9 +56,7 @@ class HFTransformerBackend(BaseEmbedder):
 
         embeddings = []
         for document, features in tqdm(
-            zip(
-                documents, self.embedding_model(dataset, truncation=True, padding=True)
-            ),
+            zip(documents, self.embedding_model(dataset, truncation=True, padding=True)),
             total=len(dataset),
             disable=not verbose,
         ):
@@ -68,7 +65,7 @@ class HFTransformerBackend(BaseEmbedder):
         return np.array(embeddings)
 
     def _embed(self, document: str, features: np.ndarray) -> np.ndarray:
-        """Mean pooling
+        """Mean pooling.
 
         Arguments:
             document: The document for which to extract the attention mask
@@ -78,12 +75,10 @@ class HFTransformerBackend(BaseEmbedder):
         https://huggingface.co/sentence-transformers/all-MiniLM-L12-v2#usage-huggingface-transformers
         """
         token_embeddings = np.array(features)
-        attention_mask = self.embedding_model.tokenizer(
-            document, truncation=True, padding=True, return_tensors="np"
-        )["attention_mask"]
-        input_mask_expanded = np.broadcast_to(
-            np.expand_dims(attention_mask, -1), token_embeddings.shape
-        )
+        attention_mask = self.embedding_model.tokenizer(document, truncation=True, padding=True, return_tensors="np")[
+            "attention_mask"
+        ]
+        input_mask_expanded = np.broadcast_to(np.expand_dims(attention_mask, -1), token_embeddings.shape)
         sum_embeddings = np.sum(token_embeddings * input_mask_expanded, 1)
         sum_mask = np.clip(
             input_mask_expanded.sum(1),
@@ -95,7 +90,7 @@ class HFTransformerBackend(BaseEmbedder):
 
 
 class MyDataset(Dataset):
-    """Dataset to pass to `transformers.pipelines.pipeline`"""
+    """Dataset to pass to `transformers.pipelines.pipeline`."""
 
     def __init__(self, docs):
         self.docs = docs
