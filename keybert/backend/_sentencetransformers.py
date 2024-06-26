@@ -34,9 +34,7 @@ class SentenceTransformerBackend(BaseEmbedder):
     ```
     """
 
-    def __init__(
-        self, embedding_model: Union[str, SentenceTransformer], **encode_kwargs
-    ):
+    def __init__(self, embedding_model: Union[str, SentenceTransformer], **encode_kwargs):
         super().__init__()
 
         if isinstance(embedding_model, SentenceTransformer):

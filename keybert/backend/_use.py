@@ -6,7 +6,7 @@ from keybert.backend import BaseEmbedder
 
 
 class USEBackend(BaseEmbedder):
-    """Universal Sentence Encoder
+    """Universal Sentence Encoder.
 
     USE encodes text into high-dimensional vectors that
     are used for semantic similarity in KeyBERT.
@@ -39,8 +39,7 @@ class USEBackend(BaseEmbedder):
             )
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
-        """Embed a list of n documents/words into an n-dimensional
-        matrix of embeddings
+        """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
         Arguments:
             documents: A list of documents or words to be embedded
@@ -51,9 +50,6 @@ class USEBackend(BaseEmbedder):
             that each have an embeddings size of `m`
         """
         embeddings = np.array(
-            [
-                self.embedding_model([doc]).cpu().numpy()[0]
-                for doc in tqdm(documents, disable=not verbose)
-            ]
+            [self.embedding_model([doc]).cpu().numpy()[0] for doc in tqdm(documents, disable=not verbose)]
         )
         return embeddings

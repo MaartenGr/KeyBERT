@@ -34,15 +34,13 @@ def retry_with_exponential_backoff(
                 return func(*args, **kwargs)
 
             # Retry on specific errors
-            except errors as e:
+            except errors:
                 # Increment retries
                 num_retries += 1
 
                 # Check if max retries has been reached
                 if num_retries > max_retries:
-                    raise Exception(
-                        f"Maximum number of retries ({max_retries}) exceeded."
-                    )
+                    raise Exception(f"Maximum number of retries ({max_retries}) exceeded.")
 
                 # Increment the delay
                 delay *= exponential_base * (1 + jitter * random.random())

@@ -33,7 +33,6 @@ def mmr(
          List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
 
     """
-
     # Extract similarity within words, and between words and the document
     word_doc_similarity = cosine_similarity(word_embeddings, doc_embedding)
     word_similarity = cosine_similarity(word_embeddings)
@@ -46,14 +45,10 @@ def mmr(
         # Extract similarities within candidates and
         # between candidates and selected keywords/phrases
         candidate_similarities = word_doc_similarity[candidates_idx, :]
-        target_similarities = np.max(
-            word_similarity[candidates_idx][:, keywords_idx], axis=1
-        )
+        target_similarities = np.max(word_similarity[candidates_idx][:, keywords_idx], axis=1)
 
         # Calculate MMR
-        mmr = (
-            1 - diversity
-        ) * candidate_similarities - diversity * target_similarities.reshape(-1, 1)
+        mmr = (1 - diversity) * candidate_similarities - diversity * target_similarities.reshape(-1, 1)
         mmr_idx = candidates_idx[np.argmax(mmr)]
 
         # Update keywords & candidates
@@ -61,9 +56,6 @@ def mmr(
         candidates_idx.remove(mmr_idx)
 
     # Extract and sort keywords in descending similarity
-    keywords = [
-        (words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4))
-        for idx in keywords_idx
-    ]
+    keywords = [(words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4)) for idx in keywords_idx]
     keywords = sorted(keywords, key=itemgetter(1), reverse=True)
     return keywords
