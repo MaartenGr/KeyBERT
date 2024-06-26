@@ -9,7 +9,7 @@ DEFAULT_PROMPT = "What is this document about? Please provide keywords separated
 
 
 class LangChain(BaseLLM):
-    """ Using chains in langchain to generate keywords.
+    """Using chains in langchain to generate keywords.
 
     Currently, only chains from question answering is implemented. See:
     https://langchain.readthedocs.io/en/latest/modules/chains/combine_docs_examples/question_answering.html
@@ -66,18 +66,20 @@ class LangChain(BaseLLM):
     llm = LangChain(chain, prompt=prompt)
     ```
     """
-    def __init__(self,
-                 chain,
-                 prompt: str = None,
-                 verbose: bool = False,
-                 ):
+
+    def __init__(
+        self,
+        chain,
+        prompt: str = None,
+        verbose: bool = False,
+    ):
         self.chain = chain
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
-        """ Extract topics
+        """Extract topics.
 
         Arguments:
             documents: The documents to extract keywords from

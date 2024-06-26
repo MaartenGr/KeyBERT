@@ -25,7 +25,7 @@ Keywords:"""
 
 
 class Cohere(BaseLLM):
-    """ Use the Cohere API to generate topic labels based on their
+    """Use the Cohere API to generate topic labels based on their
     generative model.
 
     Find more about their models here:
@@ -80,13 +80,10 @@ class Cohere(BaseLLM):
     llm = Cohere(co, prompt=prompt)
     ```
     """
-    def __init__(self,
-                 client,
-                 model: str = "command",
-                 prompt: str = None,
-                 delay_in_seconds: float = None,
-                 verbose: bool = False
-                 ):
+
+    def __init__(
+        self, client, model: str = "command", prompt: str = None, delay_in_seconds: float = None, verbose: bool = False
+    ):
         self.client = client
         self.model = model
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
@@ -95,7 +92,7 @@ class Cohere(BaseLLM):
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
-        """ Extract topics
+        """Extract topics.
 
         Arguments:
             documents: The documents to extract keywords from
@@ -119,11 +116,9 @@ class Cohere(BaseLLM):
             if self.delay_in_seconds:
                 time.sleep(self.delay_in_seconds)
 
-            request = self.client.generate(model=self.model,
-                                           prompt=prompt,
-                                           max_tokens=50,
-                                           num_generations=1,
-                                           stop_sequences=["\n"])
+            request = self.client.generate(
+                model=self.model, prompt=prompt, max_tokens=50, num_generations=1, stop_sequences=["\n"]
+            )
             keywords = request.generations[0].text.strip()
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)

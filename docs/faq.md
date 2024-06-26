@@ -21,11 +21,11 @@ topic modeling to HTML-code to extract topics of code, then it becomes important
 
 
 ## **How can I speed up the model?**
-Since KeyBERT uses large language models as its backend, a GPU is typically prefered when using this package. 
+Since KeyBERT uses large language models as its backend, a GPU is typically prefered when using this package.
 Although it is possible to use it without a dedicated GPU, the inference speed will be significantly slower.
 
-A second method for speeding up KeyBERT is by passing it multiple documents at once. By doing this, words 
-need to only be embedded a single time, which can result in a major speed up. 
+A second method for speeding up KeyBERT is by passing it multiple documents at once. By doing this, words
+need to only be embedded a single time, which can result in a major speed up.
 
 This is **faster**:
 

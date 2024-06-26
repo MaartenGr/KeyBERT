@@ -17,7 +17,7 @@ Use the following format separated by commas:
 
 
 class LiteLLM(BaseLLM):
-    """ Extract keywords using LiteLLM to call any LLM API using OpenAI format 
+    r"""Extract keywords using LiteLLM to call any LLM API using OpenAI format
     such as Anthropic, Huggingface, Cohere, TogetherAI, Azure, OpenAI, etc.
 
     NOTE: The resulting keywords are expected to be separated by commas so
@@ -32,8 +32,8 @@ class LiteLLM(BaseLLM):
                 `self.default_prompt_` is used instead.
                 NOTE: Use `"[DOCUMENT]"` in the prompt
                 to decide where the document needs to be inserted
-        system_prompt: The message that sets the behavior of the assistant. 
-                       It's typically used to provide high-level instructions 
+        system_prompt: The message that sets the behavior of the assistant.
+                       It's typically used to provide high-level instructions
                        for the conversation.
         delay_in_seconds: The delay in seconds between consecutive prompts
                           in order to prevent RateLimitErrors.
@@ -68,14 +68,16 @@ class LiteLLM(BaseLLM):
     llm = LiteLLM("gpt-3.5-turbo", prompt=prompt)
     ```
     """
-    def __init__(self,
-                 model: str = "gpt-3.5-turbo",
-                 prompt: str = None,
-                 system_prompt: str = "You are a helpful assistant.",
-                 generator_kwargs: Mapping[str, Any] = {},
-                 delay_in_seconds: float = None,
-                 verbose: bool = False
-                 ):
+
+    def __init__(
+        self,
+        model: str = "gpt-3.5-turbo",
+        prompt: str = None,
+        system_prompt: str = "You are a helpful assistant.",
+        generator_kwargs: Mapping[str, Any] = {},
+        delay_in_seconds: float = None,
+        verbose: bool = False,
+    ):
         self.model = model
 
         if prompt is None:
@@ -95,7 +97,7 @@ class LiteLLM(BaseLLM):
             del self.generator_kwargs["prompt"]
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
-        """ Extract topics
+        """Extract topics.
 
         Arguments:
             documents: The documents to extract keywords from
@@ -120,10 +122,7 @@ class LiteLLM(BaseLLM):
                 time.sleep(self.delay_in_seconds)
 
             # Use a chat model
-            messages = [
-                {"role": "system", "content": self.system_prompt},
-                {"role": "user", "content": prompt}
-            ]
+            messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": prompt}]
             kwargs = {"model": self.model, "messages": messages, **self.generator_kwargs}
 
             response = completion(**kwargs)

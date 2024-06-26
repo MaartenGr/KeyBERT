@@ -16,7 +16,7 @@ documents = [
 
 This data was chosen to show the different use cases and techniques. As you might have noticed documents 1 and 2 are quite similar whereas document 3 is about an entirely different subject. This similarity will be taken into account when using `KeyBERT` together with `KeyLLM`
 
-Let's start with `KeyLLM` only. 
+Let's start with `KeyLLM` only.
 
 
 # Use Cases
@@ -180,7 +180,7 @@ If you have embeddings of your documents, you could use those to find documents 
 </div>
 
 !!! Tip
-    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch. 
+    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch.
     There is an issue with community detection (cluster) that might make the model run without finishing. It is as straightforward as:
     `pip uninstall sentence-transformers`
     `pip install --upgrade git+https://github.com/UKPLab/sentence-transformers`
@@ -231,7 +231,7 @@ This is the best of both worlds. We use `KeyBERT` to generate a first pass of ke
 </div>
 
 !!! Tip
-    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch. 
+    Before you get started, it might be worthwhile to uninstall sentence-transformers and re-install it from the main branch.
     There is an issue with community detection (cluster) that might make the model run without finishing. It is as straightforward as:
     `pip uninstall sentence-transformers`
     `pip install --upgrade git+https://github.com/UKPLab/sentence-transformers`

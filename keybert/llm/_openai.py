@@ -35,7 +35,7 @@ Use the following format separated by commas:
 
 
 class OpenAI(BaseLLM):
-    """ Using the OpenAI API to extract keywords
+    r"""Using the OpenAI API to extract keywords.
 
     The default method is `openai.Completion` if `chat=False`.
     The prompts will also need to follow a completion task. If you
@@ -60,8 +60,8 @@ class OpenAI(BaseLLM):
                 `self.default_prompt_` is used instead.
                 NOTE: Use `"[DOCUMENT]"` in the prompt
                 to decide where the document needs to be inserted
-        system_prompt: The message that sets the behavior of the assistant. 
-                       It's typically used to provide high-level instructions 
+        system_prompt: The message that sets the behavior of the assistant.
+                       It's typically used to provide high-level instructions
                        for the conversation.
         delay_in_seconds: The delay in seconds between consecutive prompts
                           in order to prevent RateLimitErrors.
@@ -113,17 +113,19 @@ class OpenAI(BaseLLM):
     llm = OpenAI(client, model="gpt-3.5-turbo", delay_in_seconds=10, chat=True)
     ```
     """
-    def __init__(self,
-                 client,
-                 model: str = "gpt-3.5-turbo-instruct",
-                 prompt: str = None,
-                 system_prompt: str = "You are a helpful assistant.",
-                 generator_kwargs: Mapping[str, Any] = {},
-                 delay_in_seconds: float = None,
-                 exponential_backoff: bool = False,
-                 chat: bool = False,
-                 verbose: bool = False
-                 ):
+
+    def __init__(
+        self,
+        client,
+        model: str = "gpt-3.5-turbo-instruct",
+        prompt: str = None,
+        system_prompt: str = "You are a helpful assistant.",
+        generator_kwargs: Mapping[str, Any] = {},
+        delay_in_seconds: float = None,
+        exponential_backoff: bool = False,
+        chat: bool = False,
+        verbose: bool = False,
+    ):
         self.client = client
         self.model = model
 
@@ -148,7 +150,7 @@ class OpenAI(BaseLLM):
             self.generator_kwargs["stop"] = "\n"
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
-        """ Extract topics
+        """Extract topics.
 
         Arguments:
             documents: The documents to extract keywords from
@@ -174,10 +176,7 @@ class OpenAI(BaseLLM):
 
             # Use a chat model
             if self.chat:
-                messages = [
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": prompt}
-                ]
+                messages = [{"role": "system", "content": self.system_prompt}, {"role": "user", "content": prompt}]
                 kwargs = {"model": self.model, "messages": messages, **self.generator_kwargs}
                 if self.exponential_backoff:
                     response = chat_completions_with_backoff(self.client, **kwargs)
@@ -188,7 +187,9 @@ class OpenAI(BaseLLM):
             # Use a non-chat model
             else:
                 if self.exponential_backoff:
-                    response = completions_with_backoff(self.client, model=self.model, prompt=prompt, **self.generator_kwargs)
+                    response = completions_with_backoff(
+                        self.client, model=self.model, prompt=prompt, **self.generator_kwargs
+                    )
                 else:
                     response = self.client.completions.create(model=self.model, prompt=prompt, **self.generator_kwargs)
                 keywords = response.choices[0].text.strip()
@@ -201,16 +202,12 @@ class OpenAI(BaseLLM):
 def completions_with_backoff(client, **kwargs):
     return retry_with_exponential_backoff(
         client.completions.create,
-        errors=(
-            openai.RateLimitError,
-        ),
+        errors=(openai.RateLimitError,),
     )(**kwargs)
 
 
 def chat_completions_with_backoff(client, **kwargs):
     return retry_with_exponential_backoff(
         client.chat.completions.create,
-        errors=(
-            openai.RateLimitError,
-        ),
+        errors=(openai.RateLimitError,),
     )(**kwargs)

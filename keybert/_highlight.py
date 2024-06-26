@@ -11,10 +11,8 @@ class NullHighlighter(RegexHighlighter):
     highlights = [r""]
 
 
-def highlight_document(
-    doc: str, keywords: List[Tuple[str, float]], vectorizer: CountVectorizer
-):
-    """Highlight keywords in a document
+def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: CountVectorizer):
+    """Highlight keywords in a document.
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases.
@@ -38,10 +36,8 @@ def highlight_document(
     console.print(highlighted_text)
 
 
-def _highlight_one_gram(
-    doc: str, keywords: List[str], vectorizer: CountVectorizer
-) -> str:
-    """Highlight 1-gram keywords in a document
+def _highlight_one_gram(doc: str, keywords: List[str], vectorizer: CountVectorizer) -> str:
+    """Highlight 1-gram keywords in a document.
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases.
@@ -57,18 +53,13 @@ def _highlight_one_gram(
     separator = "" if "zh" in str(tokenizer) else " "
 
     highlighted_text = separator.join(
-        [
-            f"[black on #FFFF00]{token}[/]" if token.lower() in keywords else f"{token}"
-            for token in tokens
-        ]
+        [f"[black on #FFFF00]{token}[/]" if token.lower() in keywords else f"{token}" for token in tokens]
     ).strip()
     return highlighted_text
 
 
-def _highlight_n_gram(
-    doc: str, keywords: List[str], vectorizer: CountVectorizer
-) -> str:
-    """Highlight n-gram keywords in a document
+def _highlight_n_gram(doc: str, keywords: List[str], vectorizer: CountVectorizer) -> str:
+    """Highlight n-gram keywords in a document.
 
     Arguments:
         doc: The document for which to extract keywords/keyphrases.
@@ -85,8 +76,7 @@ def _highlight_n_gram(
     separator = "" if "zh" in str(tokenizer) else " "
 
     n_gram_tokens = [
-        [separator.join(tokens[i : i + max_len][0 : j + 1]) for j in range(max_len)]
-        for i, _ in enumerate(tokens)
+        [separator.join(tokens[i : i + max_len][0 : j + 1]) for j in range(max_len)] for i, _ in enumerate(tokens)
     ]
     highlighted_text = []
     skip = False
@@ -96,11 +86,8 @@ def _highlight_n_gram(
 
         if not skip:
             for index, n_gram in enumerate(n_grams):
-
                 if n_gram.lower() in keywords:
-                    candidate = (
-                        f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1].split(n_gram)[-1]
-                    )
+                    candidate = f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1].split(n_gram)[-1]
                     skip = index + 1
 
             if not candidate:
