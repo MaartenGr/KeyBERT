@@ -3,7 +3,7 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 import numpy as np
-from typing import List, Union, Tuple
+from typing import List, Union, Tuple, Callable, Optional
 
 from packaging import version
 from sklearn import __version__ as sklearn_version
@@ -84,6 +84,7 @@ class KeyBERT:
         doc_embeddings: np.array = None,
         word_embeddings: np.array = None,
         threshold: float = None,
+        tokenizer: Optional[Callable] = None
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
         """Extract keywords and/or keyphrases
 
@@ -168,6 +169,7 @@ class KeyBERT:
                     stop_words=stop_words,
                     min_df=min_df,
                     vocabulary=candidates,
+                    tokenizer=tokenizer,
                 ).fit(docs)
             except ValueError:
                 return []
