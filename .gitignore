@@ -79,3 +79,6 @@ venv.bak/
 
 # MacOS
 .DS_Store
+
+# Vim Trash
+*.un~
