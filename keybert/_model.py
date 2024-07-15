@@ -127,7 +127,7 @@ class KeyBERT:
                              NOTE: The `word_embeddings` should be generated through
                              `.extract_embeddings` as the order of these embeddings depend
                              on the vectorizer that was used to generate its vocabulary.
-            threshold: TODO
+            threshold: Minimum similarity value between 0 and 1 used to decide how similar documents need to receive the same keywords.
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
