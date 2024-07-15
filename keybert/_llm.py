@@ -44,7 +44,7 @@ class KeyLLM:
             docs: The document(s) for which to extract keywords/keyphrases
             check_vocab: Only return keywords that appear exactly in the documents
             candidate_keywords: Candidate keywords for each document
-            threshold: TODO
+            threshold: Minimum similarity value between 0 and 1 used to decide how similar documents need to receive the same keywords.
             embeddings: TODO
 
         Returns:
