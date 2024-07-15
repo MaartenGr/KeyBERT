@@ -45,7 +45,7 @@ class KeyLLM:
             check_vocab: Only return keywords that appear exactly in the documents
             candidate_keywords: Candidate keywords for each document
             threshold: Minimum similarity value between 0 and 1 used to decide how similar documents need to receive the same keywords.
-            embeddings: TODO
+            embeddings: The embeddings of each document.
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
