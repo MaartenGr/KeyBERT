@@ -58,7 +58,7 @@ class KeyBERT:
                     You can also pass in a string that points to one of the following
                     sentence-transformers models:
                       * https://www.sbert.net/docs/pretrained_models.html
-            llm: TODO
+            llm: The Large Language Model used to extract keywords
         """
         self.model = select_backend(model)
 
