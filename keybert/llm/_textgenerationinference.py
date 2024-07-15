@@ -96,7 +96,7 @@ class TextGenerationInference(BaseLLM):
                         For example, it will create a nicer representation of
                         the candidate keywords, remove redundant keywords, or
                         shorten them depending on the input prompt.
-            inference_kwargs: TODO
+            inference_kwargs: kwargs for `InferenceClient.text_generation`. See: https://huggingface.co/docs/huggingface_hub/package_reference/inference_client
 
         Returns:
             all_keywords: All keywords for each document
