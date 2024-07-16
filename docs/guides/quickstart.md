@@ -78,9 +78,9 @@ keywords = kw_model.extract_keywords(doc, highlight=True)
 
 ## **Fine-tuning**
 
-As a default, KeyBERT simply compares the documents and candidate keywords/keyphrases based on their cosine similarity. However, this might lead 
-to very similar words ending up in the list of most accurate keywords/keyphrases. To make sure they are a bit more diversified, there are two 
-approaches that we can take in order to fine-tune our output, **Max Sum Distance** and **Maximal Marginal Relevance**. 
+As a default, KeyBERT simply compares the documents and candidate keywords/keyphrases based on their cosine similarity. However, this might lead
+to very similar words ending up in the list of most accurate keywords/keyphrases. To make sure they are a bit more diversified, there are two
+approaches that we can take in order to fine-tune our output, **Max Sum Distance** and **Maximal Marginal Relevance**.
 
 ###  **Max Sum Distance**
 
@@ -165,8 +165,8 @@ keywords = kw_model.extract_keywords(doc, seed_keywords=seed_keywords)
 
 ## **Prepare embeddings**
 
-When you have a large dataset and you want to fine-tune parameters such as `diversity` it can take quite a while to re-calculate the document and 
-word embeddings each time you change a parameter. Instead, we can pre-calculate these embeddings and pass them to `.extract_keywords` such that 
+When you have a large dataset and you want to fine-tune parameters such as `diversity` it can take quite a while to re-calculate the document and
+word embeddings each time you change a parameter. Instead, we can pre-calculate these embeddings and pass them to `.extract_keywords` such that
 we only have to calculate it once:
 
 
@@ -183,15 +183,15 @@ You can then use these embeddings and pass them to `.extract_keywords` to speed 
 keywords = kw_model.extract_keywords(docs, doc_embeddings=doc_embeddings, word_embeddings=word_embeddings)
 ```
 
-There are several parameters in `.extract_embeddings` that define how the list of candidate keywords/keyphrases is generated:   
+There are several parameters in `.extract_embeddings` that define how the list of candidate keywords/keyphrases is generated:
 
 * `candidates`
 * `keyphrase_ngram_range`
-* `stop_words` 
+* `stop_words`
 * `min_df`
 * `vectorizer`
 
-The values of these parameters need to be exactly the same in `.extract_embeddings` as they are in `. extract_keywords`. 
+The values of these parameters need to be exactly the same in `.extract_embeddings` as they are in `. extract_keywords`.
 
 In other words, the following will work as they use the same parameter subset:
 
@@ -200,8 +200,8 @@ from keybert import KeyBERT
 
 kw_model = KeyBERT()
 doc_embeddings, word_embeddings = kw_model.extract_embeddings(docs, min_df=1, stop_words="english")
-keywords = kw_model.extract_keywords(docs, min_df=1, stop_words="english", 
-                                     doc_embeddings=doc_embeddings, 
+keywords = kw_model.extract_keywords(docs, min_df=1, stop_words="english",
+                                     doc_embeddings=doc_embeddings,
                                      word_embeddings=word_embeddings)
 ```
 
@@ -212,7 +212,7 @@ from keybert import KeyBERT
 
 kw_model = KeyBERT()
 doc_embeddings, word_embeddings = kw_model.extract_embeddings(docs, min_df=3, stop_words="dutch")
-keywords = kw_model.extract_keywords(docs, min_df=1, stop_words="english", 
-                                     doc_embeddings=doc_embeddings, 
+keywords = kw_model.extract_keywords(docs, min_df=1, stop_words="english",
+                                     doc_embeddings=doc_embeddings,
                                      word_embeddings=word_embeddings)
 ```

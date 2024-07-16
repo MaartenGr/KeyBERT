@@ -1,3 +1,5 @@
+# ruff: noqa: E402
+
 import warnings
 
 warnings.filterwarnings("ignore", category=FutureWarning)
@@ -13,15 +15,13 @@ from sklearn.feature_extraction.text import CountVectorizer
 from keybert._mmr import mmr
 from keybert._maxsum import max_sum_distance
 from keybert._highlight import highlight_document
-from keybert.backend._base import BaseEmbedder
 from keybert.backend._utils import select_backend
 from keybert.llm._base import BaseLLM
 from keybert import KeyLLM
 
 
 class KeyBERT:
-    """
-    A minimal method for keyword extraction with BERT
+    """A minimal method for keyword extraction with BERT.
 
     The keyword extraction is done by finding the sub-phrases in
     a document that are the most similar to the document itself.
@@ -44,7 +44,7 @@ class KeyBERT:
         model="all-MiniLM-L6-v2",
         llm: BaseLLM = None,
     ):
-        """KeyBERT initialization
+        """KeyBERT initialization.
 
         Arguments:
             model: Use a custom embedding model or a specific KeyBERT Backend.
@@ -58,6 +58,7 @@ class KeyBERT:
                     You can also pass in a string that points to one of the following
                     sentence-transformers models:
                       * https://www.sbert.net/docs/pretrained_models.html
+            llm: The Large Language Model used to extract keywords
         """
         self.model = select_backend(model)
 
@@ -85,7 +86,7 @@ class KeyBERT:
         word_embeddings: np.array = None,
         threshold: float = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
-        """Extract keywords and/or keyphrases
+        """Extract keywords and/or keyphrases.
 
         To get the biggest speed-up, make sure to pass multiple documents
         at once instead of iterating over a single document.
@@ -126,6 +127,7 @@ class KeyBERT:
                              NOTE: The `word_embeddings` should be generated through
                              `.extract_embeddings` as the order of these embeddings depend
                              on the vectorizer that was used to generate its vocabulary.
+            threshold: Minimum similarity value between 0 and 1 used to decide how similar documents need to receive the same keywords.
 
         Returns:
             keywords: The top n keywords for a document with their respective distances
@@ -199,26 +201,18 @@ class KeyBERT:
         # Guided KeyBERT either local (keywords shared among documents) or global (keywords per document)
         if seed_keywords is not None:
             if isinstance(seed_keywords[0], str):
-                seed_embeddings = self.model.embed(seed_keywords).mean(
-                    axis=0, keepdims=True
-                )
+                seed_embeddings = self.model.embed(seed_keywords).mean(axis=0, keepdims=True)
             elif len(docs) != len(seed_keywords):
-                raise ValueError(
-                    "The length of docs must match the length of seed_keywords"
-                )
+                raise ValueError("The length of docs must match the length of seed_keywords")
             else:
                 seed_embeddings = np.vstack(
-                    [
-                        self.model.embed(keywords).mean(axis=0, keepdims=True)
-                        for keywords in seed_keywords
-                    ]
+                    [self.model.embed(keywords).mean(axis=0, keepdims=True) for keywords in seed_keywords]
                 )
             doc_embeddings = (doc_embeddings * 3 + seed_embeddings) / 4
 
         # Find keywords
         all_keywords = []
         for index, _ in enumerate(docs):
-
             try:
                 # Select embeddings
                 candidate_indices = df[index].nonzero()[1]
@@ -276,9 +270,7 @@ class KeyBERT:
             if isinstance(all_keywords[0], tuple):
                 candidate_keywords = [[keyword[0] for keyword in all_keywords]]
             else:
-                candidate_keywords = [
-                    [keyword[0] for keyword in keywords] for keywords in all_keywords
-                ]
+                candidate_keywords = [[keyword[0] for keyword in keywords] for keywords in all_keywords]
             keywords = self.llm.extract_keywords(
                 docs,
                 embeddings=doc_embeddings,

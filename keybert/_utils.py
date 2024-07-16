@@ -1,6 +1,5 @@
 class NotInstalled:
-    """
-    This object is used to notify the user that additional dependencies need to be
+    """This object is used to notify the user that additional dependencies need to be
     installed in order to use the string matching model.
     """
 

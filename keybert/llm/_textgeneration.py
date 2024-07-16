@@ -15,7 +15,7 @@ Please give me the keywords that are present in this document and separate them 
 
 
 class TextGeneration(BaseLLM):
-    """ Text2Text or text generation with transformers
+    """Text2Text or text generation with transformers.
 
     NOTE: The resulting keywords are expected to be separated by commas so
     any changes to the prompt will have to make sure that the resulting
@@ -70,29 +70,33 @@ class TextGeneration(BaseLLM):
     llm = TextGeneration(generator)
     ```
     """
-    def __init__(self,
-                 model: Union[str, pipeline],
-                 prompt: str = None,
-                 pipeline_kwargs: Mapping[str, Any] = {},
-                 random_state: int = 42,
-                 verbose: bool = False
-                 ):
+
+    def __init__(
+        self,
+        model: Union[str, pipeline],
+        prompt: str = None,
+        pipeline_kwargs: Mapping[str, Any] = {},
+        random_state: int = 42,
+        verbose: bool = False,
+    ):
         set_seed(random_state)
         if isinstance(model, str):
             self.model = pipeline("text-generation", model=model)
         elif isinstance(model, Pipeline):
             self.model = model
         else:
-            raise ValueError("Make sure that the HF model that you"
-                             "pass is either a string referring to a"
-                             "HF model or a `transformers.pipeline` object.")
+            raise ValueError(
+                "Make sure that the HF model that you"
+                "pass is either a string referring to a"
+                "HF model or a `transformers.pipeline` object."
+            )
         self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
         self.default_prompt_ = DEFAULT_PROMPT
         self.pipeline_kwargs = pipeline_kwargs
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
-        """ Extract topics
+        """Extract topics.
 
         Arguments:
             documents: The documents to extract keywords from

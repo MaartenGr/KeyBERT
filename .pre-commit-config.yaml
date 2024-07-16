@@ -11,15 +11,9 @@ repos:
     -   id: end-of-file-fixer
     -   id: check-yaml
     -   id: check-added-large-files
--   repo: https://github.com/PyCQA/flake8
-    rev: 7.1.0
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.1
     hooks:
-    -   id: flake8
--   repo: https://github.com/psf/black
-    rev: 24.4.2
-    hooks:
-      - id: black
-        exclude: |
-            (?x)^(
-                README.md
-            )$
+    -   id: ruff
+        args: [--fix, --show-fixes, --exit-non-zero-on-fix]
+    -   id: ruff-format

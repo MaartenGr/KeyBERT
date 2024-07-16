@@ -11,7 +11,7 @@ def max_sum_distance(
     top_n: int,
     nr_candidates: int,
 ) -> List[Tuple[str, float]]:
-    """Calculate Max Sum Distance for extraction of keywords
+    """Calculate Max Sum Distance for extraction of keywords.
 
     We take the 2 x top_n most similar words/phrases to the document.
     Then, we take all top_n combinations from the 2 x top_n words and
@@ -31,10 +31,7 @@ def max_sum_distance(
          List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
     """
     if nr_candidates < top_n:
-        raise Exception(
-            "Make sure that the number of candidates exceeds the number "
-            "of keywords to return."
-        )
+        raise Exception("Make sure that the number of candidates exceeds the number " "of keywords to return.")
     elif top_n > len(words):
         return []
 
@@ -51,14 +48,9 @@ def max_sum_distance(
     min_sim = 100_000
     candidate = None
     for combination in itertools.combinations(range(len(words_idx)), top_n):
-        sim = sum(
-            [candidates[i][j] for i in combination for j in combination if i != j]
-        )
+        sim = sum([candidates[i][j] for i in combination for j in combination if i != j])
         if sim < min_sim:
             candidate = combination
             min_sim = sim
 
-    return [
-        (words_vals[idx], round(float(distances[0][words_idx[idx]]), 4))
-        for idx in candidate
-    ]
+    return [(words_vals[idx], round(float(distances[0][words_idx[idx]]), 4)) for idx in candidate]

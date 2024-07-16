@@ -8,9 +8,9 @@ from keybert.backend import BaseEmbedder
 
 
 class FlairBackend(BaseEmbedder):
-    """Flair Embedding Model
-    The Flair embedding model used for generating document and
-    word embeddings.
+    """Flair Embedding Model.
+
+    The Flair embedding model used for generating document and word embeddings.
 
     Arguments:
         embedding_model: A Flair embedding model
@@ -60,14 +60,12 @@ class FlairBackend(BaseEmbedder):
             verbose: Controls the verbosity of the process
         Returns:
             Document/words embeddings with shape (n, m) with `n` documents/words
-            that each have an embeddings size of `m`
+            that each have an embeddings size of `m`.
         """
         embeddings = []
         for index, document in tqdm(enumerate(documents), disable=not verbose):
             try:
-                sentence = (
-                    Sentence(document) if document else Sentence("an empty document")
-                )
+                sentence = Sentence(document) if document else Sentence("an empty document")
                 self.embedding_model.embed(sentence)
             except RuntimeError:
                 sentence = Sentence("an empty document")

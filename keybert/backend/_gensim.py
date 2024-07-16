@@ -8,7 +8,7 @@ from gensim.models.keyedvectors import Word2VecKeyedVectors
 
 
 class GensimBackend(BaseEmbedder):
-    """Gensim Embedding Model
+    """Gensim Embedding Model.
 
     The Gensim embedding model is typically used for word embeddings with
     GloVe, Word2Vec or FastText.
@@ -40,8 +40,7 @@ class GensimBackend(BaseEmbedder):
             )
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
-        """Embed a list of n documents/words into an n-dimensional
-        matrix of embeddings
+        """Embed a list of n documents/words into an n-dimensional matrix of embeddings.
 
         Arguments:
             documents: A list of documents or words to be embedded

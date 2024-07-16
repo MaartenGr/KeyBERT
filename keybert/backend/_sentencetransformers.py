@@ -6,9 +6,9 @@ from keybert.backend import BaseEmbedder
 
 
 class SentenceTransformerBackend(BaseEmbedder):
-    """Sentence-transformers embedding model
-    The sentence-transformers embedding model used for generating document and
-    word embeddings.
+    """Sentence-transformers embedding model.
+
+    The sentence-transformers embedding model used for generating document and word embeddings.
 
     Arguments:
         embedding_model: A sentence-transformers embedding model
@@ -34,9 +34,7 @@ class SentenceTransformerBackend(BaseEmbedder):
     ```
     """
 
-    def __init__(
-        self, embedding_model: Union[str, SentenceTransformer], **encode_kwargs
-    ):
+    def __init__(self, embedding_model: Union[str, SentenceTransformer], **encode_kwargs):
         super().__init__()
 
         if isinstance(embedding_model, SentenceTransformer):
@@ -53,7 +51,7 @@ class SentenceTransformerBackend(BaseEmbedder):
 
     def embed(self, documents: List[str], verbose: bool = False) -> np.ndarray:
         """Embed a list of n documents/words into an n-dimensional
-        matrix of embeddings
+        matrix of embeddings.
 
         Arguments:
             documents: A list of documents or words to be embedded
