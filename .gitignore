@@ -53,7 +53,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-
 # Jupyter Notebook
 .ipynb_checkpoints
 
@@ -79,3 +78,6 @@ venv.bak/
 
 # MacOS
 .DS_Store
+
+# ruff
+.ruff_cache
