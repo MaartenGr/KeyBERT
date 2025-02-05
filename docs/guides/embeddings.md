@@ -20,6 +20,34 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
+### **Model2Vec**
+
+For blazingly fast embedding models, [Model2Vec](https://github.com/MinishLab/model2vec) is an incredible framework. To use it KeyBERT, you only need to pass their `StaticModel`:
+
+```python
+from keybert import KeyBERT
+from model2vec import StaticModel
+
+embedding_model = StaticModel.from_pretrained("minishlab/potion-base-8M")
+kw_model = KeyBERT(embedding_model)
+```
+
+If you want to distill a sentence-transformers model with the vocabulary of the documents,
+run the following:
+
+```python
+from keybert.backend import Model2VecBackend
+
+embedding_model = Model2VecBackend("sentence-transformers/all-MiniLM-L6-v2", distill=True)
+```
+
+Note that this is especially helpful if you have a very large dataset (I wouldn't recommend it with small datasets).
+
+!!! Tip
+    If you also want to have a light-weight installation without (sentence-)transformers, you can install KeyBERT as follows:
+    `pip install keybert --no-deps scikit-learn model2vec`
+    This will make the installation much smaller and the import much quicker.
+
 ### 🤗 **Hugging Face Transformers**
 To use a Hugging Face transformers model, load in a pipeline and point
 to any model found on their model hub (https://huggingface.co/models):
