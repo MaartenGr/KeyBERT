@@ -3,6 +3,35 @@ hide:
   - navigation
 ---
 
+## **Version 0.9.0**
+*Release date: 05 Februari, 2025*
+
+**Model2Vec**
+
+You can use Model2Vec for blazingly fast embedding as follows:
+
+```python
+from keybert import KeyBERT
+from model2vec import StaticModel
+
+embedding_model = StaticModel.from_pretrained("minishlab/potion-base-8M")
+kw_model = KeyBERT(embedding_model)
+```
+
+**Light-weight KeyBERT**
+
+You can now install a light-weight KeyBERT with:
+
+`pip install keybert --no-deps scikit-learn model2vec`
+
+**Fixes**
+
+* Add Model2Vec & light-weight installation in [#253](https://github.com/MaartenGr/KeyBERT/pull/253)
+* Add Text Generation Inference with JSON output by [@joaomsimoes](https://github.com/joaomsimoes) in [#235](https://github.com/MaartenGr/KeyBERT/pull/235)
+* Update pre-commit hooks [@afuetterer](https://github.com/afuetterer) in [#237](https://github.com/MaartenGr/KeyBERT/pull/237)
+* Set up lint job using pre-commit/action [@afuetterer](https://github.com/afuetterer) in [#238](https://github.com/MaartenGr/KeyBERT/pull/238)
+
+
 
 ## **Version 0.8.5**
 *Release date: 14 June, 2024*
