@@ -11,7 +11,7 @@ class NotInstalled:
         if custom_msg is not None:
             msg += custom_msg
         else:
-            msg += f"pip install bertopic[{self.dep}]\n\n"
+            msg += f"pip install keybert[{self.dep}]\n\n"
         self.msg = msg
 
     def __getattr__(self, *args, **kwargs):

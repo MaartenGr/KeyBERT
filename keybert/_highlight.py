@@ -1,14 +1,13 @@
 from typing import Tuple, List
-from rich.console import Console
-from rich.highlighter import RegexHighlighter
+
+try:
+    from rich.console import Console
+
+    HAS_RICH = True
+except ModuleNotFoundError:
+    HAS_RICH = False
+
 from sklearn.feature_extraction.text import CountVectorizer
-
-
-class NullHighlighter(RegexHighlighter):
-    """Basic highlighter."""
-
-    base_style = ""
-    highlights = [r""]
 
 
 def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: CountVectorizer):
@@ -24,6 +23,10 @@ def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: 
         highlighted_text: The document with additional tags to highlight keywords
                           according to the rich package.
     """
+    if not HAS_RICH:
+        raise ModuleNotFoundError(
+            "The `rich` package is required for highlighting which you can install with `pip install rich`."
+        )
     keywords_only = [keyword for keyword, _ in keywords]
     max_len = vectorizer.ngram_range[1]
 
@@ -31,6 +34,14 @@ def highlight_document(doc: str, keywords: List[Tuple[str, float]], vectorizer: 
         highlighted_text = _highlight_one_gram(doc, keywords_only, vectorizer)
     else:
         highlighted_text = _highlight_n_gram(doc, keywords_only, vectorizer)
+
+    from rich.highlighter import RegexHighlighter
+
+    class NullHighlighter(RegexHighlighter):
+        """Basic highlighter."""
+
+        base_style = ""
+        highlights = [r""]
 
     console = Console(highlighter=NullHighlighter())
     console.print(highlighted_text)

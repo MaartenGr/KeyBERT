@@ -13,6 +13,12 @@ def select_backend(embedding_model) -> BaseEmbedder:
     if isinstance(embedding_model, BaseEmbedder):
         return embedding_model
 
+    # Model2Vec embeddings
+    if "model2vec" in str(type(embedding_model)):
+        from keybert.backend._model2vec import Model2VecBackend
+
+        return Model2VecBackend(embedding_model)
+
     # Flair word embeddings
     if "flair" in str(type(embedding_model)):
         from keybert.backend._flair import FlairBackend
