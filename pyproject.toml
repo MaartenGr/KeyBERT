@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "keybert"
-version = "0.8.5"
+version = "0.9.0"
 description = "KeyBERT performs keyword extraction with state-of-the-art transformer models."
 readme = "README.md"
 license = {file = "LICENSE"}
