@@ -1,3 +1,4 @@
+[![PyPI Downloads](https://static.pepy.tech/badge/keybert)](https://pepy.tech/projects/keybert)
 [![PyPI - Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/keybert/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/keyBERT)](https://pypi.org/project/keybert/)
