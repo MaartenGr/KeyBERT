@@ -258,7 +258,8 @@ class KeyBERT:
         if len(all_keywords) == 1:
             if highlight:
                 highlight_document(docs[0], all_keywords[0], count)
-            all_keywords = all_keywords[0]
+            # Remove this line to maintain list of lists structure even when a list is passed with single element
+            # all_keywords = all_keywords[0]
 
         # Fine-tune keywords using an LLM
         if self.llm is not None:
