@@ -19,7 +19,7 @@ Use the candidate keywords to guide your extraction.
 
 
 Now extract the keywords from the document.
-Your output must be a list of comma-separated keywords.
+The keywords must be comma separated .
 """
 
 
@@ -55,8 +55,8 @@ class LangChain(BaseLLM):
         api_key="my-openai-api-key",
         temperature=0,
     )
-    _prompt = PromptTemplate.from_template(LangChain.DEFAULT_PROMPT_TEMPLATE) # the default prompt from KeyBERT
-    chain = _prompt | _llm
+    _prompt = PromptTemplate.from_template(LangChain.DEFAULT_PROMPT_TEMPLATE)  # the default prompt from KeyBERT
+    chain = _prompt | _llm | StrOutputParser()
     ```
 
     Finally, you can pass the chain to KeyBERT as follows:
@@ -71,9 +71,18 @@ class LangChain(BaseLLM):
     # Load it in KeyLLM
     kw_model = KeyLLM(llm)
 
-    document = "The website mentions that it only takes a couple of days to deliver but I still have not received mine."
-    candidates = ["days", "website", "deliver", "received"]
-    keywords = kw_model.extract_keywords(document)
+    # Extract keywords
+    docs = [
+        "KeyBERT: A minimal method for keyword extraction with BERT. The keyword extraction is done by finding the sub-phrases in a document that are the most similar to the document itself. First, document embeddings are extracted with BERT to get a document-level representation. Then, word embeddings are extracted for N-gram words/phrases. Finally, we use cosine similarity to find the words/phrases that are the most similar to the document. The most similar words could then be identified as the words that best describe the entire document.",
+        "KeyLLM: A minimal method for keyword extraction with Large Language Models (LLM). The keyword extraction is done by simply asking the LLM to extract a number of keywords from a single piece of text.",
+    ]
+    candidates = [
+        ["keyword extraction", "Large Language Models", "LLM", "BERT", "transformer", "embeddings"],
+        ["keyword extraction", "Large Language Models", "LLM", "BERT", "transformer", "embeddings"],
+    ]
+    keywords = kw_model.extract_keywords(docs=docs, candidate_keywords=candidates)
+    print(keywords)
+    # [['keyword extraction', 'BERT', 'embeddings'], ['keyword extraction', 'Large Language Models', 'LLM']]
     ```
 
     You can also use a custom prompt:
