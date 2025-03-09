@@ -1,27 +1,37 @@
-from tqdm import tqdm
 from typing import List
-from langchain.docstore.document import Document
+
+from tqdm import tqdm
+
 from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 
+DEFAULT_PROMPT_TEMPLATE = """
+# Task
+You are provided with a document and a list of candidate keywords.
+Your task to is extract keywords from the document.
+Use the candidate keywords to guide your extraction.
 
-DEFAULT_PROMPT = "What is this document about? Please provide keywords separated by commas."
+# Document
+{DOCUMENT}
+
+# Candidate Keywords
+{CANDIDATES}
+
+
+Now extract the keywords from the document.
+Your output must be a list of comma-separated keywords.
+"""
 
 
 class LangChain(BaseLLM):
     """Using chains in langchain to generate keywords.
 
-    Currently, only chains from question answering is implemented. See:
-    https://langchain.readthedocs.io/en/latest/modules/chains/combine_docs_examples/question_answering.html
 
-    NOTE: The resulting keywords are expected to be separated by commas so
-    any changes to the prompt will have to make sure that the resulting
-    keywords are comma-separated.
+    NOTE: The resulting keywords are expected to a list of comma-sparated str so
+    any changes to the prompt will have to ensure the foramt.
 
     Arguments:
         chain: A langchain chain that has two input parameters, `input_documents` and `query`.
-        prompt: The prompt to be used in the model. If no prompt is given,
-                `self.default_prompt_` is used instead.
         verbose: Set this to True if you want to see a progress bar for the
                  keyword extraction.
 
@@ -32,14 +42,21 @@ class LangChain(BaseLLM):
     like openai:
 
     `pip install langchain`
-    `pip install openai`
+    `pip install langchain-openai`
 
     Then, you can create your chain as follows:
 
     ```python
-    from langchain.chains.question_answering import load_qa_chain
-    from langchain.llms import OpenAI
-    chain = load_qa_chain(OpenAI(temperature=0, openai_api_key=my_openai_api_key), chain_type="stuff")
+    from langchain.prompts import PromptTemplate
+    from langchain_core.output_parsers import StrOutputParser
+    from langchain_openai import ChatOpenAI
+    _llm = ChatOpenAI(
+        model="gpt-4o",
+        api_key="my-openai-api-key",
+        temperature=0,
+    )
+    _prompt = PromptTemplate.from_template(LangChain.DEFAULT_PROMPT_TEMPLATE) # the default prompt from KeyBERT
+    chain = _prompt | _llm
     ```
 
     Finally, you can pass the chain to KeyBERT as follows:
@@ -54,8 +71,8 @@ class LangChain(BaseLLM):
     # Load it in KeyLLM
     kw_model = KeyLLM(llm)
 
-    # Extract keywords
     document = "The website mentions that it only takes a couple of days to deliver but I still have not received mine."
+    candidates = ["days", "website", "deliver", "received"]
     keywords = kw_model.extract_keywords(document)
     ```
 
@@ -67,15 +84,14 @@ class LangChain(BaseLLM):
     ```
     """
 
+    DEFAULT_PROMPT_TEMPLATE = DEFAULT_PROMPT_TEMPLATE
+
     def __init__(
         self,
         chain,
-        prompt: str = None,
         verbose: bool = False,
     ):
         self.chain = chain
-        self.prompt = prompt if prompt is not None else DEFAULT_PROMPT
-        self.default_prompt_ = DEFAULT_PROMPT
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
@@ -95,11 +111,7 @@ class LangChain(BaseLLM):
         candidate_keywords = process_candidate_keywords(documents, candidate_keywords)
 
         for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
-            prompt = self.prompt.replace("[DOCUMENT]", document)
-            if candidates is not None:
-                prompt = prompt.replace("[CANDIDATES]", ", ".join(candidates))
-            input_document = Document(page_content=document)
-            keywords = self.chain.run(input_documents=[input_document], question=self.prompt).strip()
+            keywords = self.chain.invoke({"DOCUMENT": document, "CANDIDATES": candidates})
             keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
