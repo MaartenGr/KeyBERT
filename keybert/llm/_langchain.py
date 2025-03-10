@@ -50,6 +50,9 @@ class LangChain(BaseLLM):
     from langchain.prompts import ChatPromptTemplate
     from langchain_core.output_parsers import StrOutputParser
     from langchain_openai import ChatOpenAI
+
+    from keybert.llm import LangChain
+
     _llm = ChatOpenAI(
         model="gpt-4o",
         api_key="my-openai-api-key",
