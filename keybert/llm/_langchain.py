@@ -47,7 +47,7 @@ class LangChain(BaseLLM):
     Then, you can create your chain as follows:
 
     ```python
-    from langchain.prompts import PromptTemplate
+    from langchain.prompts import ChatPromptTemplate
     from langchain_core.output_parsers import StrOutputParser
     from langchain_openai import ChatOpenAI
     _llm = ChatOpenAI(
@@ -55,7 +55,11 @@ class LangChain(BaseLLM):
         api_key="my-openai-api-key",
         temperature=0,
     )
-    _prompt = PromptTemplate.from_template(LangChain.DEFAULT_PROMPT_TEMPLATE)  # the default prompt from KeyBERT
+    _prompt = ChatPromptTemplate(
+        [
+            ("human", LangChain.DEFAULT_PROMPT_TEMPLATE),  # the default prompt from KeyBERT
+        ]
+    )
     chain = _prompt | _llm | StrOutputParser()
     ```
 
