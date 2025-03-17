@@ -19,13 +19,21 @@ class LangChain(BaseLLM):
     """Using chains in langchain to generate keywords.
 
 
-    NOTE: The resulting keywords are expected to a list of comma-sparated str so
-    any changes to the prompt will have to ensure the foramt.
+
 
     Arguments:
-        chain: A langchain chain that has two input parameters, `input_documents` and `query`.
+        llm: A langchain LLM class. e.g ChatOpenAI, OpenAI, etc.
+        prompt: The prompt to be used in the model. If no prompt is given,
+                `self.DEFAULT_PROMPT_TEMPLATE` is used instead.
+                NOTE:
+                1. Placeholders
+                - [DOCUMENT]: Required. The document to extract keywords from.
+                - [CANDIDATES]: Optional. The candidate keywords to fine-tune the extraction.
+                2. Output format instructions
+                - The resulting keywords are expected to a list of comma-sparated str so ensure the foramt in your prompt.
+                    e.g. "The output must be a list of comma separated keywords."
         verbose: Set this to True if you want to see a progress bar for the
-                 keyword extraction.
+                keyword extraction.
 
     Usage:
 
@@ -39,23 +47,13 @@ class LangChain(BaseLLM):
     Then, you can create your chain as follows:
 
     ```python
-    from langchain.prompts import ChatPromptTemplate
-    from langchain_core.output_parsers import StrOutputParser
     from langchain_openai import ChatOpenAI
-
-    from keybert.llm import LangChain
 
     _llm = ChatOpenAI(
         model="gpt-4o",
         api_key="my-openai-api-key",
         temperature=0,
     )
-    _prompt = ChatPromptTemplate(
-        [
-            ("human", LangChain.DEFAULT_PROMPT_TEMPLATE),  # the default prompt from KeyBERT
-        ]
-    )
-    chain = _prompt | _llm | StrOutputParser()
     ```
 
     Finally, you can pass the chain to KeyBERT as follows:
@@ -65,7 +63,7 @@ class LangChain(BaseLLM):
     from keybert import KeyLLM
 
     # Create your LLM
-    llm = LangChain(chain)
+    llm = LangChain(_llm)
 
     # Load it in KeyLLM
     kw_model = KeyLLM(llm)
@@ -75,13 +73,29 @@ class LangChain(BaseLLM):
         "KeyBERT: A minimal method for keyword extraction with BERT. The keyword extraction is done by finding the sub-phrases in a document that are the most similar to the document itself. First, document embeddings are extracted with BERT to get a document-level representation. Then, word embeddings are extracted for N-gram words/phrases. Finally, we use cosine similarity to find the words/phrases that are the most similar to the document. The most similar words could then be identified as the words that best describe the entire document.",
         "KeyLLM: A minimal method for keyword extraction with Large Language Models (LLM). The keyword extraction is done by simply asking the LLM to extract a number of keywords from a single piece of text.",
     ]
+    keywords = kw_model.extract_keywords(docs=docs)
+    print(keywords)
+
+    # Output:
+    # [
+    #     ['KeyBERT', 'keyword extraction', 'BERT', 'document embeddings', 'word embeddings', 'N-gram phrases', 'cosine similarity', 'document representation'],
+    #     ['KeyLLM', 'keyword extraction', 'Large Language Models', 'LLM', 'minimal method']
+    # ]
+
+
+    # fine tune with candidate keywords
     candidates = [
         ["keyword extraction", "Large Language Models", "LLM", "BERT", "transformer", "embeddings"],
         ["keyword extraction", "Large Language Models", "LLM", "BERT", "transformer", "embeddings"],
     ]
     keywords = kw_model.extract_keywords(docs=docs, candidate_keywords=candidates)
     print(keywords)
-    # [['keyword extraction', 'BERT', 'embeddings'], ['keyword extraction', 'Large Language Models', 'LLM']]
+
+    # Output:
+    # [
+    #     ['keyword extraction', 'BERT', 'document embeddings', 'word embeddings', 'cosine similarity', 'N-gram phrases'],
+    #     ['KeyLLM', 'keyword extraction', 'Large Language Models', 'LLM']
+    # ]
     ```
 
     You can also use a custom prompt:
@@ -100,10 +114,10 @@ If no candidate keywords are provided, your task to is extract keywords from the
 If candidate keywords are provided, your task is  to improve the candidate keywords to best describe the topic of the document.
 
 # Document
-{DOCUMENT}
+[DOCUMENT]
 
 # Candidate Keywords
-{CANDIDATES}
+[CANDIDATES]
 
 
 Now extract the keywords from the document.
@@ -117,11 +131,9 @@ The keywords must be comma separated.
         verbose: bool = False,
     ):
         self.llm = llm
-        self.prompt = (
-            prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
-            if prompt is not None
-            else self.DEFAULT_PROMPT_TEMPLATE
-        )
+        self.prompt = prompt if prompt is not None else self.DEFAULT_PROMPT_TEMPLATE
+        # format for langchain template placeholders
+        self.prompt = self.prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
 
         if isinstance(llm, LCChatModel):
             # a chat model (modern ones)
