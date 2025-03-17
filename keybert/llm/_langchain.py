@@ -1,25 +1,17 @@
 from typing import List
 
+from langchain.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.language_models.chat_models import BaseChatModel as LCChatModel
+from langchain_core.language_models.llms import BaseLLM as LCBaseLLM
+from langchain_core.output_parsers import CommaSeparatedListOutputParser
 from tqdm import tqdm
 
 from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 
-DEFAULT_PROMPT_TEMPLATE = """
-# Task
-You are provided with a document and a list of candidate keywords.
-Your task to is extract keywords from the document.
-Use the candidate keywords to guide your extraction.
-
-# Document
-{DOCUMENT}
-
-# Candidate Keywords
-{CANDIDATES}
-
-
-Now extract the keywords from the document.
-The keywords must be comma separated .
+"""NOTE: langchain >= 0.1 is required. Which supports:
+- chain.invoke()
+- LangChain Expression Language (LCEL) is used and it is not compatible with langchain < 0.1.
 """
 
 
@@ -100,14 +92,46 @@ class LangChain(BaseLLM):
     ```
     """
 
-    DEFAULT_PROMPT_TEMPLATE = DEFAULT_PROMPT_TEMPLATE
+    DEFAULT_PROMPT_TEMPLATE = """
+# Task
+You are provided with a document and possiblily a list of candidate keywords.
+
+If no candidate keywords are provided, your task to is extract keywords from the document.
+If candidate keywords are provided, your task is  to improve the candidate keywords to best describe the topic of the document.
+
+# Document
+{DOCUMENT}
+
+# Candidate Keywords
+{CANDIDATES}
+
+
+Now extract the keywords from the document.
+The keywords must be comma separated.
+"""
 
     def __init__(
         self,
-        chain,
+        llm: LCChatModel | LCBaseLLM,
+        prompt: str = None,
         verbose: bool = False,
     ):
-        self.chain = chain
+        self.llm = llm
+        self.prompt = (
+            prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
+            if prompt is not None
+            else self.DEFAULT_PROMPT_TEMPLATE
+        )
+
+        if isinstance(llm, LCChatModel):
+            # a chat model (modern ones)
+            self.chain = ChatPromptTemplate([("human", self.prompt)]) | llm | CommaSeparatedListOutputParser()
+        elif isinstance(llm, LCBaseLLM):
+            # a completion model (usually legacy)
+            self.chain = PromptTemplate(template=self.prompt) | llm | CommaSeparatedListOutputParser()
+        else:
+            raise ValueError("A LangChain LLM must be either a chat model or a completion model.")
+
         self.verbose = verbose
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
@@ -128,7 +152,6 @@ class LangChain(BaseLLM):
 
         for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             keywords = self.chain.invoke({"DOCUMENT": document, "CANDIDATES": candidates})
-            keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
         return all_keywords
