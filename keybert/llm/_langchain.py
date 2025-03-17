@@ -22,10 +22,10 @@ class LangChain(BaseLLM):
         llm: A langchain LLM class. e.g ChatOpenAI, OpenAI, etc.
         prompt: The prompt to be used in the model. If no prompt is given,
                 `self.DEFAULT_PROMPT_TEMPLATE` is used instead.
-                NOTE:
+                THe prompt should contain:
                 1. Placeholders
-                - [DOCUMENT]: Required. The document to extract keywords from.
-                - [CANDIDATES]: Optional. The candidate keywords to fine-tune the extraction.
+                - `[DOCUMENT]`: Required. The document to extract keywords from.
+                - `[CANDIDATES]`: Optional. The candidate keywords to fine-tune the extraction.
                 2. Output format instructions
                 - The resulting keywords are expected to a list of comma-sparated str so ensure the foramt in your prompt.
                     e.g. "The output must be a list of comma separated keywords."
