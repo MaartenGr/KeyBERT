@@ -28,9 +28,8 @@ class LangChain(BaseLLM):
                 - `[DOCUMENT]`: Required. The document to extract keywords from.
                 - `[CANDIDATES]`: Optional. The candidate keywords to fine-tune the extraction.
                 2. Output format instructions
-                - The prompt must include the output format instruction
-                    that extracted keywords should be sparated by comma.
-                    e.g. "The output must be a list of comma separated keywords."
+                - Include this or somethign similar in your prompt:
+                    "Extracted keywords must be separated by comma."
         verbose: Set this to True if you want to see a progress bar for the
                 keyword extraction.
 
