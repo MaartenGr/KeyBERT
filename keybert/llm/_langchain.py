@@ -3,7 +3,7 @@ from typing import List
 from langchain.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.language_models.chat_models import BaseChatModel as LCChatModel
 from langchain_core.language_models.llms import BaseLLM as LCBaseLLM
-from langchain_core.output_parsers import CommaSeparatedListOutputParser
+from langchain_core.output_parsers import StrOutputParser
 from tqdm import tqdm
 
 from keybert.llm._base import BaseLLM
@@ -23,12 +23,13 @@ class LangChain(BaseLLM):
         llm: A langchain LLM class. e.g ChatOpenAI, OpenAI, etc.
         prompt: The prompt to be used in the model. If no prompt is given,
                 `self.DEFAULT_PROMPT_TEMPLATE` is used instead.
-                THe prompt should contain:
+                NOTE: The prompt should contain:
                 1. Placeholders
                 - `[DOCUMENT]`: Required. The document to extract keywords from.
                 - `[CANDIDATES]`: Optional. The candidate keywords to fine-tune the extraction.
                 2. Output format instructions
-                - The resulting keywords are expected to a list of comma-sparated str so ensure the foramt in your prompt.
+                - The prompt must include the output format instruction
+                    that extracted keywords should be sparated by comma.
                     e.g. "The output must be a list of comma separated keywords."
         verbose: Set this to True if you want to see a progress bar for the
                 keyword extraction.
@@ -120,6 +121,7 @@ If candidate keywords are provided, your task is  to improve the candidate keywo
 
 Now extract the keywords from the document.
 The keywords must be comma separated.
+For example: "keyword1, keyword2, keyword3"
 """
 
     def __init__(
@@ -151,6 +153,7 @@ The keywords must be comma separated.
 
         for document, candidates in tqdm(zip(documents, candidate_keywords), disable=not self.verbose):
             keywords = self.chain.invoke({"DOCUMENT": document, "CANDIDATES": candidates})
+            keywords = [keyword.strip() for keyword in keywords.split(",")]
             all_keywords.append(keywords)
 
         return all_keywords
@@ -165,4 +168,4 @@ The keywords must be comma separated.
         prompt_template = ChatPromptTemplate([("human", prompt)]) if is_chat_model else PromptTemplate(template=prompt)
 
         # chain
-        return prompt_template | self.llm | CommaSeparatedListOutputParser()
+        return prompt_template | self.llm | StrOutputParser()
