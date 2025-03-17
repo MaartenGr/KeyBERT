@@ -9,7 +9,8 @@ from tqdm import tqdm
 from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 
-"""NOTE: langchain >= 0.1 is required. Which supports:
+"""NOTE
+langchain >= 0.1 is required. Which supports:
 - chain.invoke()
 - LangChain Expression Language (LCEL) is used and it is not compatible with langchain < 0.1.
 """
@@ -130,21 +131,7 @@ The keywords must be comma separated.
         self.llm = llm
         self.prompt = prompt if prompt is not None else self.DEFAULT_PROMPT_TEMPLATE
         self.verbose = verbose
-
-        # format prompt for langchain template placeholders
-        self.prompt = self.prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
-        # llm type check
-        assert isinstance(llm, (LCChatModel, LCBaseLLM)), (
-            "A LangChain LLM must be either a chat model or a completion model."
-        )
-        # langchain prompt template
-        prompt_template = (
-            ChatPromptTemplate([("human", self.prompt)])
-            if isinstance(llm, LCChatModel)
-            else PromptTemplate(template=self.prompt)
-        )
-        # chain
-        self.chain = prompt_template | llm | CommaSeparatedListOutputParser()
+        self.chain = self._get_chain()
 
     def extract_keywords(self, documents: List[str], candidate_keywords: List[List[str]] = None):
         """Extract topics.
@@ -167,3 +154,15 @@ The keywords must be comma separated.
             all_keywords.append(keywords)
 
         return all_keywords
+
+    def _get_chain(self):
+        """Get the chain using LLM and prompt."""
+        # format prompt for langchain template placeholders
+        prompt = self.prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
+
+        # langchain prompt template
+        is_chat_model = isinstance(self.llm, LCChatModel)
+        prompt_template = ChatPromptTemplate([("human", prompt)]) if is_chat_model else PromptTemplate(template=prompt)
+
+        # chain
+        return prompt_template | self.llm | CommaSeparatedListOutputParser()
