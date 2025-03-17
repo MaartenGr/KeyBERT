@@ -129,17 +129,18 @@ The keywords must be comma separated.
     ):
         self.llm = llm
         self.prompt = prompt if prompt is not None else self.DEFAULT_PROMPT_TEMPLATE
-        # format for langchain template placeholders
+        # format prompt for langchain template placeholders
         self.prompt = self.prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
 
-        if isinstance(llm, LCChatModel):
-            # a chat model (modern ones)
-            self.chain = ChatPromptTemplate([("human", self.prompt)]) | llm | CommaSeparatedListOutputParser()
-        elif isinstance(llm, LCBaseLLM):
-            # a completion model (usually legacy)
-            self.chain = PromptTemplate(template=self.prompt) | llm | CommaSeparatedListOutputParser()
-        else:
-            raise ValueError("A LangChain LLM must be either a chat model or a completion model.")
+        assert isinstance(llm, (LCChatModel, LCBaseLLM)), (
+            "A LangChain LLM must be either a chat model or a completion model."
+        )
+        prompt_template = (
+            ChatPromptTemplate([("human", self.prompt)])
+            if isinstance(llm, LCChatModel)
+            else PromptTemplate(template=self.prompt)
+        )
+        self.chain = prompt_template | llm | CommaSeparatedListOutputParser()
 
         self.verbose = verbose
 
