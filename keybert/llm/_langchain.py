@@ -1,8 +1,8 @@
 from typing import List
 
 from langchain.prompts import ChatPromptTemplate, PromptTemplate
-from langchain_core.language_models.chat_models import BaseChatModel as LCChatModel
-from langchain_core.language_models.llms import BaseLLM as LCBaseLLM
+from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
+from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
 from langchain_core.output_parsers import StrOutputParser
 from tqdm import tqdm
 
@@ -126,7 +126,7 @@ For example: "keyword1, keyword2, keyword3"
 
     def __init__(
         self,
-        llm: LCChatModel | LCBaseLLM,
+        llm: LangChainBaseChatModel | LangChainBaseLLM,
         prompt: str = None,
         verbose: bool = False,
     ):
@@ -162,10 +162,9 @@ For example: "keyword1, keyword2, keyword3"
         """Get the chain using LLM and prompt."""
         # format prompt for langchain template placeholders
         prompt = self.prompt.replace("[DOCUMENT]", "{DOCUMENT}").replace("[CANDIDATES]", "{CANDIDATES}")
-
+        # check if the model is a chat model
+        is_chat_model = isinstance(self.llm, LangChainBaseChatModel)
         # langchain prompt template
-        is_chat_model = isinstance(self.llm, LCChatModel)
         prompt_template = ChatPromptTemplate([("human", prompt)]) if is_chat_model else PromptTemplate(template=prompt)
-
         # chain
         return prompt_template | self.llm | StrOutputParser()
