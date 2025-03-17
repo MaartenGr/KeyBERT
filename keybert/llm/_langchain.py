@@ -18,9 +18,6 @@ from keybert.llm._utils import process_candidate_keywords
 class LangChain(BaseLLM):
     """Using chains in langchain to generate keywords.
 
-
-
-
     Arguments:
         llm: A langchain LLM class. e.g ChatOpenAI, OpenAI, etc.
         prompt: The prompt to be used in the model. If no prompt is given,
