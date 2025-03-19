@@ -172,32 +172,43 @@ kw_model = KeyLLM(llm)
 
 ### **LangChain**
 
-To use LangChain, we can simply load in any LLM and pass that as a QA-chain to KeyLLM.
+To use `langchain` LLM client in KeyLLM, we can simply load in any LLM in `langchain` and pass that to KeyLLM.
 
-We install the package first:
+We install langchain and corresponding LLM provider package first. Take OpenAI as an example:
 
 ```bash
 pip install langchain
+pip install langchain-openai # LLM provider package
 ```
+> [!NOTE] 
+> KeyBERT only supports `langchain >= 0.1`
 
-Then we run LangChain as follows:
+
+Then create your LLM client with `langchain`
 
 
 ```python
-from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
-chain = load_qa_chain(OpenAI(temperature=0, openai_api_key=my_openai_api_key), chain_type="stuff")
+from langchain_openai import ChatOpenAI
+
+_llm = ChatOpenAI(
+    model="gpt-4o",
+    api_key="my-openai-api-key",
+    temperature=0,
+)
 ```
 
-Finally, you can pass the chain to KeyBERT as follows:
+Finally, pass the `langchain` llm client to KeyBERT as follows:
 
 ```python
 from keybert.llm import LangChain
 from keybert import KeyLLM
 
 # Create your LLM
-llm = LangChain(chain)
+llm = LangChain(_llm)
 
 # Load it in KeyLLM
 kw_model = KeyLLM(llm)
+
+# Extract keywords
+keywords = kw_model.extract_keywords(MY_DOCUMENTS)
 ```
