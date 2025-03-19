@@ -1,18 +1,27 @@
 from typing import List
 
-from langchain.prompts import ChatPromptTemplate, PromptTemplate
-from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
-from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
-from langchain_core.output_parsers import StrOutputParser
+try:
+    import langchain
+    from langchain.prompts import ChatPromptTemplate, PromptTemplate
+    from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
+    from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
+    from langchain_core.output_parsers import StrOutputParser
+
+    assert langchain.__version__ >= "0.1"
+except ImportError as e:
+    raise ImportError("LangChain is not installed. Please install it using `pip install langchain`.") from e
+except AssertionError:
+    raise ImportError("LangChain version >= 0.1 is required. Please update it using `pip install --upgrade langchain`.")
+
 from tqdm import tqdm
 
 from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 
 """NOTE
-langchain >= 0.1 is required. Which supports:
-- chain.invoke()
-- LangChain Expression Language (LCEL) is used and it is not compatible with langchain < 0.1.
+KeyBERT only supports `langchain >= 0.1` which features:
+- [Runnable Interface](https://python.langchain.com/docs/concepts/runnables/)
+- [LangChain Expression Language (LCEL)](https://python.langchain.com/docs/concepts/lcel/)
 """
 
 
