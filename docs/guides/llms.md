@@ -180,7 +180,7 @@ We install langchain and corresponding LLM provider package first. Take OpenAI a
 pip install langchain
 pip install langchain-openai # LLM provider package
 ```
-> [!NOTE] 
+> [!NOTE]
 > KeyBERT only supports `langchain >= 0.1`
 
 
