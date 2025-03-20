@@ -1,5 +1,7 @@
 from typing import List
 
+from packaging.version import Version
+
 try:
     import langchain
     from langchain.prompts import ChatPromptTemplate, PromptTemplate
@@ -7,7 +9,7 @@ try:
     from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
     from langchain_core.output_parsers import StrOutputParser
 
-    assert langchain.__version__ >= "0.1"
+    assert Version(langchain.__version__) >= Version("0.1")
 except ImportError as e:
     raise ImportError("LangChain is not installed. Please install it using `pip install langchain`.") from e
 except AssertionError:
