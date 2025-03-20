@@ -12,7 +12,7 @@ from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
 
 if Version(langchain.__version__) < Version("0.1"):
-    raise InvalidVersion("langchain>=0.1 is required.")
+    raise InvalidVersion(f"langchain>=0.1 is required, but langchain=={langchain.__version__} is installed.")
 
 """NOTE
 KeyBERT only supports `langchain >= 0.1` which features:
