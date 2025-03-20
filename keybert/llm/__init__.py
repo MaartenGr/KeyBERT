@@ -1,3 +1,5 @@
+from packaging.version import InvalidVersion
+
 from keybert._utils import NotInstalled
 from keybert.llm._base import BaseLLM
 
@@ -34,6 +36,9 @@ try:
     from keybert.llm._langchain import LangChain
 except ModuleNotFoundError:
     msg = "`pip install langchain` \n\n"
+    LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
+except InvalidVersion as e:
+    msg = f"`pip install -U langchain` \n\nsince {e}\n\n"
     LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
 
 # LiteLLM
