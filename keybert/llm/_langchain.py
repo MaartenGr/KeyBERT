@@ -1,20 +1,9 @@
 from typing import List
 
-from packaging.version import Version
-
-try:
-    import langchain
-    from langchain.prompts import ChatPromptTemplate, PromptTemplate
-    from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
-    from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
-    from langchain_core.output_parsers import StrOutputParser
-
-    assert Version(langchain.__version__) >= Version("0.1")
-except ImportError as e:
-    raise ImportError("LangChain is not installed. Please install it using `pip install langchain`.") from e
-except AssertionError:
-    raise ImportError("LangChain version >= 0.1 is required. Please update it using `pip install --upgrade langchain`.")
-
+from langchain.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
+from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
+from langchain_core.output_parsers import StrOutputParser
 from tqdm import tqdm
 
 from keybert.llm._base import BaseLLM
