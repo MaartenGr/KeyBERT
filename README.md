@@ -77,6 +77,12 @@ pip install keybert[spacy]
 pip install keybert[use]
 ```
 
+For a light-weight installation without PyTorch, run the following to make use of [Model2Vec](https://github.com/MinishLab/model2vec) instead:
+
+```
+pip install keybert --no-deps scikit-learn model2vec
+```
+
 <a name="usage"/></a>
 ###  2.2. Usage
 
