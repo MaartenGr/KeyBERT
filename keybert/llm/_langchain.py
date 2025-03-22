@@ -1,6 +1,5 @@
 from typing import List
 
-import langchain
 from langchain.prompts import ChatPromptTemplate, PromptTemplate
 from langchain_core.language_models.chat_models import BaseChatModel as LangChainBaseChatModel
 from langchain_core.language_models.llms import BaseLLM as LangChainBaseLLM
@@ -9,9 +8,6 @@ from tqdm import tqdm
 
 from keybert.llm._base import BaseLLM
 from keybert.llm._utils import process_candidate_keywords
-
-if langchain.__version__ < "0.1":  # for more complicated version comparison, use packaging.version
-    raise ImportError(f"langchain>=0.1 is required, but {langchain.__version__} is installed.")
 
 """NOTE
 KeyBERT only supports `langchain >= 0.1` which features:

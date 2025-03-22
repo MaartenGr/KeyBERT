@@ -32,12 +32,19 @@ except ModuleNotFoundError:
 # LangChain Generator
 try:
     from keybert.llm._langchain import LangChain
-except ModuleNotFoundError:
-    msg = "`pip install langchain` \n\n"
-    LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
-except ImportError as e:
-    msg = f"`pip install -U langchain` \n\nsince {e}\n\n"
-    LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
+except ModuleNotFoundError as e:
+    match e.name:
+        case "langchain":
+            msg = "`pip install langchain` \n\n"
+            LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
+        case "langchain_core":
+            msg = "`pip install -U langchain` to upgrade to langchain>=0.1\n\n"
+            LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
+        case _:
+            raise e
+# except ImportError as e:
+#     msg = f"`pip install -U langchain` \n\nsince {e}\n\n"
+#     LangChain = NotInstalled("langchain", "langchain", custom_msg=msg)
 
 # LiteLLM
 try:
