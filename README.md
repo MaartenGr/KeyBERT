@@ -5,7 +5,7 @@
 [![Build](https://img.shields.io/github/actions/workflow/status/MaartenGr/keyBERT/testing.yml?branch=master)](https://pypi.org/keybert/)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1OxpgwKqSzODtO3vS7Xe1nEmZMCAIMckX?usp=sharing)
 
-<img src="images/logo.png" width="35%" height="35%" align="right" />
+<img src="images/logo.png" width="35%" align="right" />
 
 # KeyBERT
 
@@ -134,7 +134,7 @@ We can highlight the keywords in the document by simply setting `highlight`:
 ```python
 keywords = kw_model.extract_keywords(doc, highlight=True)
 ```
-<img src="images/highlight.png" width="75%" height="75%" />
+<img src="images/highlight.png" width="75%" />
 
 
 **NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
