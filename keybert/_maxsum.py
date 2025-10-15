@@ -31,7 +31,7 @@ def max_sum_distance(
          List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
     """
     if nr_candidates < top_n:
-        raise Exception("Make sure that the number of candidates exceeds the number " "of keywords to return.")
+        raise Exception("Make sure that the number of candidates exceeds the number of keywords to return.")
     elif top_n > len(words):
         return []
 
