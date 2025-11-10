@@ -13,12 +13,14 @@ def max_sum_distance(
 ) -> List[Tuple[str, float]]:
     """Calculate Max Sum Distance for extraction of keywords.
 
-    We take the 2 x top_n most similar words/phrases to the document.
-    Then, we take all top_n combinations from the 2 x top_n words and
-    extract the combination that are the least similar to each other
+    We take the 2 x top_n words/phrases most similar to the document.
+    Among these words, we evaluate all possible `top_n`-combinations
+    and select one combination where words are least similar to each other
     by cosine similarity.
 
-    This is O(n^2) and therefore not advised if you use a large `top_n`
+    This has super-exponential time complexity (O(n^n)) and therefore
+    not advised if you use a large `top_n`. For practical use, keep `top_n small
+    (e.g., <= 10).
 
     Arguments:
         doc_embedding: The document embeddings

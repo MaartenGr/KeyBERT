@@ -144,9 +144,11 @@ for multi-lingual documents or any other language.
 <a name="maxsum"/></a>
 ###  2.3. Max Sum Distance
 
-To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
-Then, we take all top_n combinations from the 2 x top_n words and extract the combination
-that are the least similar to each other by cosine similarity.
+To diversify the results, we take the 2 x top_n words/phrases most similar to the document.
+Among these words, we evaluate all possible `top_n`-combinations and select one combination
+where words are least similar to each other by cosine similarity.
+
+This has super-exponential time complexity and therefore not advised if you use a large `top_n`.
 
 ```python
 >>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english',
