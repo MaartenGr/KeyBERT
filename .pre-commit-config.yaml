@@ -12,7 +12,7 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
 -   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.0
+    rev: v0.15.4
     hooks:
     -   id: ruff-check
         args: [--fix, --show-fixes, --exit-non-zero-on-fix]
