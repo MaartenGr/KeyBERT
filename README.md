@@ -1,5 +1,5 @@
 [![PyPI Downloads](https://static.pepy.tech/badge/keybert)](https://pepy.tech/projects/keybert)
-[![PyPI - Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://pypi.org/project/keybert/)
+[![PyPI - Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://pypi.org/project/keybert/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
 [![PyPI - PyPi](https://img.shields.io/pypi/v/keyBERT)](https://pypi.org/project/keybert/)
 [![Build](https://img.shields.io/github/actions/workflow/status/MaartenGr/keyBERT/testing.yml?branch=master)](https://pypi.org/keybert/)
@@ -15,17 +15,17 @@ create keywords and keyphrases that are most similar to a document.
 Corresponding medium post can be found [here](https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea).
 
 <a name="toc"/></a>
-## Table of Contents  
-<!--ts-->  
-   1. [About the Project](#about)  
-   2. [Getting Started](#gettingstarted)  
-        2.1. [Installation](#installation)  
-        2.2. [Basic Usage](#usage)  
-        2.3. [Max Sum Distance](#maxsum)  
-        2.4. [Maximal Marginal Relevance](#maximal)  
-        2.5. [Embedding Models](#embeddings)  
-   3. [Large Language Models](#llms)  
-<!--te-->  
+## Table of Contents
+<!--ts-->
+   1. [About the Project](#about)
+   2. [Getting Started](#gettingstarted)
+        2.1. [Installation](#installation)
+        2.2. [Basic Usage](#usage)
+        2.3. [Max Sum Distance](#maxsum)
+        2.4. [Maximal Marginal Relevance](#maximal)
+        2.5. [Embedding Models](#embeddings)
+   3. [Large Language Models](#llms)
+<!--te-->
 
 
 <a name="about"/></a>
@@ -203,7 +203,7 @@ KeyBERT supports many embedding models that can be used to embed the documents a
 
 Click [here](https://maartengr.github.io/KeyBERT/guides/embeddings.html) for a full overview of all supported embedding models.
 
-**Sentence-Transformers**  
+**Sentence-Transformers**
 You can select any model from `sentence-transformers` [here](https://www.sbert.net/docs/pretrained_models.html)
 and pass it through KeyBERT with `model`:
 
@@ -222,7 +222,7 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
-**Flair**  
+**Flair**
 [Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that
 is publicly available. Flair can be used as follows:
 
@@ -259,8 +259,8 @@ kw_model = KeyLLM(llm)
 
 This will query any ChatGPT model and ask it to extract keywords from text.
 
-Second, we can find documents that are likely to have the same keywords and only extract keywords for those. 
-This is much more efficient then asking the keywords for every single documents. There are likely documents that 
+Second, we can find documents that are likely to have the same keywords and only extract keywords for those.
+This is much more efficient then asking the keywords for every single documents. There are likely documents that
 have the exact same keywords. Doing so is straightforward:
 
 ```python
