@@ -1,0 +1,25 @@
+# KeyBERT
+
+> KeyBERT is a minimal and easy-to-use keyword extraction technique that leverages BERT embeddings to create keywords and keyphrases that are most similar to a document.
+
+## Documentation
+
+- [**KeyBERT**](/KeyBERT/): KeyBERT is a minimal and easy-to-use keyword extraction technique that leverages BERT embeddings to create keywords and keyphrases that are most similar to a document.
+- [faq](/KeyBERT/faq.html): Unfortunately, there is not a definitive list of the best models for each language, this highly depends on your data, the model, and your specific use-case. However, the default model in KeyBERT (`"all-MiniLM-L6-v2"`) works great for **English** documents. In contrast, for **multi-lingual** documents or any other language, `"paraphrase-multilingual-MiniLM-L12-v2""` has shown great performance.
+- [Changelog](/KeyBERT/changelog.html)
+- [Create candidates](/KeyBERT/guides/quickstart.html): Installation can be done using pypi:
+- [Embedding Models](/KeyBERT/guides/embeddings.html): In this tutorial we will be going through the embedding models that can be used in KeyBERT. Having the option to choose embedding models allow you to leverage pre-trained embeddings that suit your use-case.
+- [CountVectorizer Tips & Tricks](/KeyBERT/guides/countvectorizer.html): An unexpectly important component of KeyBERT is the CountVectorizer. In KeyBERT, it is used to split up your documents into candidate keywords and keyphrases. However, there is much more flexibility with the CountVectorizer than you might have initially thought. Since we use the vectorizer to split up the documents *after* embedding them, we can parse the document however we want as it does not affect the quality of the document embeddings. In this page, we will go through several examples of how you can take the CountVectorizer to the next level and improve upon the generated keywords.
+- [Use Cases](/KeyBERT/guides/keyllm.html): A minimal method for keyword extraction with Large Language Models (LLM). There are a number of implementations that allow you to mix and match `KeyBERT` with `KeyLLM`. You could also choose to use `KeyLLM` without `KeyBERT`.
+- [Large Language Models (LLM)](/KeyBERT/guides/llms.html): In this tutorial we will be going through the Large Language Models (LLM) that can be used in KeyLLM. Having the option to choose the LLM allow you to leverage the model that suit your use-case.
+- [`KeyBERT`](/KeyBERT/api/keybert.html): ::: keybert._model.KeyBERT
+- [`Maximal Marginal Relevance`](/KeyBERT/api/mmr.html): ::: keybert._mmr.mmr
+- [`Max Sum Distance`](/KeyBERT/api/maxsum.html): ::: keybert._maxsum.max_sum_distance
+- [`KeyLLM`](/KeyBERT/api/keyllm.html): ::: keybert._llm.KeyLLM
+- [`OpenAI`](/KeyBERT/api/openai.html): ::: keybert.llm._openai.OpenAI
+- [`Cohere`](/KeyBERT/api/cohere.html): ::: keybert.llm._cohere.Cohere
+- [`LangChain`](/KeyBERT/api/langchain.html): ::: keybert.llm._langchain.LangChain
+- [`TextGeneration`](/KeyBERT/api/textgeneration.html): ::: keybert.llm._textgeneration.TextGeneration
+- [`LiteLLM`](/KeyBERT/api/litellm.html): ::: keybert.llm._litellm.LiteLLM
+
+## Changelog
