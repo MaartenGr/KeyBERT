@@ -14,6 +14,10 @@ create keywords and keyphrases that are most similar to a document.
 
 Corresponding medium post can be found [here](https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea).
 
+Documentation: [official MkDocs site](https://maartengr.github.io/KeyBERT/) ·
+[Sourcey-generated preview](https://ivanchitorjr.github.io/KeyBERT/) ·
+[llms.txt](https://ivanchitorjr.github.io/KeyBERT/llms.txt)
+
 <a name="toc"/></a>
 ## Table of Contents
 <!--ts-->
