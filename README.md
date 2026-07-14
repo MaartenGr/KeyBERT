@@ -16,7 +16,7 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
 
 Documentation: [official MkDocs site](https://maartengr.github.io/KeyBERT/) ·
 [Sourcey-generated preview](https://ivanchitorjr.github.io/KeyBERT/) ·
-[llms.txt](https://ivanchitorjr.github.io/KeyBERT/llms.txt)
+[llms.txt](docs/llms.txt)
 
 <a name="toc"/></a>
 ## Table of Contents
