@@ -2,6 +2,8 @@ import numpy as np
 from operator import itemgetter
 from typing import List, Tuple
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.preprocessing import normalize
+from sklearn.utils.extmath import safe_sparse_dot
 
 
 def mmr(
@@ -33,29 +35,27 @@ def mmr(
          List[Tuple[str, float]]: The selected keywords/keyphrases with their distances
 
     """
-    # Extract similarity within words, and between words and the document
-    word_doc_similarity = cosine_similarity(word_embeddings, doc_embedding)
-    word_similarity = cosine_similarity(word_embeddings)
+    word_doc_similarity = cosine_similarity(word_embeddings, doc_embedding).ravel()
+    best = np.argmax(word_doc_similarity)
+    keywords_idx = [best]
+    count = min(top_n, len(words))
 
-    # Initialize candidates and already choose best keyword/keyphras
-    keywords_idx = [np.argmax(word_doc_similarity)]
-    candidates_idx = [i for i in range(len(words)) if i != keywords_idx[0]]
-
-    for _ in range(min(top_n - 1, len(words) - 1)):
-        # Extract similarities within candidates and
-        # between candidates and selected keywords/phrases
-        candidate_similarities = word_doc_similarity[candidates_idx, :]
-        target_similarities = np.max(word_similarity[candidates_idx][:, keywords_idx], axis=1)
-
-        # Calculate MMR
-        mmr = (1 - diversity) * candidate_similarities - diversity * target_similarities.reshape(-1, 1)
-        mmr_idx = candidates_idx[np.argmax(mmr)]
-
-        # Update keywords & candidates
-        keywords_idx.append(mmr_idx)
-        candidates_idx.remove(mmr_idx)
+    if count > 1:
+        normalized = normalize(word_embeddings)
+        selected = np.zeros(len(words), dtype=bool)
+        selected[best] = True
+        # Keep only the largest similarity to any keyword selected so far.
+        redundancy = np.full(len(words), -np.inf, dtype=normalized.dtype)
+        for _ in range(1, count):
+            similarity = safe_sparse_dot(normalized, normalized[best : best + 1].T, dense_output=True).ravel()
+            np.maximum(redundancy, similarity, out=redundancy)
+            scores = (1 - diversity) * word_doc_similarity - diversity * redundancy
+            scores[selected] = -np.inf
+            best = np.argmax(scores)
+            keywords_idx.append(best)
+            selected[best] = True
 
     # Extract and sort keywords in descending similarity
-    keywords = [(words[idx], round(float(word_doc_similarity.reshape(1, -1)[0][idx]), 4)) for idx in keywords_idx]
+    keywords = [(words[idx], round(float(word_doc_similarity[idx]), 4)) for idx in keywords_idx]
     keywords = sorted(keywords, key=itemgetter(1), reverse=True)
     return keywords
