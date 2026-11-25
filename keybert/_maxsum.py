@@ -39,12 +39,13 @@ def max_sum_distance(
 
     # Calculate distances and extract keywords
     distances = cosine_similarity(doc_embedding, word_embeddings)
-    distances_words = cosine_similarity(word_embeddings, word_embeddings)
 
     # Get 2*top_n words as candidates based on cosine similarity
     words_idx = list(distances.argsort()[0][-nr_candidates:])
     words_vals = [words[index] for index in words_idx]
-    candidates = distances_words[np.ix_(words_idx, words_idx)]
+    # Only shortlisted words participate in the combination search.
+    candidate_embeddings = word_embeddings[words_idx]
+    candidates = cosine_similarity(candidate_embeddings, candidate_embeddings)
 
     # Calculate the combination of words that are the least similar to each other
     min_sim = 100_000
