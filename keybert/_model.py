@@ -72,7 +72,7 @@ class KeyBERT:
         docs: Union[str, List[str]],
         candidates: List[str] = None,
         keyphrase_ngram_range: Tuple[int, int] = (1, 1),
-        stop_words: Union[str, List[str]] = "english",
+        stop_words: Union[str, List[str], None] = "english",
         top_n: int = 5,
         min_df: int = 1,
         use_maxsum: bool = False,
@@ -97,7 +97,7 @@ class KeyBERT:
                         NOTE: This is not used if you passed a `vectorizer`.
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
                                    NOTE: This is not used if you passed a `vectorizer`.
-            stop_words: Stopwords to remove from the document.
+            stop_words: Stopwords to remove from the document. Use None to disable stopword filtering.
                         NOTE: This is not used if you passed a `vectorizer`.
             top_n: Return the top n keywords/keyphrases
             min_df: Minimum document frequency of a word across all documents
@@ -285,7 +285,7 @@ class KeyBERT:
         docs: Union[str, List[str]],
         candidates: List[str] = None,
         keyphrase_ngram_range: Tuple[int, int] = (1, 1),
-        stop_words: Union[str, List[str]] = "english",
+        stop_words: Union[str, List[str], None] = "english",
         min_df: int = 1,
         vectorizer: CountVectorizer = None,
     ) -> Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]:
@@ -303,7 +303,7 @@ class KeyBERT:
                         NOTE: This is not used if you passed a `vectorizer`.
             keyphrase_ngram_range: Length, in words, of the extracted keywords/keyphrases.
                                    NOTE: This is not used if you passed a `vectorizer`.
-            stop_words: Stopwords to remove from the document.
+            stop_words: Stopwords to remove from the document. Use None to disable stopword filtering.
                         NOTE: This is not used if you passed a `vectorizer`.
             min_df: Minimum document frequency of a word across all documents
                     if keywords for multiple documents need to be extracted.
