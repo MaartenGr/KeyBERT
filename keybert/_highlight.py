@@ -98,7 +98,7 @@ def _highlight_n_gram(doc: str, keywords: List[str], vectorizer: CountVectorizer
         if not skip:
             for index, n_gram in enumerate(n_grams):
                 if n_gram.lower() in keywords:
-                    candidate = f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1].split(n_gram)[-1]
+                    candidate = f"[black on #FFFF00]{n_gram}[/]" + n_grams[-1][len(n_gram) :]
                     skip = index + 1
 
             if not candidate:
